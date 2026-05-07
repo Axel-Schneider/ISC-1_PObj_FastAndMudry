@@ -1,5 +1,4 @@
 package ch.hevs.fastandmudry
-package userinterface
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Interpolation
@@ -7,7 +6,7 @@ import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 
-class Window extends PortableApplication {
+class MainWindow extends PortableApplication {
   private var imgBitmap: BitmapImage = null
 
 
