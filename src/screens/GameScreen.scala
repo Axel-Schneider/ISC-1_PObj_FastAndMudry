@@ -18,6 +18,7 @@ class GameScreen extends AbstractScreen {
   var trackCurvature = 0f
   var trackDistance = 0f
   var carCurvature = 0f
+  var carDirection = 0;
 
   val CAR_WIDTH = 33;
   val CAR_HEIGHT = 100;
@@ -53,10 +54,15 @@ class GameScreen extends AbstractScreen {
     else
       carSpeed -= 1f * ELAPSED_TIME
 
-    if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+    carDirection = 0
+    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
       carCurvature -= 0.7f * ELAPSED_TIME
-    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+      carDirection += 1
+    }
+    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
       carCurvature += 0.7f * ELAPSED_TIME
+      carDirection -= 1
+    }
 
     if(math.abs(carCurvature - trackCurvature) >= 0.8f)
       carSpeed -= 5.0f * ELAPSED_TIME
@@ -79,7 +85,7 @@ class GameScreen extends AbstractScreen {
     for(x <- 0 to g.getScreenWidth) {
       val hillHeight = math.abs(math.sin(x * 0.005f + trackCurvature*2f) * 100f).toFloat
       g.drawLine(x, g.getScreenHeight, x, screen34, Color.NAVY)
-      g.drawLine(x, screen34, x, screen12, Color.SKY)
+      g.drawLine(x, screen34, x, screen12, Color.BLUE)
       g.drawLine(x, screen12+hillHeight, x, screen12, Color.OLIVE)
     }
 
@@ -123,7 +129,7 @@ class GameScreen extends AbstractScreen {
     carRoadPosition = carCurvature - trackCurvature
     val carPosScreen = g.getScreenWidth / 2 + (g.getScreenWidth * carRoadPosition / 2)
     g.setColor(Color.BLUE)
-    g.drawFilledRectangle(carPosScreen, CAR_MARGIN_BOTTOM + CAR_HEIGHT, CAR_WIDTH, CAR_HEIGHT, carCurvature)
+    g.drawFilledRectangle(carPosScreen, CAR_MARGIN_BOTTOM + CAR_HEIGHT, CAR_WIDTH, CAR_HEIGHT, carDirection * 30)
 
   }
 }
