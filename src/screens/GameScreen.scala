@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package screens
 
+import ch.hevs.fastandmudry.core.ecs.components.Car
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.graphics.Color
@@ -9,20 +10,11 @@ import scala.collection.mutable.ArrayBuffer
 
 class GameScreen extends AbstractScreen {
 
-  var carRoadPosition = 0f;
-  var carDistance = 0f
-  var carSpeed = 0f
-
-
   var curvature = 0f
   var trackCurvature = 0f
   var trackDistance = 0f
-  var carCurvature = 0f
-  var carDirection = 0;
 
-  val CAR_WIDTH = 33;
-  val CAR_HEIGHT = 100;
-  val CAR_MARGIN_BOTTOM = 100;
+  val CAR: Car = new Car
 
   var trackVector: ArrayBuffer[(Float, Float)] = ArrayBuffer[(Float, Float)]()   // curveture, distance
 
@@ -50,33 +42,31 @@ class GameScreen extends AbstractScreen {
     // Game logic
 
     if(Gdx.input.isKeyPressed(Input.Keys.UP))
-      carSpeed += 2f * ELAPSED_TIME
+      CAR.Speed += 2f * ELAPSED_TIME
     else
-      carSpeed -= 1f * ELAPSED_TIME
+      CAR.Speed -= 1f * ELAPSED_TIME
 
-    carDirection = 0
+    println(CAR.Speed + " - " + CAR.Distance)
+    CAR.Direction = 0
     if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-      carCurvature -= 0.7f * ELAPSED_TIME
-      carDirection += 1
+      CAR.Curvature -= 0.7f * ELAPSED_TIME
+      CAR.Direction += 1
     }
     if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-      carCurvature += 0.7f * ELAPSED_TIME
-      carDirection -= 1
+      CAR.Curvature += 0.7f * ELAPSED_TIME
+      CAR.Direction -= 1
     }
 
-    if(math.abs(carCurvature - trackCurvature) >= 0.8f)
-      carSpeed -= 5.0f * ELAPSED_TIME
+    if(math.abs(CAR.Curvature - trackCurvature) >= 0.8f)
+      CAR.Speed -= 5.0f * ELAPSED_TIME
 
-    if(carSpeed > 1) carSpeed = 1
-    if(carSpeed < 0) carSpeed = 0
-
-    carDistance += (100f*carSpeed) * ELAPSED_TIME
+    CAR.Moving(ELAPSED_TIME, 100)
 
     var offset = 0f
     var trackSection = 0
 
-    if(carDistance >= trackDistance)
-      carDistance -= trackDistance
+    if(CAR.Distance >= trackDistance)
+      CAR.Distance -= trackDistance
 
     // Background
 
@@ -91,16 +81,16 @@ class GameScreen extends AbstractScreen {
 
     // Track
 
-    while (trackSection < trackVector.size && offset <= carDistance) {
+    while (trackSection < trackVector.size && offset <= CAR.Distance) {
       offset += trackVector(trackSection)._2
       trackSection += 1
     }
 
     val targetCurvature = trackVector(trackSection-1)._1
-    val trackCurvatureDiff = (targetCurvature - curvature) * ELAPSED_TIME * carSpeed
+    val trackCurvatureDiff = (targetCurvature - curvature) * ELAPSED_TIME * CAR.Speed * 0.5f
     curvature += trackCurvatureDiff
 
-    trackCurvature += curvature * ELAPSED_TIME * carSpeed
+    trackCurvature += curvature * ELAPSED_TIME * CAR.Speed
 
     for(y <- 0 to (g.getScreenHeight / 2)) {
       val perspective = 1f - y / (g.getScreenHeight / 2f)
@@ -115,7 +105,7 @@ class GameScreen extends AbstractScreen {
       val rightGrass = (middlePoint + roadWidth + clipWidth) * g.getScreenWidth
       val rightClip = (middlePoint + roadWidth) * g.getScreenWidth
 
-      val waveColor = math.sin(50f * math.pow(1f - perspective, 3) + carDistance * 0.1f).toFloat
+      val waveColor = math.sin(50f * math.pow(1f - perspective, 3) + CAR.Distance * 0.1f).toFloat
       val grassColor = new Color(0.1f, 0.5f + (Math.abs(waveColor) * 0.3f), 0.1f, 1.0f)
 
       g.drawLine(0, y, leftGrass, y, grassColor)
@@ -126,10 +116,7 @@ class GameScreen extends AbstractScreen {
     }
 
     // draw car
-    carRoadPosition = carCurvature - trackCurvature
-    val carPosScreen = g.getScreenWidth / 2 + (g.getScreenWidth * carRoadPosition / 2)
-    g.setColor(Color.BLUE)
-    g.drawFilledRectangle(carPosScreen, CAR_MARGIN_BOTTOM + CAR_HEIGHT, CAR_WIDTH, CAR_HEIGHT, carDirection * 30)
-
+    CAR.RoadPosition = CAR.Curvature - trackCurvature
+    CAR.draw(g)
   }
 }
