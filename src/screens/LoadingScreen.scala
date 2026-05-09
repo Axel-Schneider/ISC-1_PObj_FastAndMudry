@@ -1,12 +1,14 @@
 package ch.hevs.fastandmudry
 package screens
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Interpolation
 
 class LoadingScreen extends AbstractScreen {
+  private var isFinishedLoading = false
+  private var timeLoaded = 0f
+
   /**
    * Some animation related variables
    */
@@ -21,15 +23,25 @@ class LoadingScreen extends AbstractScreen {
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
-    // Clears the screen
     g.clear()
-    // Compute the angle of the image using an elastic interpolation
     val t = computePercentage
     val angle: Float = Interpolation.sine.apply(MIN_ANGLE, MAX_ANGLE, t)
 
-    // Draw everything
     g.drawTransformedPicture(g.getScreenWidth / 2.0f, g.getScreenHeight / 2.0f, angle, 0.7f, LOGO)
-    g.drawStringCentered(g.getScreenHeight * 0.8f, "Welcome to Fast & Mudry !")
+    g.drawStringCentered(g.getScreenHeight * 0.9f, "Loading...")
+
+    timeLoaded += Gdx.graphics.getDeltaTime
+    if (timeLoaded > 2.0f) {
+      isFinishedLoading = true
+    }
+
+    if (isFinishedLoading) {
+      Gdx.app.log("LoadingScreen", "Lancement du jeu !")
+
+      val manager = CustomScreenManager.getInstance
+
+      manager.activateScreen(CustomScreenManager.MENU)
+    }
   }
 
   /**

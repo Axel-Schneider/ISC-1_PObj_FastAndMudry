@@ -1,20 +1,22 @@
 package ch.hevs.fastandmudry
 
-import ch.hevs.fastandmudry.screens.LoadingScreen
+import screens.CustomScreenManager
+import utils.Constant.Window
 import ch.hevs.gdx2d.desktop.PortableApplication
-import ch.hevs.gdx2d.lib.{GdxGraphics, ScreenManager}
+import ch.hevs.gdx2d.lib.GdxGraphics
 
-class MainWindow extends PortableApplication {
-
-  private val s = new ScreenManager
-
+class MainWindow extends PortableApplication(Window.WIDTH, Window.HEIGHT) {
   override def onInit(): Unit = {
     setTitle("Fast & Mudry")
-    s.registerScreen(classOf[LoadingScreen])
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
-    s.render(g);
+    CustomScreenManager.getInstance.render(g);
+  }
+
+  override def onClick(x: Int, y: Int, button: Int): Unit = {
+    super.onClick(x, y, button)
+    CustomScreenManager.getInstance.getActiveScreen.onClick(x,y,button)
   }
 }
 
