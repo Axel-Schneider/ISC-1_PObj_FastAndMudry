@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package core.ecs.abstaction
 
-trait Movable extends Speedable {
+trait Distanceable extends Speedable {
   private var _distance = 0f
 
   def Distance: Float = _distance

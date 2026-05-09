@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package screens
 
-import ch.hevs.fastandmudry.core.ecs.components.Car
+import ch.hevs.fastandmudry.core.ecs.components.{Car, Track}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.graphics.Color
@@ -10,27 +10,12 @@ import scala.collection.mutable.ArrayBuffer
 
 class GameScreen extends AbstractScreen {
 
-  var curvature = 0f
-  var trackCurvature = 0f
-  var trackDistance = 0f
+  var currentCurvature = 0f
 
   val CAR: Car = new Car
+  val TRACK: Track = new Track
 
-  var trackVector: ArrayBuffer[(Float, Float)] = ArrayBuffer[(Float, Float)]()   // curveture, distance
-
-  override def onInit(): Unit = {
-    trackVector.append((0f, 10f))
-    trackVector.append((0f, 200f))
-    trackVector.append((1f, 200f))
-    trackVector.append((0f, 400f))
-    trackVector.append((-1f, 200f))
-    trackVector.append((0f, 200f))
-    trackVector.append((-1f, 200f))
-    trackVector.append((1f, 200f))
-    trackVector.append((0f, 200f))
-
-    trackVector.foreach(t => trackDistance += t._2)
-  }
+  override def onInit(): Unit = {  }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
@@ -46,7 +31,6 @@ class GameScreen extends AbstractScreen {
     else
       CAR.Speed -= 1f * ELAPSED_TIME
 
-    println(CAR.Speed + " - " + CAR.Distance)
     CAR.Direction = 0
     if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
       CAR.Curvature -= 0.7f * ELAPSED_TIME
@@ -57,44 +41,32 @@ class GameScreen extends AbstractScreen {
       CAR.Direction -= 1
     }
 
-    if(math.abs(CAR.Curvature - trackCurvature) >= 0.8f)
+    if(math.abs(CAR.Curvature - TRACK.Curvature) >= 0.8f)
       CAR.Speed -= 5.0f * ELAPSED_TIME
 
     CAR.Moving(ELAPSED_TIME, 100)
-
-    var offset = 0f
-    var trackSection = 0
-
-    if(CAR.Distance >= trackDistance)
-      CAR.Distance -= trackDistance
 
     // Background
 
     val screen12 = g.getScreenHeight * 0.5f
     val screen34 = g.getScreenHeight * 0.75f
     for(x <- 0 to g.getScreenWidth) {
-      val hillHeight = math.abs(math.sin(x * 0.005f + trackCurvature*2f) * 100f).toFloat
+      val hillHeight = math.abs(math.sin(x * 0.005f + TRACK.Curvature*2f) * 100f).toFloat
       g.drawLine(x, g.getScreenHeight, x, screen34, Color.NAVY)
       g.drawLine(x, screen34, x, screen12, Color.BLUE)
       g.drawLine(x, screen12+hillHeight, x, screen12, Color.OLIVE)
     }
 
     // Track
+    val targetCurvature = TRACK.getCurrentTrack(CAR.Distance)._1
+    val trackCurvatureDiff = (targetCurvature - currentCurvature) * ELAPSED_TIME * CAR.Speed * 0.5f
+    currentCurvature += trackCurvatureDiff
 
-    while (trackSection < trackVector.size && offset <= CAR.Distance) {
-      offset += trackVector(trackSection)._2
-      trackSection += 1
-    }
-
-    val targetCurvature = trackVector(trackSection-1)._1
-    val trackCurvatureDiff = (targetCurvature - curvature) * ELAPSED_TIME * CAR.Speed * 0.5f
-    curvature += trackCurvatureDiff
-
-    trackCurvature += curvature * ELAPSED_TIME * CAR.Speed
+    TRACK.Curvature += currentCurvature * ELAPSED_TIME * CAR.Speed
 
     for(y <- 0 to (g.getScreenHeight / 2)) {
       val perspective = 1f - y / (g.getScreenHeight / 2f)
-      var middlePoint = 0.5f + curvature * math.pow(1f - perspective, 2).toFloat
+      var middlePoint = 0.5f + currentCurvature * math.pow(1f - perspective, 2).toFloat
       var roadWidth = 0.1f + perspective * 0.8f
       val clipWidth = roadWidth * 0.15f
 
@@ -116,7 +88,7 @@ class GameScreen extends AbstractScreen {
     }
 
     // draw car
-    CAR.RoadPosition = CAR.Curvature - trackCurvature
+    CAR.RoadPosition = CAR.Curvature - TRACK.Curvature
     CAR.draw(g)
   }
 }
