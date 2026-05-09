@@ -3,9 +3,11 @@ package core.ecs.components
 
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Color
-import core.ecs.abstaction.{Curvable, Dirigible, Distanceable, Drawable, Positionable, Speedable}
+import core.ecs.abstaction.{AGameLoop, Curvable, Dirigible, Distanceable, Drawable, Positionable, Speedable}
 
-class Car extends Drawable with Curvable with Distanceable with Speedable with Positionable with Dirigible {
+import com.badlogic.gdx.{Gdx, Input}
+
+class Car extends AGameLoop with Drawable with Curvable with Distanceable with Speedable with Positionable with Dirigible {
   val CAR_WIDTH = 33;
   val CAR_HEIGHT = 100;
   val CAR_MARGIN_BOTTOM = 100;
@@ -13,5 +15,25 @@ class Car extends Drawable with Curvable with Distanceable with Speedable with P
   override def draw(g: GdxGraphics, x: Float = -1, y: Float = -1): Unit = {
     val carPosScreen = g.getScreenWidth / 2 + (g.getScreenWidth * RoadPosition / 2)
     g.drawFilledRectangle(carPosScreen, CAR_MARGIN_BOTTOM + CAR_HEIGHT, CAR_WIDTH, CAR_HEIGHT, Direction * 30, Color.BLUE)
+  }
+
+  override def onGameLoop(elapsedTime: Float): Unit = {
+
+    if(Gdx.input.isKeyPressed(Input.Keys.UP))
+      Speed += 2f * elapsedTime
+    else
+      Speed -= 1f * elapsedTime
+
+    Direction = 0
+    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+      Curvature -= 0.7f * elapsedTime
+      Direction += 1
+    }
+    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+      Curvature += 0.7f * elapsedTime
+      Direction -= 1
+    }
+
+
   }
 }
