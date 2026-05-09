@@ -23,7 +23,6 @@ class GameScreen extends AbstractScreen {
   val CAR_HEIGHT = 100;
   val CAR_MARGIN_BOTTOM = 100;
 
-
   var trackVector: ArrayBuffer[(Float, Float)] = ArrayBuffer[(Float, Float)]()   // curveture, distance
 
   override def onInit(): Unit = {
@@ -46,6 +45,8 @@ class GameScreen extends AbstractScreen {
     g.drawStringCentered(g.getScreenHeight - 50, "GAME VIEW !")
 
     val ELAPSED_TIME = Gdx.graphics.getDeltaTime;
+
+    // Game logic
 
     if(Gdx.input.isKeyPressed(Input.Keys.UP))
       carSpeed += 2f * ELAPSED_TIME
@@ -70,6 +71,19 @@ class GameScreen extends AbstractScreen {
 
     if(carDistance >= trackDistance)
       carDistance -= trackDistance
+
+    // Background
+
+    val screen12 = g.getScreenHeight * 0.5f
+    val screen34 = g.getScreenHeight * 0.75f
+    for(x <- 0 to g.getScreenWidth) {
+      val hillHeight = math.abs(math.sin(x * 0.005f + trackCurvature*2f) * 100f).toFloat
+      g.drawLine(x, g.getScreenHeight, x, screen34, Color.NAVY)
+      g.drawLine(x, screen34, x, screen12, Color.SKY)
+      g.drawLine(x, screen12+hillHeight, x, screen12, Color.OLIVE)
+    }
+
+    // Track
 
     while (trackSection < trackVector.size && offset <= carDistance) {
       offset += trackVector(trackSection)._2
@@ -100,6 +114,7 @@ class GameScreen extends AbstractScreen {
 
       g.drawLine(0, y, leftGrass, y, grassColor)
       g.drawLine(leftGrass, y, leftClip, y, if(waveColor < 0) Color.WHITE else Color.RED)
+      g.drawLine(leftClip, y, rightClip, y, Color.DARK_GRAY)
       g.drawLine(rightClip, y, rightGrass, y, if(waveColor < 0) Color.WHITE else Color.RED)
       g.drawLine(rightGrass, y, g.getScreenWidth, y, grassColor)
     }
