@@ -15,7 +15,7 @@ class Track(private val Car: Car) extends AGameLoop with Curvable with Distancea
 
   trackVector.append((0f, 10f))
   trackVector.append((0f, 200f))
-  trackVector.append((1f, 200f))
+  trackVector.append((0.7f, 1000f))
   trackVector.append((0f, 400f))
   trackVector.append((-1f, 200f))
   trackVector.append((0f, 200f))
