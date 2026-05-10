@@ -1,5 +1,5 @@
 package ch.hevs.fastandmudry
-package core.ecs.abstaction
+package core.ecs.components
 
 trait Positionable {
   private var _roadPosition: Float = 0f

@@ -1,11 +1,11 @@
 package ch.hevs.fastandmudry
 package core.world
 
-import ch.hevs.fastandmudry.core.ecs.abstaction.AGameLoop
-import ch.hevs.fastandmudry.core.ecs.components.{Car, Track}
+import ch.hevs.fastandmudry.core.ecs.components.AGameLoop
+import ch.hevs.fastandmudry.core.ecs.systems.{Car, Track}
 import com.badlogic.gdx.{Gdx, Input}
 
-class World extends AGameLoop {
+class World private () extends AGameLoop {
   val CAR: Car = new Car
   val TRACK: Track = new Track(CAR)
 
@@ -19,4 +19,10 @@ class World extends AGameLoop {
     CAR.Moving(elapsedTime, 100)
     CAR.RoadPosition = CAR.Curvature - TRACK.Curvature
   }
+}
+
+object World {
+  private lazy val _Instance: World = new World
+
+  def INSTANCE: World = _Instance
 }

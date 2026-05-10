@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
-package core.ecs.components
+package core.ecs.systems
 
-import core.ecs.abstaction.{AGameLoop, Curvable, Distanceable}
+import core.ecs.components.{AGameLoop, Curvable, Distanceable}
 
 import scala.collection.mutable.ArrayBuffer
 

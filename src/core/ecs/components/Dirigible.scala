@@ -1,5 +1,5 @@
 package ch.hevs.fastandmudry
-package core.ecs.abstaction
+package core.ecs.components
 
 trait Dirigible {
   private var _direction: Float = 0f

@@ -1,5 +1,5 @@
 package ch.hevs.fastandmudry
-package core.ecs.abstaction
+package core.ecs.components
 
 trait Speedable {
   private var _speed = 0f

@@ -1,5 +1,5 @@
 package ch.hevs.fastandmudry
-package core.ecs.abstaction
+package core.ecs.components
 
 trait Distanceable extends Speedable {
   private var _distance = 0f

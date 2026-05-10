@@ -1,5 +1,5 @@
 package ch.hevs.fastandmudry
-package core.ecs.abstaction
+package core.ecs.components
 
 trait Curvable {
   private var _curvature: Float = 0f;
