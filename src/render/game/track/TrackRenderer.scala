@@ -1,37 +1,40 @@
 package ch.hevs.fastandmudry
-package render.game
+package render.game.track
 
+import core.world.World
 import render.AbstractRenderer
 import render.Data.Game
+import utils.Constant
 
-import ch.hevs.fastandmudry.core.world.World
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Color
 
 class TrackRenderer extends AbstractRenderer {
-  val VIEW_DISTANCE = 200f
   val Track = World.INSTANCE.TRACK
+  val CONST = Constant.Game.View
   override def onGraphicRender(g: GdxGraphics): Unit = {
+    val halfScreenHeigh = g.getScreenHeight / 2f
     var dx = 0f
     var x = 0f
-    for(y <- 0 to (g.getScreenHeight / 2)) {
-      val perspective = 1f - y / (g.getScreenHeight / 2f)
-      val c = Track.getTrackAt(Game.Distance + (1-perspective)*VIEW_DISTANCE)._1
-      dx += c / (g.getScreenHeight / 2)
-      x += dx / (g.getScreenHeight / 2)
+    for(y <- 0 to halfScreenHeigh.toInt) {
+      val perspective = 1f - y / halfScreenHeigh
+      val invertedPerspective = 1f-perspective
+      val c = Track.getTrackAt(Game.Distance + invertedPerspective*CONST.Distance)._1
+      dx += c / halfScreenHeigh
+      x += dx / halfScreenHeigh
 
-      val middlePoint = 0.5f + x
-      var roadWidth = 0.01f + perspective * 0.8f
-      val clipWidth = roadWidth * 0.15f
+      val middlePoint = CONST.Track.BASE_MIDDLE_POINT + x * invertedPerspective
+      var roadWidth = CONST.Track.MIN_ROAD_WIDTH_PERCENTAGE + perspective * CONST.Track.ROAD_WIDTH_PERCENTAGE
+      val clipWidth = roadWidth * CONST.Track.CLIP_WIDTH_PERCENTAGE
 
-      roadWidth *= 0.5f
+      roadWidth *= 0.5f   // split for half of the screen width
 
       val leftGrass = (middlePoint - roadWidth - clipWidth) * g.getScreenWidth
       val leftClip = (middlePoint - roadWidth) * g.getScreenWidth
       val rightGrass = (middlePoint + roadWidth + clipWidth) * g.getScreenWidth
       val rightClip = (middlePoint + roadWidth) * g.getScreenWidth
 
-      val waveColor = math.sin(30f * math.pow(1f - perspective, 3) + Game.Distance * 0.5f).toFloat
+      val waveColor = math.sin(CONST.Track.WAVE_FREQUENCY * math.pow(invertedPerspective, 3) + Game.Distance * 0.5f).toFloat
       val grassColor = new Color(0.1f, 0.5f + (Math.abs(waveColor) * 0.3f), 0.1f, 1.0f)
 
       g.drawLine(0, y, leftGrass, y, grassColor)
