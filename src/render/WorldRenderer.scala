@@ -2,17 +2,14 @@ package ch.hevs.fastandmudry
 package render
 
 import ch.hevs.gdx2d.lib.GdxGraphics
-import ch.hevs.fastandmudry.core.world.World
-import ch.hevs.fastandmudry.render.background.BackgroundRenderer
-import com.badlogic.gdx.graphics.Color
+import render.background.BackgroundRenderer
+import render.game.GameRenderer
 
 class WorldRenderer extends AbstractRenderer {
   private val backgroundRenderer = new BackgroundRenderer;
-  private val trackRenderer = new TrackRenderer;
-  private val carRenderer = new CarRenderer;
+  private val gameRenderer = new GameRenderer
   override def onGraphicRender(g: GdxGraphics): Unit = {
-    backgroundRenderer.onGraphicRender(g, World.INSTANCE.CAR.Distance, World.INSTANCE.TRACK.Curvature)
-    trackRenderer.onGraphicRender(g, World.INSTANCE.CAR.Distance, World.INSTANCE.TRACK.Curvature)
-    carRenderer.onGraphicRender(g)
+    backgroundRenderer.onGraphicRender(g)
+    gameRenderer.onGraphicRender(g)
   }
 }

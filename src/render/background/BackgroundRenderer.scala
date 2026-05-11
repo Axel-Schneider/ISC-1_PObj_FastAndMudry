@@ -1,28 +1,29 @@
 package ch.hevs.fastandmudry
 package render.background
 
-import render.AbstractPerspectiveRenderer
+import render.AbstractRenderer
+import render.Data.Game
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 
-class BackgroundRenderer extends AbstractPerspectiveRenderer {
+class BackgroundRenderer extends AbstractRenderer {
   private val skyImage = new BitmapImage("data/parallax/skies/sky_sky.png")
   private val backMountainImage = new BitmapImage("data/parallax/skies/sky_back_mountain.png")
   private val cloudFloorImage = new BitmapImage("data/parallax/skies/sky_cloud_floor.png")
   private val cloudsImage = new BitmapImage("data/parallax/skies/sky_clouds.png")
   private val frontMountainImage = new BitmapImage("data/parallax/skies/sky_front_mountain.png")
-  override def onGraphicRender(g: GdxGraphics, distance: Float, curvature: Float): Unit = {
+  override def onGraphicRender(g: GdxGraphics): Unit = {
     val screenW = g.getScreenWidth
     val screenH = g.getScreenHeight
     val horizon = screenH / 2f
 
     g.drawTransformedPicture(screenW / 2f, horizon + (screenH / 4f), 0, screenW, screenH / 2f, skyImage)
 
-    drawConstrainedLayer(g, backMountainImage, curvature * -400f, horizon, 0.30f)
-    drawConstrainedLayer(g, cloudsImage, curvature * -800f, horizon, 0.20f)
-    drawConstrainedLayer(g, frontMountainImage, curvature * -1500f, horizon, 0.3f)
-    drawConstrainedLayer(g, cloudFloorImage, curvature * -2500f, g.getScreenHeight - 100, 0.15f)
+    drawConstrainedLayer(g, backMountainImage, Game.Curvature * -400f, horizon, 0.30f)
+    drawConstrainedLayer(g, cloudsImage, Game.Curvature * -800f, horizon, 0.20f)
+    drawConstrainedLayer(g, frontMountainImage, Game.Curvature * -1500f, horizon, 0.3f)
+    drawConstrainedLayer(g, cloudFloorImage, Game.Curvature * -2500f, g.getScreenHeight - 100, 0.15f)
   }
 
   private def drawConstrainedLayer(g: GdxGraphics, image: BitmapImage, scrollOffset: Float, yBase: Float, heightPercentage: Float): Unit = {
