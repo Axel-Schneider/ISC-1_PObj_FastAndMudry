@@ -25,7 +25,8 @@ class Track(private val Car: Car) extends AGameLoop with Curvable with Distancea
   }
 
   def getTrackAt(d: Float): (Float, Float) = {
-    var realDistance = d % Distance
+    if(d < 0) return (0, -d)
+    val realDistance = d % Distance
     var offset = 0f
     var trackSection = 0
 

@@ -14,6 +14,6 @@ class CarRenderer extends AbstractRenderer {
   private val Car = World.INSTANCE.CAR
   override def onGraphicRender(g: GdxGraphics): Unit = {
     val carPosScreen = g.getScreenWidth / 2 + (g.getScreenWidth * Car.RoadPosition / 2)
-    g.drawFilledRectangle(carPosScreen, CAR_MARGIN_BOTTOM + CAR_HEIGHT, CAR_WIDTH, CAR_HEIGHT, Car.Direction * 30, Color.BLUE)
+    g.drawFilledRectangle(g.getScreenWidth / 2, CAR_MARGIN_BOTTOM + CAR_HEIGHT, CAR_WIDTH, CAR_HEIGHT, Car.Direction * 30, Color.BLUE)
   }
 }

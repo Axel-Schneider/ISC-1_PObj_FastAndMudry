@@ -16,6 +16,9 @@ object Constant {
         val CLIP_WIDTH_PERCENTAGE = 0.15f
         val WAVE_FREQUENCY = 30f
       }
+      object Car {
+        val MARGIN_BOTTOM = 100f
+      }
     }
   }
 }
