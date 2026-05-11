@@ -13,15 +13,10 @@ class Track(private val Car: Car) extends AGameLoop with Curvable with Distancea
   def TargetCurvature: Float = _targetCurvature
   def CurrentCurvature: Float = _currentCurvature
 
-  trackVector.append((0f, 10f))
-  trackVector.append((0f, 200f))
-  trackVector.append((0.7f, 1000f))
-  trackVector.append((0f, 400f))
-  trackVector.append((-1f, 200f))
-  trackVector.append((0f, 200f))
-  trackVector.append((-1f, 200f))
-  trackVector.append((1f, 200f))
-  trackVector.append((0f, 200f))
+
+  for(_ <- 0 to 20) {
+    trackVector.append(generateRandomVector())
+  }
 
   trackVector.foreach(t => Distance += t._2)
 
@@ -37,9 +32,17 @@ class Track(private val Car: Car) extends AGameLoop with Curvable with Distancea
     trackVector(trackSection-1)
   }
 
+  private def generateRandomVector(): (Float, Float) = {
+    (math.random().toFloat*2f-1f, math.random().toFloat*800f+200f)
+  }
+
   override def onGameLoop(elapsedTime: Float): Unit = {
+    val diff = Car.Curvature - Curvature
+    if(diff > 1) Car.Curvature = Curvature + 1
+    else if (diff < -1) Car.Curvature = Curvature -1
     val targetCurvature = getCurrentTrack._1
     val trackCurvatureDiff = (targetCurvature - _currentCurvature) * elapsedTime * Car.Speed * 0.5f
+
     _currentCurvature += trackCurvatureDiff
     Curvature += _currentCurvature * elapsedTime * Car.Speed
   }
