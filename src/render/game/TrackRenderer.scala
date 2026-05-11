@@ -4,15 +4,23 @@ package render.game
 import render.AbstractRenderer
 import render.Data.Game
 
+import ch.hevs.fastandmudry.core.world.World
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Color
 
 class TrackRenderer extends AbstractRenderer {
-
+  val VIEW_DISTANCE = 200f
+  val Track = World.INSTANCE.TRACK
   override def onGraphicRender(g: GdxGraphics): Unit = {
+    var dx = 0f
+    var x = 0f
     for(y <- 0 to (g.getScreenHeight / 2)) {
       val perspective = 1f - y / (g.getScreenHeight / 2f)
-      val middlePoint = 0.5f + Game.CurrentCurvature * math.pow(1f - perspective, 2).toFloat
+      val c = Track.getTrackAt(Game.Distance + (1-perspective)*VIEW_DISTANCE)._1
+      dx += c / (g.getScreenHeight / 2)
+      x += dx / (g.getScreenHeight / 2)
+
+      val middlePoint = 0.5f + x
       var roadWidth = 0.01f + perspective * 0.8f
       val clipWidth = roadWidth * 0.15f
 
