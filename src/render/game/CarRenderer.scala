@@ -1,7 +1,9 @@
 package ch.hevs.fastandmudry
-package render
+package render.game
 
-import ch.hevs.fastandmudry.core.world.World
+import core.world.World
+import render.AbstractRenderer
+
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Color
 

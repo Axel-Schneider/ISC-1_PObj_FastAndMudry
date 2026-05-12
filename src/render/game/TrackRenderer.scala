@@ -1,7 +1,9 @@
 package ch.hevs.fastandmudry
-package render
+package render.game
 
-import ch.hevs.fastandmudry.core.world.World
+import render.AbstractRenderer
+import render.Data.Game
+
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Color
 
@@ -10,8 +12,8 @@ class TrackRenderer extends AbstractRenderer {
   override def onGraphicRender(g: GdxGraphics): Unit = {
     for(y <- 0 to (g.getScreenHeight / 2)) {
       val perspective = 1f - y / (g.getScreenHeight / 2f)
-      val middlePoint = 0.5f + World.INSTANCE.TRACK.CurrentCurvature * math.pow(1f - perspective, 2).toFloat
-      var roadWidth = 0.1f + perspective * 0.8f
+      val middlePoint = 0.5f + Game.CurrentCurvature * math.pow(1f - perspective, 2).toFloat
+      var roadWidth = 0.01f + perspective * 0.8f
       val clipWidth = roadWidth * 0.15f
 
       roadWidth *= 0.5f
@@ -21,7 +23,7 @@ class TrackRenderer extends AbstractRenderer {
       val rightGrass = (middlePoint + roadWidth + clipWidth) * g.getScreenWidth
       val rightClip = (middlePoint + roadWidth) * g.getScreenWidth
 
-      val waveColor = math.sin(50f * math.pow(1f - perspective, 3) + World.INSTANCE.CAR.Distance * 0.1f).toFloat
+      val waveColor = math.sin(30f * math.pow(1f - perspective, 3) + Game.Distance * 0.5f).toFloat
       val grassColor = new Color(0.1f, 0.5f + (Math.abs(waveColor) * 0.3f), 0.1f, 1.0f)
 
       g.drawLine(0, y, leftGrass, y, grassColor)
