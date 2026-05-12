@@ -10,4 +10,4 @@ Ce paquet gère tous les éléments graphiques superposés au monde du jeu (Head
 
 ## Organisation
 *   **`HudRenderer.scala`** : Dessine l'interface superposée au jeu.
-*   **`widgets/`** : Contient des composants UI réutilisables (boutons, barres de progression personnalisées).
+*   **`components/`** : Contient des composants UI réutilisables (boutons, barres de progression personnalisées).
