@@ -1,12 +1,14 @@
 package ch.hevs.fastandmudry
-package screens
+package screens.menu
 
+import screens.{AbstractScreen, CustomScreenManager}
 import ui.components.ButtonFactory
 
+import ch.hevs.fastandmudry.ui.dialogs.{DialogFactory, SettingsDialog}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 
 class MenuScreen extends AbstractScreen {
   private val btnPlay = ButtonFactory.primary("Play")
@@ -22,12 +24,27 @@ class MenuScreen extends AbstractScreen {
     }
   })
 
+  private val settingsDialog: SettingsDialog = DialogFactory.createSettingsDialog("Settings")
+
+  private val btnSettings = ButtonFactory.primary("Settings")
+  btnSettings.setSize(300, 80)
+  btnSettings.setPosition(
+    (Gdx.graphics.getWidth  - btnSettings.getWidth)  / 2,
+    (Gdx.graphics.getHeight - btnSettings.getHeight) / 2 - 100
+  )
+  btnSettings.addListener(new ClickListener {
+    override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+      settingsDialog.show(stage)
+    }
+  })
+
   override def onInit(): Unit = {
     Gdx.input.setInputProcessor(stage) // send inputs events to the stage
     stage.addActor(btnPlay)
+    stage.addActor(btnSettings)
   }
 
-  override def onGraphicRender(g: GdxGraphics): Unit = {g.clear()
+  override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
     g.drawStringCentered(g.getScreenHeight - 50, "BIENVENUE SUR FAST & MUDRY !")
     renderStage(g, Gdx.graphics.getDeltaTime)
