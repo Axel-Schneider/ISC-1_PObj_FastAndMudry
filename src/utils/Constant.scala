@@ -6,4 +6,11 @@ object Constant {
     val WIDTH: Int = 1920
     val HEIGHT: Int = 1080
   }
+  object UI {
+    object Dialog {
+      object SettingsDialog {
+        val SIZE_PERCENTAGE: Float = 0.6f
+      }
+    }
+  }
 }

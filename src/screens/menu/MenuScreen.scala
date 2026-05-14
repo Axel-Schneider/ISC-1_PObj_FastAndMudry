@@ -4,11 +4,9 @@ package screens.menu
 import screens.{AbstractScreen, CustomScreenManager}
 import ui.components.ButtonFactory
 
-import ch.hevs.fastandmudry.ui.dialogs.{DialogFactory, SettingsDialog}
+import ui.dialogs.{DialogFactory, SettingsDialog}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 
 class MenuScreen extends AbstractScreen {
   private val btnPlay = ButtonFactory.primary("Play")
@@ -17,11 +15,9 @@ class MenuScreen extends AbstractScreen {
     (Gdx.graphics.getWidth  - btnPlay.getWidth)  / 2,
     (Gdx.graphics.getHeight - btnPlay.getHeight) / 2
   )
-  btnPlay.addListener(new ClickListener {
-    override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        val manager = CustomScreenManager.getInstance
-        manager.activateScreen(CustomScreenManager.GAME)
-    }
+  btnPlay.onClick(() => {
+    val manager = CustomScreenManager.getInstance
+    manager.activateScreen(CustomScreenManager.GAME)
   })
 
   private val settingsDialog: SettingsDialog = DialogFactory.createSettingsDialog("Settings")
@@ -32,11 +28,7 @@ class MenuScreen extends AbstractScreen {
     (Gdx.graphics.getWidth  - btnSettings.getWidth)  / 2,
     (Gdx.graphics.getHeight - btnSettings.getHeight) / 2 - 100
   )
-  btnSettings.addListener(new ClickListener {
-    override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-      settingsDialog.show(stage)
-    }
-  })
+  btnSettings.onClick(() => settingsDialog.show(stage))
 
   override def onInit(): Unit = {
     Gdx.input.setInputProcessor(stage) // send inputs events to the stage
