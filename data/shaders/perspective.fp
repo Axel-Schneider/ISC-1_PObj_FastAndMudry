@@ -32,16 +32,14 @@ void main() {
 		pixelRay.xz = (gl_FragCoord.xy / resolution.xy)*vec2(1.0, -1.0) + vec2(-0.5, 0.5);
 		pixelRay.y  = screenPlanDistance;
 		pixelRay   *= rotationMatrix(cameraAxis,cameraAngle);
-		
-		//Calculate the colision point from the cameraPosition with the pixelRay, to the z plan.
-	    vec2 hitPosition = cameraPosition.xy + pixelRay.xy * (cameraPosition.z / pixelRay.z) + vec2(0.5, 0);
-	
-	    //Graphic stuff
-		hitPosition = hitPosition - floor(hitPosition); //Optional texture repeat
-		vec4 me = texture2D(backbuffer, hitPosition);
-	
-		//final color
-		gl_FragColor = me.rgba;
+
+        if (pixelRay.z > 0.0) {
+            vec2 hitPosition = cameraPosition.xy + pixelRay.xy * (cameraPosition.z / pixelRay.z) + vec2(0.5, 0);
+
+            vec4 me = texture2D(backbuffer, hitPosition);
+            gl_FragColor = me;
+
+        }
 	} else {
 		gl_FragColor = texture2D(backbuffer, gl_FragCoord.xy / resolution.xy);
 	}
