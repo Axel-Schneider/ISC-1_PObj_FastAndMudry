@@ -3,10 +3,13 @@ package render.hud
 
 import render.AbstractRenderer
 
+import core.world.World
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Color
 
 class HudRenderer extends AbstractRenderer {
+  val Car = World.INSTANCE.CAR
+
   override def onGraphicRender(g: GdxGraphics): Unit = {
     drawSpeedometer(g)
   }
@@ -14,12 +17,13 @@ class HudRenderer extends AbstractRenderer {
   private def drawSpeedometer(g: GdxGraphics): Unit = {
     val SPEEDOMETER_WIDTH = 120
     val SPEEDOMETER_PADDING = 30
-    val SPEEDOMETER_COLOR = Color.CORAL
+    val SPEEDOMETER_COLOR = Color.BLACK
     val MAX_SPEED = 100
     val TICKS_EVERY = 10
     val SPEEDOMETER_START_ANGLE = 210
     val SPEEDOMETER_END_ANGLE = -30
     val TICKS_LENGTH = 10
+
 
     val screenW = g.getScreenWidth
     val angleEvery = (math.abs(SPEEDOMETER_START_ANGLE) + math.abs(SPEEDOMETER_END_ANGLE)) / TICKS_EVERY
@@ -27,8 +31,10 @@ class HudRenderer extends AbstractRenderer {
     val cx = screenW-(SPEEDOMETER_WIDTH + SPEEDOMETER_PADDING)
     val cy = SPEEDOMETER_WIDTH + SPEEDOMETER_PADDING
 
+    // Speedometer background
     g.drawFilledCircle(cx, cy, SPEEDOMETER_WIDTH, SPEEDOMETER_COLOR)
 
+    // Speedometer ticks
     var speedLabel = MAX_SPEED
     for(i <- SPEEDOMETER_END_ANGLE to SPEEDOMETER_START_ANGLE by angleEvery) {
       val angle = Math.toRadians(i)
@@ -46,6 +52,13 @@ class HudRenderer extends AbstractRenderer {
       speedLabel -= MAX_SPEED / TICKS_EVERY
     }
 
+    // Speedometer needle
+    val carSpeedInKmH = (MAX_SPEED * Car.Speed) / Car.MaxSpeed
+    val angleCarSpeed = Math.toRadians(SPEEDOMETER_START_ANGLE + (carSpeedInKmH * (SPEEDOMETER_END_ANGLE - SPEEDOMETER_START_ANGLE)) / MAX_SPEED)
 
+    val xStart: Int = (math.cos(angleCarSpeed)*SPEEDOMETER_WIDTH).toInt
+    val yStart: Int = (math.sin(angleCarSpeed)*SPEEDOMETER_WIDTH).toInt
+
+    g.drawLine(cx + xStart, cy + yStart, cx, cy, Color.WHITE)
   }
 }
