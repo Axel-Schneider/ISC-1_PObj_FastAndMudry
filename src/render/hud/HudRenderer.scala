@@ -2,6 +2,7 @@ package ch.hevs.fastandmudry
 package render.hud
 
 import render.AbstractRenderer
+import utils.Constant.Hud
 
 import core.world.World
 import ch.hevs.gdx2d.lib.GdxGraphics
@@ -15,50 +16,44 @@ class HudRenderer extends AbstractRenderer {
   }
 
   private def drawSpeedometer(g: GdxGraphics): Unit = {
-    val SPEEDOMETER_WIDTH = 120
-    val SPEEDOMETER_PADDING = 30
-    val SPEEDOMETER_COLOR = Color.BLACK
-    val MAX_SPEED = 100
-    val TICKS_EVERY = 10
-    val SPEEDOMETER_START_ANGLE = 210
-    val SPEEDOMETER_END_ANGLE = -30
-    val TICKS_LENGTH = 10
-
-
     val screenW = g.getScreenWidth
-    val angleEvery = (math.abs(SPEEDOMETER_START_ANGLE) + math.abs(SPEEDOMETER_END_ANGLE)) / TICKS_EVERY
+    val angleEvery = (math.abs(Hud.Speedometer.SPEEDOMETER_START_ANGLE) + math.abs(Hud.Speedometer.SPEEDOMETER_END_ANGLE)) / Hud.Speedometer.TICKS_EVERY
 
-    val cx = screenW-(SPEEDOMETER_WIDTH + SPEEDOMETER_PADDING)
-    val cy = SPEEDOMETER_WIDTH + SPEEDOMETER_PADDING
+    val cx = screenW-(Hud.Speedometer.SPEEDOMETER_WIDTH + Hud.Speedometer.SPEEDOMETER_PADDING)
+    val cy = Hud.Speedometer.SPEEDOMETER_WIDTH + Hud.Speedometer.SPEEDOMETER_PADDING
 
     // Speedometer background
-    g.drawFilledCircle(cx, cy, SPEEDOMETER_WIDTH, SPEEDOMETER_COLOR)
+    g.drawFilledCircle(cx, cy, Hud.Speedometer.SPEEDOMETER_WIDTH, Hud.Speedometer.SPEEDOMETER_COLOR)
 
     // Speedometer ticks
-    var speedLabel = MAX_SPEED
-    for(i <- SPEEDOMETER_END_ANGLE to SPEEDOMETER_START_ANGLE by angleEvery) {
+    var speedLabel = Hud.Speedometer.MAX_SPEED
+    for(i <- Hud.Speedometer.SPEEDOMETER_END_ANGLE to Hud.Speedometer.SPEEDOMETER_START_ANGLE by angleEvery) {
       val angle = Math.toRadians(i)
+      val mx = math.cos(angle) * (Hud.Speedometer.SPEEDOMETER_WIDTH - Hud.Speedometer.TICKS_LENGTH/2)  // drawFilledRectangle require the center x,y
+      val my = math.sin(angle) * (Hud.Speedometer.SPEEDOMETER_WIDTH - Hud.Speedometer.TICKS_LENGTH/2)
 
-      val xStart: Int = (math.cos(angle)*SPEEDOMETER_WIDTH).toInt
-      val yStart: Int = (math.sin(angle)*SPEEDOMETER_WIDTH).toInt
-      val xEnd: Int = (math.cos(angle)*(SPEEDOMETER_WIDTH-TICKS_LENGTH)).toInt
-      val yEnd: Int = (math.sin(angle)*(SPEEDOMETER_WIDTH-TICKS_LENGTH)).toInt
-      val xLabel: Int = (math.cos(angle)*(SPEEDOMETER_WIDTH-TICKS_LENGTH-15)).toInt
-      val yLabel: Int = (math.sin(angle)*(SPEEDOMETER_WIDTH-TICKS_LENGTH-15)).toInt
+      val xLabel = math.cos(angle)*(Hud.Speedometer.SPEEDOMETER_WIDTH-Hud.Speedometer.TICKS_LENGTH-15)
+      val yLabel = math.sin(angle)*(Hud.Speedometer.SPEEDOMETER_WIDTH-Hud.Speedometer.TICKS_LENGTH-15)
 
-      g.drawLine(cx + xStart, cy + yStart, cx + xEnd, cy + yEnd, Color.YELLOW)
-      g.drawString(cx + xLabel, cy + 5 + yLabel, speedLabel.toString, 1)
+      g.drawFilledRectangle(cx + mx.toFloat, cy + my.toFloat, Hud.Speedometer.TICKS_LENGTH, Hud.Speedometer.TICKS_LENGTH/2, i.toFloat, Hud.Speedometer.TICKS_COLOR)
 
-      speedLabel -= MAX_SPEED / TICKS_EVERY
+      g.drawString(cx + xLabel.toFloat, cy + 5 + yLabel.toFloat, speedLabel.toString, 1)  // "1" value is to align it correctly
+      speedLabel -= Hud.Speedometer.MAX_SPEED / Hud.Speedometer.TICKS_EVERY
     }
 
     // Speedometer needle
-    val carSpeedInKmH = (MAX_SPEED * Car.Speed) / Car.MaxSpeed
-    val angleCarSpeed = Math.toRadians(SPEEDOMETER_START_ANGLE + (carSpeedInKmH * (SPEEDOMETER_END_ANGLE - SPEEDOMETER_START_ANGLE)) / MAX_SPEED)
+    val carSpeedInKmH = (Hud.Speedometer.MAX_SPEED * Car.Speed) / Car.MaxSpeed
+    val angleDeg = Hud.Speedometer.SPEEDOMETER_START_ANGLE + (carSpeedInKmH * (Hud.Speedometer.SPEEDOMETER_END_ANGLE - Hud.Speedometer.SPEEDOMETER_START_ANGLE)) / Hud.Speedometer.MAX_SPEED
+    val angleRad = Math.toRadians(angleDeg)
 
-    val xStart: Int = (math.cos(angleCarSpeed)*SPEEDOMETER_WIDTH).toInt
-    val yStart: Int = (math.sin(angleCarSpeed)*SPEEDOMETER_WIDTH).toInt
+    val xStart = math.cos(angleRad)*Hud.Speedometer.SPEEDOMETER_WIDTH
+    val yStart = math.sin(angleRad)*Hud.Speedometer.SPEEDOMETER_WIDTH
 
-    g.drawLine(cx + xStart, cy + yStart, cx, cy, Color.WHITE)
+    val mx = cx + xStart / 2
+    val my = cy + yStart / 2
+
+    val needleLength = Hud.Speedometer.SPEEDOMETER_WIDTH - Hud.Speedometer.TICKS_LENGTH
+    g.drawFilledRectangle(mx.toFloat, my.toFloat, needleLength, Hud.Speedometer.NEEDLE_WIDTH, angleDeg, Hud.Speedometer.NEEDLE_COLOR)
+    g.drawFilledCircle(cx, cy, 20, Color.GRAY)
   }
 }
