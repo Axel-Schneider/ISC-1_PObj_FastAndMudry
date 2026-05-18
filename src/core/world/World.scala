@@ -11,13 +11,9 @@ class World private () extends AGameLoop {
 
   override def onGameLoop(elapsedTime: Float): Unit = {
     CAR.onGameLoop(elapsedTime)
+    CAR.Moving(elapsedTime)
+
     TRACK.onGameLoop(elapsedTime)
-
-    if(math.abs(CAR.Curvature - TRACK.Curvature) >= 0.8f)
-      CAR.Speed -= 5.0f * elapsedTime
-
-    CAR.Moving(elapsedTime, 100)
-    CAR.RoadPosition = CAR.Curvature - TRACK.Curvature
   }
 }
 

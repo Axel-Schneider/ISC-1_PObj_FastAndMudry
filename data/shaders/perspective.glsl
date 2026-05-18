@@ -8,6 +8,7 @@ uniform vec3  cameraAxis;
 uniform float cameraAngle;
 uniform float screenPlanDistance;
 uniform vec3 outSideColor;
+uniform float pitch;
 
 mat3 rotationMatrix(vec3 axis, float angle)
 {
@@ -15,7 +16,7 @@ mat3 rotationMatrix(vec3 axis, float angle)
     float s = sin(angle);
     float c = cos(angle);
     float oc = 1.0 - c;
-    
+
     return mat3(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,
                 oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,
                 oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c);
@@ -27,6 +28,7 @@ void main() {
 		//Calculate the vector coming out from the camera to the pixel of the screen in the 3D space.
 		vec3 pixelRay;
 		pixelRay.xz = (gl_FragCoord.xy / resolution.xy)*vec2(1.0, -1.0) + vec2(-0.5, 0.5);
+        pixelRay.z += pitch;
 		pixelRay.y  = screenPlanDistance;
 		pixelRay   *= rotationMatrix(cameraAxis,cameraAngle);
 
