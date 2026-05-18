@@ -62,12 +62,12 @@ class GameScreen extends AbstractScreen {
     if(Gdx.input.isKeyPressed(Input.Keys.G)) cameraPosition.z += 0.1f * ELAPSED_TIME
 
     if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-      cameraPosition.y += math.cos(cameraAngle).toFloat * 0.1f * ELAPSED_TIME
-      cameraPosition.x += math.sin(cameraAngle).toFloat * 0.1f * ELAPSED_TIME
+      cameraPosition.y += math.cos(cameraAngle).toFloat * 10f * ELAPSED_TIME
+      cameraPosition.x += math.sin(cameraAngle).toFloat * 10f * ELAPSED_TIME
     }
     if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-      cameraPosition.y -= math.cos(cameraAngle).toFloat * 0.1f * ELAPSED_TIME
-      cameraPosition.x -= math.sin(cameraAngle).toFloat * 0.1f * ELAPSED_TIME
+      cameraPosition.y -= math.cos(cameraAngle).toFloat * 10f * ELAPSED_TIME
+      cameraPosition.x -= math.sin(cameraAngle).toFloat * 10f * ELAPSED_TIME
     }
 
     if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {

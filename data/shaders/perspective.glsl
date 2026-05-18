@@ -33,6 +33,8 @@ void main() {
         if (pixelRay.z > 0.0) {
             vec2 hitPosition = cameraPosition.xy + pixelRay.xy * (cameraPosition.z / pixelRay.z) + vec2(0.5, 0);
 
+            hitPosition /= 100.0;
+
             if (hitPosition.x >= 0.0 && hitPosition.x <= 1.0 &&
                 hitPosition.y >= 0.0 && hitPosition.y <= 1.0)
             {
@@ -42,7 +44,6 @@ void main() {
             {
                 gl_FragColor = vColor;
             }
-
         }
 	} else {
 		gl_FragColor = texture2D(backbuffer, gl_FragCoord.xy / resolution.xy);
