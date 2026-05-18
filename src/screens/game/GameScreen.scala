@@ -1,14 +1,12 @@
 package ch.hevs.fastandmudry
-package screens
+package screens.game
 
-import ch.hevs.fastandmudry.core.ecs.systems.{Car, Track}
-import ch.hevs.fastandmudry.core.world.World
-import ch.hevs.fastandmudry.render.WorldRenderer
+import core.world.World
+import render.WorldRenderer
+import screens.AbstractScreen
+
 import ch.hevs.gdx2d.lib.GdxGraphics
-import com.badlogic.gdx.{Gdx, Input}
-import com.badlogic.gdx.graphics.Color
-
-import scala.collection.mutable.ArrayBuffer
+import com.badlogic.gdx.Gdx
 
 class GameScreen extends AbstractScreen {
   val WorldRenderer = new WorldRenderer

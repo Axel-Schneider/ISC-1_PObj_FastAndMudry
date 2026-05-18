@@ -1,6 +1,9 @@
 package ch.hevs.fastandmudry
 package screens
 
+import screens.game.GameScreen
+import screens.loading.LoadingScreen
+import screens.menu.MenuScreen
 import ch.hevs.gdx2d.lib.ScreenManager
 
 object CustomScreenManager {
