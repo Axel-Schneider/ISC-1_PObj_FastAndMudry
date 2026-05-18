@@ -2,8 +2,8 @@ package ch.hevs.fastandmudry
 package render.game
 
 import render.AbstractRenderer
-
 import core.world.World
+import render.shaders.Mode7
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.{Gdx, Input}
@@ -15,13 +15,15 @@ import com.badlogic.gdx.math.{Vector2, Vector3}
 class TrackRenderer extends AbstractRenderer {
   var imageBackground : BitmapImage = null
   var fbo: FrameBuffer = null
-  val OUT_SIDE_COLOR = Array[Float](1f,0f,0f,0.5f)
 
-  var cameraFov = Math.PI.toFloat / 4f;
-  var cameraAngle = 0f
-  val cameraPosition = new Vector3(-0.1f, 0.06f, 0.5f)
-  val cameraAxis = new Vector3(0f, -0f, -0.1f)
-  var pitch = 0f
+  private var cameraFov = Mode7.DEFAULT_VALUES.CAMERA.FOV
+  private var cameraAngle = Mode7.DEFAULT_VALUES.CAMERA.ANGLE
+  private val cameraPosition =  Mode7.DEFAULT_VALUES.CAMERA.POSITION
+  private val cameraAxis =  Mode7.DEFAULT_VALUES.CAMERA.AXIS
+  private var pitch = Mode7.DEFAULT_VALUES.PITCH
+
+  // DEBUGING
+  private var isLogKeyPressing = false
 
   override def onInit(): Unit = {
     imageBackground = new BitmapImage("data/images/img.png")
@@ -42,18 +44,21 @@ class TrackRenderer extends AbstractRenderer {
     cameraPosition.y = World.INSTANCE.CAR.Coordinates.y
     cameraPosition.x = World.INSTANCE.CAR.Coordinates.x
     cameraAngle = World.INSTANCE.CAR.Rotation
+
+    // rendering
+
     if(g.getShaderRenderer == null) {
-      g.setShader("data/shaders/perspective.glsl")
+      g.setShader(Mode7.SHADER_PATH)
     }
 
     g.getShaderRenderer.setTexture(fbo.getColorBufferTexture, 0)
-    g.getShaderRenderer.setUniform("enabled", true)
-    g.getShaderRenderer.setUniform("cameraPosition", cameraPosition)
-    g.getShaderRenderer.setUniform("cameraAxis", cameraAxis)
-    g.getShaderRenderer.setUniform("screenPlanDistance", 0.5f / Math.atan(cameraFov / 2.0).toFloat)
-    g.getShaderRenderer.setUniform("cameraAngle", cameraAngle)
-    g.getShaderRenderer.setUniform("resolution", new Vector2(g.getScreenWidth.toFloat, g.getScreenHeight.toFloat))
-    g.getShaderRenderer.setUniform("pitch", pitch)
+    g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.ENABLE, Mode7.DEFAULT_VALUES.ENABLE)
+    g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.CAMERA.POSITION, cameraPosition)
+    g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.CAMERA.AXIS, cameraAxis)
+    g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.CAMERA.ANGLE, cameraAngle)
+    g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.SCREEN.PLAN.DISTANCE, 0.5f / Math.atan(cameraFov / 2.0).toFloat)
+    g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.RESOLUTION, new Vector2(g.getScreenWidth.toFloat, g.getScreenHeight.toFloat))
+    g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.PITCH, pitch)
 
     g.drawShader()
   }
@@ -83,5 +88,26 @@ class TrackRenderer extends AbstractRenderer {
       println("=============")
     }
 
+    cameraFov = updateValue(cameraFov, Input.Keys.Q, Input.Keys.A, 1f, ELAPSED_TIME);
+    pitch = updateValue(pitch, Input.Keys.W, Input.Keys.S, 0.01f, ELAPSED_TIME);
+    cameraPosition.z = updateValue(cameraPosition.z, Input.Keys.T, Input.Keys.G, 0.1f, ELAPSED_TIME);
+
+    if (Gdx.input.isKeyPressed(Input.Keys.F11)) {
+      if (!isLogKeyPressing) {
+        isLogKeyPressing = true
+        println("=============")
+        println(s"cameraPosition : $cameraPosition")
+        println(s"cameraFov : $cameraFov")
+        println(s"pitch : $pitch")
+        println("=============")
+      }
+    } else isLogKeyPressing = false
+  }
+
+  private def updateValue(v: Float, keyAdd: Int, keySub: Int, factor: Float, elapsedTime: Float): Float = {
+    var r = v
+    if(Gdx.input.isKeyPressed(keySub)) r -= factor * elapsedTime
+    if(Gdx.input.isKeyPressed(keyAdd)) r += factor * elapsedTime
+    r
   }
 }

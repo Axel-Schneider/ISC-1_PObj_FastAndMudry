@@ -46,7 +46,7 @@ public class DemoPerspective extends PortableApplication {
 	@Override
 	public void onGraphicRender(GdxGraphics g) {
 		if (g.getShaderRenderer() == null) {
-			g.setShader("data/shader/advanced/perspective.glsl");
+			g.setShader("data/shader/advanced/mode7.glsl");
 		}
 
 		// Draws some stuff to an offscreen buffer, using normal
