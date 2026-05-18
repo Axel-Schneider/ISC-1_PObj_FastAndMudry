@@ -25,11 +25,13 @@ class TrackRenderer extends AbstractRenderer {
   private val cameraAxis =  Mode7.DEFAULT_VALUES.CAMERA.AXIS
   private var pitch = Mode7.DEFAULT_VALUES.PITCH
 
-  // DEBUGING
-  private var isLogKeyPressing = false
+  def generateMapPicture: BitmapImage = {
+    // TO DO : Get map from Track object and generate a big picture for the rendering
+    new BitmapImage("data/images/img.png")
+  }
 
   override def onInit(): Unit = {
-    imageBackground = new BitmapImage("data/images/img.png")
+    imageBackground = generateMapPicture
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
@@ -64,13 +66,6 @@ class TrackRenderer extends AbstractRenderer {
     g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.PITCH, pitch)
 
     g.drawShader()
-
-    // Debug
-    if(Common.Debugging.IsDebugEnable) {
-      DebugHUD.setLogVar("Track Render - Camera Position", cameraPosition.toString)
-      DebugHUD.setLogVar("Track Render - Camera FOV", cameraFov)
-      DebugHUD.setLogVar("Track Render - Pitch", pitch)
-    }
   }
 
   private def graphicalSetup(): Unit = {
@@ -82,16 +77,9 @@ class TrackRenderer extends AbstractRenderer {
     pitch = updateValue(pitch, Input.Keys.W, Input.Keys.S, 0.01f, ELAPSED_TIME);
     cameraPosition.z = updateValue(cameraPosition.z, Input.Keys.T, Input.Keys.G, 0.1f, ELAPSED_TIME);
 
-    if (Gdx.input.isKeyPressed(Input.Keys.F11)) {
-      if (!isLogKeyPressing) {
-        isLogKeyPressing = true
-        println("=============")
-        println(s"cameraPosition : $cameraPosition")
-        println(s"cameraFov : $cameraFov")
-        println(s"pitch : $pitch")
-        println("=============")
-      }
-    } else isLogKeyPressing = false
+    DebugHUD.setLogVar("Track Render - Camera Position (+T, -G)", cameraPosition.toString)
+    DebugHUD.setLogVar("Track Render - Camera FOV (+Q, -A)", cameraFov)
+    DebugHUD.setLogVar("Track Render - Pitch (+W, -S)", pitch)
   }
 
   private def updateValue(v: Float, keyAdd: Int, keySub: Int, factor: Float, elapsedTime: Float): Float = {
