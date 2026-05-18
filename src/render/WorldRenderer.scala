@@ -8,6 +8,13 @@ import render.game.GameRenderer
 class WorldRenderer extends AbstractRenderer {
   private val backgroundRenderer = new BackgroundRenderer;
   private val gameRenderer = new GameRenderer
+
+  override def onInit(): Unit = {
+    super.onInit()
+    backgroundRenderer.onInit()
+    gameRenderer.onInit()
+  }
+
   override def onGraphicRender(g: GdxGraphics): Unit = {
     backgroundRenderer.onGraphicRender(g)
     gameRenderer.onGraphicRender(g)

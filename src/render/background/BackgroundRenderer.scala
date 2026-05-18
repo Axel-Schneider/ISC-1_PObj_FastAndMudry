@@ -20,10 +20,10 @@ class BackgroundRenderer extends AbstractRenderer {
 
     g.drawTransformedPicture(screenW / 2f, horizon + (screenH / 4f), 0, screenW, screenH / 2f, skyImage)
 
-    drawConstrainedLayer(g, backMountainImage, Game.Curvature * -400f, horizon, 0.30f)
-    drawConstrainedLayer(g, cloudsImage, Game.Curvature * -800f, horizon, 0.20f)
-    drawConstrainedLayer(g, frontMountainImage, Game.Curvature * -1500f, horizon, 0.3f)
-    drawConstrainedLayer(g, cloudFloorImage, Game.Curvature * -2500f, g.getScreenHeight - 100, 0.15f)
+    drawConstrainedLayer(g, backMountainImage, Game.Rotation * -400f, horizon, 0.30f)
+    drawConstrainedLayer(g, cloudsImage, Game.Rotation * -800f, horizon, 0.20f)
+    drawConstrainedLayer(g, frontMountainImage, Game.Rotation * -1500f, horizon, 0.3f)
+    drawConstrainedLayer(g, cloudFloorImage, Game.Rotation * -2500f, g.getScreenHeight - 100, 0.15f)
   }
 
   private def drawConstrainedLayer(g: GdxGraphics, image: BitmapImage, scrollOffset: Float, yBase: Float, heightPercentage: Float): Unit = {

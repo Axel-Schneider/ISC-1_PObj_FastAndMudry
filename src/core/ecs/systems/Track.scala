@@ -1,9 +1,7 @@
 package ch.hevs.fastandmudry
 package core.ecs.systems
 
-import core.ecs.components.{AGameLoop, Orientable, Moveable}
-
-import scala.collection.mutable.ArrayBuffer
+import core.ecs.components.AGameLoop
 
 class Track(private val Car: Car) extends AGameLoop {
 

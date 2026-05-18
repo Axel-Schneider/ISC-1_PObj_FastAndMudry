@@ -7,7 +7,6 @@ uniform vec3  cameraPosition;
 uniform vec3  cameraAxis;
 uniform float cameraAngle;
 uniform float screenPlanDistance;
-uniform vec3 outSideColor;
 uniform float pitch;
 
 mat3 rotationMatrix(vec3 axis, float angle)
@@ -23,7 +22,6 @@ mat3 rotationMatrix(vec3 axis, float angle)
 }
 
 void main() {
-    vec4 vColor = vec4(outSideColor, 1.0);
 	if(enabled == 1){
 		//Calculate the vector coming out from the camera to the pixel of the screen in the 3D space.
 		vec3 pixelRay;
@@ -41,10 +39,6 @@ void main() {
                 hitPosition.y >= 0.0 && hitPosition.y <= 1.0)
             {
                 gl_FragColor = texture2D(backbuffer, hitPosition);
-            }
-            else
-            {
-                gl_FragColor = vColor;
             }
         }
 	} else {
