@@ -20,6 +20,7 @@ object Mode7 {
       }
       val RESOLUTION = "resolution"
       val PITCH = "pitch"
+      val RENDERING_FACTOR = "renderingFactor"
     }
   }
   object DEFAULT_VALUES {
@@ -31,5 +32,6 @@ object Mode7 {
       val AXIS = new Vector3(0f, -0f, -0.1f)
     }
     val PITCH = 0f
+    val RENDERING_FACTOR = 0.01f
   }
 }
