@@ -3,11 +3,12 @@ package render.game
 
 import render.AbstractRenderer
 
+import ch.hevs.fastandmudry.render.hud.CarHUD
 import ch.hevs.gdx2d.lib.GdxGraphics
 
 class GameRenderer extends AbstractRenderer {
   private val trackRenderer = new TrackRenderer;
-  private val carRenderer = new CarRenderer;
+  private val carRenderer = new CarHUD;
 
   override def onInit(): Unit = {
     super.onInit()
