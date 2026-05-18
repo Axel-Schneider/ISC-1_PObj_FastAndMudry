@@ -1,9 +1,8 @@
 package ch.hevs.fastandmudry
 package core.world
 
-import ch.hevs.fastandmudry.core.ecs.components.AGameLoop
-import ch.hevs.fastandmudry.core.ecs.systems.{Car, Track}
-import com.badlogic.gdx.{Gdx, Input}
+import core.ecs.components.AGameLoop
+import core.ecs.systems.{Car, Track}
 
 class World private () extends AGameLoop {
   val CAR: Car = new Car

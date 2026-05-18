@@ -14,7 +14,7 @@ object CustomScreenManager {
   def getInstance: ScreenManager = s
 
   // Register Screen
-  s.registerScreen(classOf[LoadingScreen])
-  s.registerScreen(classOf[MenuScreen])
+//  s.registerScreen(classOf[LoadingScreen])
+//  s.registerScreen(classOf[MenuScreen])
   s.registerScreen(classOf[GameScreen])
 }

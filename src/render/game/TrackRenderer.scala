@@ -2,13 +2,11 @@ package ch.hevs.fastandmudry
 package render.game
 
 import render.AbstractRenderer
-import render.Data.Game
 
-import ch.hevs.fastandmudry.core.world.World
+import core.world.World
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.{Gdx, Input}
-import com.badlogic.gdx.graphics.{Color, GL20}
 import com.badlogic.gdx.graphics.Pixmap.Format
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.math.{Vector2, Vector3}

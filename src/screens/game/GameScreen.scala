@@ -7,10 +7,9 @@ import screens.AbstractScreen
 
 import core.world.World
 
-import ch.hevs.fastandmudry.render.WorldRenderer
+import render.WorldRenderer
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.math.{Vector2, Vector3}
 
 class GameScreen extends AbstractScreen {
   val WorldRender = new WorldRenderer
