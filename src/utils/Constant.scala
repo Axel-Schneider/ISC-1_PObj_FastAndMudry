@@ -1,6 +1,8 @@
 package ch.hevs.fastandmudry
 package utils
 
+import com.badlogic.gdx.Input
+
 object Constant {
   object Window {
     val WIDTH: Int = 1920
@@ -12,5 +14,8 @@ object Constant {
         val SIZE_PERCENTAGE: Float = 0.6f
       }
     }
+  }
+  object KEYS {
+    val ENABLING_DEBUG_KEY = Input.Keys.F12
   }
 }

@@ -1,15 +1,18 @@
 package ch.hevs.fastandmudry
 package render.game
 
-import render.AbstractRenderer
 import core.world.World
+import render.AbstractRenderer
+import render.hud.DebugHUD
 import render.shaders.Mode7
+import utils.Common
+
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
-import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.graphics.Pixmap.Format
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
-import com.badlogic.gdx.math.{Vector2, Vector3}
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.{Gdx, Input}
 
 
 class TrackRenderer extends AbstractRenderer {
@@ -61,32 +64,19 @@ class TrackRenderer extends AbstractRenderer {
     g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.PITCH, pitch)
 
     g.drawShader()
+
+    // Debug
+    if(Common.Debugging.IsDebugEnable) {
+      DebugHUD.setLogVar("Track Render - Camera Position", cameraPosition.toString)
+      DebugHUD.setLogVar("Track Render - Camera FOV", cameraFov)
+      DebugHUD.setLogVar("Track Render - Pitch", pitch)
+    }
   }
 
-  def graphicalSetup() = {
+  private def graphicalSetup(): Unit = {
     val ELAPSED_TIME = Gdx.graphics.getDeltaTime;
 
-    if(Gdx.input.isKeyPressed(Input.Keys.Q)) cameraFov += 1f * ELAPSED_TIME
-    if(Gdx.input.isKeyPressed(Input.Keys.A)) cameraFov -= 1f * ELAPSED_TIME
-
-    if(Gdx.input.isKeyPressed(Input.Keys.W)) pitch += 0.01f * ELAPSED_TIME
-    if(Gdx.input.isKeyPressed(Input.Keys.S)) pitch -= 0.01f * ELAPSED_TIME
-
-    if(Gdx.input.isKeyPressed(Input.Keys.E)) cameraAxis.z += 1f * ELAPSED_TIME
-    if(Gdx.input.isKeyPressed(Input.Keys.D)) cameraAxis.z -= 1f * ELAPSED_TIME
-
-    if(Gdx.input.isKeyPressed(Input.Keys.T)) cameraPosition.z -= 0.1f * ELAPSED_TIME
-    if(Gdx.input.isKeyPressed(Input.Keys.G)) cameraPosition.z += 0.1f * ELAPSED_TIME
-
-
-    if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-      println("=============")
-      println(cameraPosition)
-      println(cameraAxis)
-      println(cameraFov)
-      println(cameraAngle)
-      println("=============")
-    }
+    if (!Common.Debugging.IsDebugEnable) return;
 
     cameraFov = updateValue(cameraFov, Input.Keys.Q, Input.Keys.A, 1f, ELAPSED_TIME);
     pitch = updateValue(pitch, Input.Keys.W, Input.Keys.S, 0.01f, ELAPSED_TIME);

@@ -2,12 +2,10 @@ package ch.hevs.fastandmudry
 package screens.game
 
 import core.world.World
+import input.DebugInput
 import render.WorldRenderer
 import screens.AbstractScreen
 
-import core.world.World
-
-import render.WorldRenderer
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
 
@@ -17,7 +15,6 @@ class GameScreen extends AbstractScreen {
   override def onInit(): Unit = {
     WorldRender.onInit()
   }
-
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
@@ -29,5 +26,7 @@ class GameScreen extends AbstractScreen {
     WorldRender.onGraphicRender(g)
 
     g.end()
+
+    DebugInput.debuggingKeyProcess()
   }
 }
