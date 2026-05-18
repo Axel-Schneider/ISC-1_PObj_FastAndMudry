@@ -14,6 +14,7 @@ import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.math.{Vector2, Vector3}
 
 class GameScreen extends AbstractScreen {
+  val OUT_SIDE_COLOR = new Vector3(1f,0f,0f)
   var imageBackground : BitmapImage = null
   var fbo: FrameBuffer = null
   var shaderEnabled = true
@@ -40,7 +41,6 @@ class GameScreen extends AbstractScreen {
       g.drawPicture(imageBackground.getImage.getWidth/2, imageBackground.getImage.getHeight/2, imageBackground)
       g.sbFlush()
       fbo.end()
-      fbo.getColorBufferTexture.setWrap(TextureWrap.Repeat, TextureWrap.Repeat)
     }
 
     val ELAPSED_TIME = Gdx.graphics.getDeltaTime;
@@ -81,7 +81,7 @@ class GameScreen extends AbstractScreen {
 
     // Rendering
     if(g.getShaderRenderer == null) {
-      g.setShader("data/shaders/perspective.fp")
+      g.setShader("data/shaders/perspective.glsl")
     }
 
 
@@ -93,6 +93,7 @@ class GameScreen extends AbstractScreen {
     g.getShaderRenderer.setUniform("screenPlanDistance", 0.5f / Math.atan(cameraFov / 2.0).toFloat)
     g.getShaderRenderer.setUniform("cameraAngle", cameraAngle.toFloat)
     g.getShaderRenderer.setUniform("resolution", new Vector2(g.getScreenWidth.toFloat, g.getScreenHeight.toFloat))
+    g.getShaderRenderer.setUniform("outSideColor", OUT_SIDE_COLOR)
 
     g.drawShader()
     g.end()
