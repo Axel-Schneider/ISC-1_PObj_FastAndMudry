@@ -1,9 +1,8 @@
 package ch.hevs.fastandmudry
 package core.world
 
-import ch.hevs.fastandmudry.core.ecs.components.AGameLoop
-import ch.hevs.fastandmudry.core.ecs.systems.{Car, Track}
-import com.badlogic.gdx.{Gdx, Input}
+import core.ecs.components.AGameLoop
+import core.ecs.systems.{Car, Track}
 
 class World private () extends AGameLoop {
   val CAR: Car = new Car
@@ -11,13 +10,9 @@ class World private () extends AGameLoop {
 
   override def onGameLoop(elapsedTime: Float): Unit = {
     CAR.onGameLoop(elapsedTime)
+    CAR.Moving(elapsedTime)
+
     TRACK.onGameLoop(elapsedTime)
-
-    if(math.abs(CAR.Curvature - TRACK.Curvature) >= 0.8f)
-      CAR.Speed -= 5.0f * elapsedTime
-
-    CAR.Moving(elapsedTime, 100)
-    CAR.RoadPosition = CAR.Curvature - TRACK.Curvature
   }
 }
 
