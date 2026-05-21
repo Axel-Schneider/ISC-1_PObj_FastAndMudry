@@ -5,50 +5,65 @@ import ch.hevs.gdx2d.lib.utils.catmull.CatmullRomUtils
 import com.badlogic.gdx.math.Vector2
 
 import java.util
+import scala.collection.mutable.ArrayBuffer
 /*
   The CatmullChain code has been taken from the ch.hevs.gdx2d.components.physics.PhysicsChain lib
   and been modified to adapt it to our situation.
  */
 class MapGenerator(protected var start: Vector2, protected var stop: Vector2, nControlPoints: Int) {
-  val chain: util.ArrayList[Vector2] = generateCatmullChain(nControlPoints)
+  val mainChain: ArrayBuffer[Vector2] = generateCatmullChain(nControlPoints)
+  val leftChain: ArrayBuffer[Vector2] = createChainWithOffset(10f, mainChain)
+  val rightChain: ArrayBuffer[Vector2] = createChainWithOffset(-10f, mainChain)
+
+
+  println("####")
+  println(s"x: ${mainChain(0).x} // y: ${mainChain(0).y}")
+  println(s"x: ${mainChain(1).x} // y: ${mainChain(1).y}")
 
   /**
    * Create a chain from {@link # start} to {@link # stop} using {@code nPoints}.
    *
    * @param nPoints The number of points from the start to the stop position
    */
-  private def generateCatmullChain(nPoints: Int): util.ArrayList[Vector2] = {
+  private def generateCatmullChain(nPoints: Int): ArrayBuffer[Vector2] = {
     var vertices = randomVertices(nPoints, 0.8f)
     // Interpolates new points with a Catmull-Rom spline, using 9 subdivisions per segment
-    val spline: Array[Vector2] = CatmullRomUtils.subdividePoints(vertices.toArray(new Array[Vector2](0)), 9)
+    val spline: Array[Vector2] = CatmullRomUtils.subdividePoints(vertices.toArray, 9)
     // Replace the existing vertices by the spline generated
     vertices.clear()
     for (i <- spline.indices) {
-      vertices.add(spline(i))
+      vertices.addOne(spline(i))
     }
     return vertices
   }
-
-  private def randomVertices(nPoints: Int, randomHeight: Float): util.ArrayList[Vector2] = {
-    val vertices: util.ArrayList[Vector2] = new util.ArrayList[Vector2]
+  private def randomVertices(nPoints: Int, randomHeight: Float): ArrayBuffer[Vector2] = {
+    val vertices: ArrayBuffer[Vector2] = new ArrayBuffer[Vector2]
     val width: Float = (stop.x - start.x) / (nPoints - 1)
     val height: Float = (stop.y - start.y) / (nPoints - 1)
     for (i <- 0 until nPoints) {
       var h: Float = start.y + height * i
       h += (randomHeight * (Math.random * h)).toFloat
       val p: Vector2 = new Vector2(start.x + width * i, h)
-      vertices.add(p)
+      vertices.addOne(p)
     }
     vertices
+  }
+  private def createChainWithOffset(offset: Float, chain: ArrayBuffer[Vector2]): ArrayBuffer[Vector2] = {
+    val newChain: ArrayBuffer[Vector2] = new ArrayBuffer[Vector2]
+    for (i <- chain.indices) {
+      val v = chain(i)
+      newChain.addOne(new Vector2(v.x, v.y + offset))
+    }
+    return newChain
   }
 
   // AI-generated just in test phase for previsualisation
   def printAsciiPreview(cols: Int = 120, rows: Int = 30): Unit = {
-    if (chain.isEmpty) { println("(empty chain)"); return }
+    if (mainChain.isEmpty) { println("(empty chain)"); return }
     var minX = Float.PositiveInfinity; var maxX = Float.NegativeInfinity
     var minY = Float.PositiveInfinity; var maxY = Float.NegativeInfinity
-    for (i <- 0 until chain.size) {
-      val v = chain.get(i)
+    for (i <- mainChain.indices) {
+      val v = mainChain(i)
       if (v.x < minX) minX = v.x
       if (v.x > maxX) maxX = v.x
       if (v.y < minY) minY = v.y
@@ -77,15 +92,29 @@ class MapGenerator(protected var start: Vector2, protected var stop: Vector2, nC
     val viewMaxY = centerY + halfH
 
     val grid = Array.fill(actualRows, cols)(' ')
-    for (i <- 0 until chain.size) {
-      val v  = chain.get(i)
+    for (i <- mainChain.indices) {
+      val v  = mainChain(i)
       val gx = (((v.x - minX) / rangeX) * (cols - 1)).toInt
       // Flip Y so larger Y appears at the top.
       val gy = (((viewMaxY - v.y) / (viewMaxY - viewMinY)) * (actualRows - 1)).toInt
       if (gx >= 0 && gx < cols && gy >= 0 && gy < actualRows) grid(gy)(gx) = '#'
     }
+    for (i <- leftChain.indices) {
+      val v  = leftChain(i)
+      val gx = (((v.x - minX) / rangeX) * (cols - 1)).toInt
+      // Flip Y so larger Y appears at the top.
+      val gy = (((viewMaxY - v.y) / (viewMaxY - viewMinY)) * (actualRows - 1)).toInt
+      if (gx >= 0 && gx < cols && gy >= 0 && gy < actualRows) grid(gy)(gx) = '*'
+    }
+    for (i <- rightChain.indices) {
+      val v  = rightChain(i)
+      val gx = (((v.x - minX) / rangeX) * (cols - 1)).toInt
+      // Flip Y so larger Y appears at the top.
+      val gy = (((viewMaxY - v.y) / (viewMaxY - viewMinY)) * (actualRows - 1)).toInt
+      if (gx >= 0 && gx < cols && gy >= 0 && gy < actualRows) grid(gy)(gx) = '"'
+    }
     val border = "+" + ("-" * cols) + "+"
-    println(f"MapGenerator preview  (${chain.size} samples,  x=[$minX%.1f..$maxX%.1f]  y=[$minY%.1f..$maxY%.1f],  ${unitsPerCol}%.1f px/col)")
+    println(f"MapGenerator preview  (${mainChain.size} samples,  x=[$minX%.1f..$maxX%.1f]  y=[$minY%.1f..$maxY%.1f],  ${unitsPerCol}%.1f px/col)")
     println(border)
     grid.foreach(row => println("|" + row.mkString + "|"))
     println(border)
@@ -95,6 +124,6 @@ class MapGenerator(protected var start: Vector2, protected var stop: Vector2, nC
 object MapGeneratorPreview {
   def main(args: Array[String]): Unit = {
     val gen = new MapGenerator(new Vector2(0f, 100f), new Vector2(1000f, 100f), 8)
-    gen.printAsciiPreview(200, 80)
+    gen.printAsciiPreview(800, 1600)
   }
 }
