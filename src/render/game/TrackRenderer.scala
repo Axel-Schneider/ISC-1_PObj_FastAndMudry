@@ -10,6 +10,7 @@ import utils.Common
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Pixmap.Format
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.{Gdx, Input}
@@ -26,26 +27,27 @@ class TrackRenderer extends AbstractRenderer {
   private var pitch = Mode7.DEFAULT_VALUES.PITCH
   private var renderingFactor = Mode7.DEFAULT_VALUES.RENDERING_FACTOR
 
-  def generateMapPicture: BitmapImage = {
-    // TO DO : Get map from Track object and generate a big picture for the rendering
-    new BitmapImage("data/images/img.png")
-  }
+//  def generateMapPicture: BitmapImage = {
+//    val pixmap = World.INSTANCE.TRACK.Texture
+//    val texture = new Texture(pixmap)
+//    new BitmapImage(texture)
+//  }
 
   override def onInit(): Unit = {
-    imageBackground = generateMapPicture
+//    imageBackground = generateMapPicture
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     graphicalSetup()
 
-    if(fbo == null) {
-      fbo = new FrameBuffer(Format.RGBA8888, imageBackground.getImage.getWidth, imageBackground.getImage.getHeight, false)
-      fbo.begin()
-      g.clear()
-      g.drawPicture(imageBackground.getImage.getWidth/2, imageBackground.getImage.getHeight/2, imageBackground)
-      g.sbFlush()
-      fbo.end()
-    }
+//    if(fbo == null) {
+//      fbo = new FrameBuffer(Format.RGBA8888, imageBackground.getImage.getWidth, imageBackground.getImage.getHeight, false)
+//      fbo.begin()
+//      g.clear()
+//      g.drawPicture(imageBackground.getImage.getWidth/2, imageBackground.getImage.getHeight/2, imageBackground)
+//      g.sbFlush()
+//      fbo.end()
+//    }
 
     cameraPosition.y = World.INSTANCE.CAR.Coordinates.y
     cameraPosition.x = World.INSTANCE.CAR.Coordinates.x
@@ -57,7 +59,7 @@ class TrackRenderer extends AbstractRenderer {
       g.setShader(Mode7.SHADER_PATH)
     }
 
-    g.getShaderRenderer.setTexture(fbo.getColorBufferTexture, 0)
+    g.getShaderRenderer.setTexture(World.INSTANCE.TRACK.Texture, 0)
     g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.ENABLE, Mode7.DEFAULT_VALUES.ENABLE)
     g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.CAMERA.POSITION, cameraPosition)
     g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.CAMERA.AXIS, cameraAxis)
