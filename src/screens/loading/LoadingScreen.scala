@@ -1,5 +1,7 @@
 package ch.hevs.fastandmudry
-package screens
+package screens.loading
+
+import screens.{AbstractScreen, CustomScreenManager}
 
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx

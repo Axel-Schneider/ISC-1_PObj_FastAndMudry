@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package core.ecs.components
 
-trait Speedable {
+trait Moveable extends Locatable with Orientable {
   private var _speed = 0f
   private var _maxSpeed = 1f
 
@@ -14,5 +14,10 @@ trait Speedable {
   }
   def MaxSpeed_=(value: Float): Unit = {
     _maxSpeed = value
+  }
+
+  def Moving(elapsedTime: Float, factor: Float = 10f): Unit = {
+    Coordinates.y += math.cos(Rotation).toFloat * Speed * elapsedTime * factor
+    Coordinates.x += math.sin(Rotation).toFloat * Speed * elapsedTime * factor
   }
 }

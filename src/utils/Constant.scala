@@ -3,6 +3,8 @@ package utils
 
 import com.badlogic.gdx.graphics.Color
 
+import com.badlogic.gdx.Input
+
 object Constant {
   object Window {
     val WIDTH: Int = 1920
@@ -25,5 +27,15 @@ object Constant {
       val NEEDLE_COLOR: Color = Color.RED
       val NEEDLE_WIDTH: Float = 3f
     }
+  }
+  object UI {
+    object Dialog {
+      object SettingsDialog {
+        val SIZE_PERCENTAGE: Float = 0.6f
+      }
+    }
+  }
+  object KEYS {
+    val ENABLING_DEBUG_KEY = Input.Keys.F12
   }
 }
