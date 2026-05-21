@@ -3,20 +3,20 @@ package render.game
 
 import render.AbstractRenderer
 
+import render.hud.CarHUD
 import ch.hevs.gdx2d.lib.GdxGraphics
 
 class GameRenderer extends AbstractRenderer {
   private val trackRenderer = new TrackRenderer;
-  private val carRenderer = new CarRenderer;
 
   override def onInit(): Unit = {
     super.onInit()
     trackRenderer.onInit()
-    carRenderer.onInit()
+    CarHUD.onInit()
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     trackRenderer.onGraphicRender(g)
-    carRenderer.onGraphicRender(g)
+    CarHUD.onGraphicRender(g)
   }
 }
