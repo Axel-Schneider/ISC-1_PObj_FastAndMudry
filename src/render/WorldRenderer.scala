@@ -4,7 +4,6 @@ package render
 import render.background.BackgroundRenderer
 import render.game.GameRenderer
 import render.hud.HudRenderer
-import render.hud.DebugHUD
 
 import ch.hevs.gdx2d.lib.GdxGraphics
 
@@ -24,6 +23,5 @@ class WorldRenderer extends AbstractRenderer {
     backgroundRenderer.onGraphicRender(g)
     gameRenderer.onGraphicRender(g)
     hudRenderer.onGraphicRender(g)
-    DebugHUD.draw() // Conflict with helder ! TO DO : Integrate this line in the main HUD renderer
   }
 }

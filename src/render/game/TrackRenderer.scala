@@ -3,9 +3,9 @@ package render.game
 
 import core.world.World
 import render.AbstractRenderer
-import render.hud.DebugHUD
 import render.shaders.Mode7
 import utils.Common
+import ch.hevs.fastandmudry.ui.hud.DebugHUD
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
