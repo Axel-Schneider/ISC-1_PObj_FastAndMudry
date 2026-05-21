@@ -1,8 +1,8 @@
 package ch.hevs.fastandmudry
 package utils
 
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import com.badlogic.gdx.graphics.Color
-
 import com.badlogic.gdx.Input
 
 object Constant {
