@@ -1,5 +1,5 @@
 package ch.hevs.fastandmudry
-package render.hud
+package ui.hud
 
 import utils.Common
 

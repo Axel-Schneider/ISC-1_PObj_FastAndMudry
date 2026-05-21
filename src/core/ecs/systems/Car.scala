@@ -3,9 +3,10 @@ package core.ecs.systems
 
 import core.ecs.components._
 
-import render.hud.DebugHUD
 import com.badlogic.gdx.{Gdx, Input}
 import utils.Constant.GAME.CAR.FACTOR
+
+import ui.hud.DebugHUD
 
 class Car extends AGameLoop with Orientable with Moveable with Steerable {
   override def onGameLoop(elapsedTime: Float): Unit = {
