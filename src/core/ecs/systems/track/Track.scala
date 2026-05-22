@@ -27,6 +27,11 @@ class Track(private val Car: Car) extends AGameLoop {
     texture = new Texture(pixmap)
     texture.setFilter(TextureFilter.Linear, TextureFilter.Linear)
     pixmap.dispose()
+
+    val spawn = geometry.CenterLine(0)
+    val end  = geometry.CenterLine(1)
+    Car.Coordinates = new Vector2(spawn.x, spawn.y)
+    Car.Rotation    = math.atan2(end.x - spawn.x, end.y - spawn.y).toFloat
   }
 
   override def onGameLoop(elapsedTime: Float): Unit = {
