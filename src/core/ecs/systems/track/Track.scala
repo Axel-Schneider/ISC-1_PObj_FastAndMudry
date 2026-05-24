@@ -4,6 +4,7 @@ package core.ecs.systems.track
 import core.ecs.components.AGameLoop
 import core.ecs.systems.{Car, MapGenerator}
 
+import ch.hevs.fastandmudry.core.ecs.systems
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.PixmapIO
 import com.badlogic.gdx.graphics.Texture.TextureFilter
@@ -43,5 +44,6 @@ class Track(private val Car: Car) extends AGameLoop {
       println("Finish line crossed!")
       finished = true
     }
+    Car.MaxSpeed = if (geometry.isRoad(Car.Coordinates)) systems.Car.MAX_SPEED else systems.Car.MAX_SPEED * 0.5f
   }
 }
