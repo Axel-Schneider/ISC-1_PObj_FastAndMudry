@@ -35,7 +35,7 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int, private 
    * @param nPoints The number of points from the start to the stop position
    */
   private def generateCatmullChain(nPoints: Int): ArrayBuffer[Vector2] = {
-    var vertices = randomVertices(nPoints, 0.8f)
+    var vertices = randomVertices(nPoints, 200f)
     // Interpolates new points with a Catmull-Rom spline, using 9 subdivisions per segment
     val spline: Array[Vector2] = CatmullRomUtils.subdividePoints(vertices.toArray, 60)
     // Replace the existing vertices by the spline generated
@@ -50,9 +50,10 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int, private 
     val width: Float = (stop.x - start.x) / (nPoints - 1)
     val height: Float = (stop.y - start.y) / (nPoints - 1)
     for (i <- 0 until nPoints) {
-      var h: Float = start.y + height * i
-      h += (randomHeight * (Math.random * h)).toFloat
-      val p: Vector2 = new Vector2(start.x + width * i, h)
+      val yNoise = ((Math.random - 0.5) * 2.0 * randomHeight).toFloat
+      val h: Float = start.y + height * i + yNoise
+      val xNoise = if (i == 0 || i == nPoints - 1) 0f else ((Math.random - 0.5) * 2.0 * width * 0.4).toFloat
+      val p: Vector2 = new Vector2(start.x + width * i + xNoise, h)
       vertices.addOne(p)
     }
     vertices
