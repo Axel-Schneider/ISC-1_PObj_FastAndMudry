@@ -13,12 +13,13 @@ import com.badlogic.gdx.math.Vector2
 class Track(private val Car: Car) extends AGameLoop {
   private var geometry: TrackGeometry = _
   private var texture: Texture = _
+  private var finished: Boolean = false
 
   def Geometry: TrackGeometry = geometry
   def Texture: Texture = texture
 
   def generateNewMap(): Unit = {
-    geometry = new TrackGeometry(new Vector2(0f, 100f), new Vector2(1000f, 100f), 8, 30)
+    geometry = new TrackGeometry(new Vector2(0f, 100f), new Vector2(5000f, 100f), 20, 30)
     val pixmap = TrackTexture.generate(geometry)
 
     // for debug
@@ -32,9 +33,15 @@ class Track(private val Car: Car) extends AGameLoop {
     val end  = geometry.CenterLine(1)
     Car.Coordinates = new Vector2(spawn.x, spawn.y)
     Car.Rotation    = math.atan2(end.x - spawn.x, end.y - spawn.y).toFloat
+
+    finished = false
   }
 
   override def onGameLoop(elapsedTime: Float): Unit = {
-    // Checkup game interaction between car and track
+    if (geometry == null || finished) return
+    if (geometry.isFinishLine(Car.Coordinates)) {
+      println("Finish line crossed!")
+      finished = true
+    }
   }
 }

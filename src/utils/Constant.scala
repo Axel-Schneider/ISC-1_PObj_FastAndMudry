@@ -16,7 +16,7 @@ object Constant {
     }
   }
   object MapTexture {
-    val MapPadding: Int = 800
+    val MapPadding: Int = 200
   }
   object KEYS {
     val ENABLING_DEBUG_KEY = Input.Keys.F12

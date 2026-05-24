@@ -16,6 +16,8 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int, private 
   def CenterLine: ArrayBuffer[Vector2] = centerLine
   def LeftLine: ArrayBuffer[Vector2] = leftLine
   def RightLine: ArrayBuffer[Vector2] = rightLine
+  def FinishPoint: Vector2 = centerLine(centerLine.length - 1)
+  def HalfRoadWidth: Float = halfRoadWidth
 
   def isRoad(p: Vector2): Boolean = {
     var minDist = 999999f
@@ -63,6 +65,9 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int, private 
     }
     return newChain
   }
+  def isFinishLine(p: Vector2): Boolean =
+    p.dst(FinishPoint) <= halfRoadWidth
+
   private def calculateTrackSize(): Rectangle = {
     var minX = 999999999999f
     var maxX = 0f

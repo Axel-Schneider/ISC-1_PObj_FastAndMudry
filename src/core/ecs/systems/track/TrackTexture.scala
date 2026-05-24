@@ -17,7 +17,13 @@ object TrackTexture {
       for (x <- 0 until width) {
         val worldX = trackRectangle.x - MapTexture.MapPadding + x
         val worldY = trackRectangle.y - MapTexture.MapPadding + y
-        val color = if (geometry.isRoad(new Vector2(worldX, worldY))) Color.rgba8888(Color.GRAY) else Color.rgba8888(Color.GREEN)
+        val worldP = new Vector2(worldX, worldY)
+        val onRoad: Boolean = geometry.isRoad(worldP)
+        val color = {
+          if (onRoad && geometry.isFinishLine(worldP)) Color.rgba8888(Color.RED)
+          else if (onRoad) Color.rgba8888(Color.GRAY)
+          else Color.rgba8888(Color.GREEN)
+        }
         pixmap.drawPixel(x, y, color)
       }
     }
