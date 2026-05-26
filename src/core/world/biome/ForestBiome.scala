@@ -3,9 +3,18 @@ package core.world.biome
 
 import core.ecs.systems.Car
 
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import com.badlogic.gdx.graphics.Color
 
 class ForestBiome extends Biome {
+  private val sky: BitmapImage = new BitmapImage("data/parallax/forest/forest_sky.png")
+  private val layers: Array[ParallaxLayer] = Array(
+    new ParallaxLayer(new BitmapImage("data/parallax/forest/forest_mountain.png"), -400f, 0.30f, false),
+    new ParallaxLayer(new BitmapImage("data/parallax/forest/forest_back.png"), -800f, 0.20f, false),
+    new ParallaxLayer(new BitmapImage("data/parallax/forest/forest_mid.png"), -1500f, 0.3f, false),
+    new ParallaxLayer(new BitmapImage("data/parallax/forest/forest_short.png"), -2500f, 0.15f, true)
+  )
+
   override def offRoadDecreasingFactorSpeed: Float = 0.5f
   override def updatePhysics(car: Car, isOffRoad: Boolean, elapsedTime: Float): Unit = {
 
@@ -17,13 +26,7 @@ class ForestBiome extends Biome {
 
   override def getOffRoadColor(): Color = Color.GREEN
 
-  override def getBackgroundPath(): Array[String] = {
-    Array(
-      "data/parallax/forest/forest_sky.png",
-      "data/parallax/forest/forest_mountain.png",
-      "data/parallax/forest/forest_back.png",
-      "data/parallax/forest/forest_mid.png",
-      "data/parallax/forest/forest_short.png"
-    )
-  }
+  override def skyImage(): BitmapImage = sky
+
+  override def parallaxLayers(): Array[ParallaxLayer] = layers
 }

@@ -4,26 +4,24 @@ package render.background
 import render.AbstractRenderer
 import render.Data.Game
 
+import ch.hevs.fastandmudry.core.world.World
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 
 class BackgroundRenderer extends AbstractRenderer {
-  private val skyImage = new BitmapImage("data/parallax/skies/sky_sky.png")
-  private val backMountainImage = new BitmapImage("data/parallax/skies/sky_back_mountain.png")
-  private val cloudFloorImage = new BitmapImage("data/parallax/skies/sky_cloud_floor.png")
-  private val cloudsImage = new BitmapImage("data/parallax/skies/sky_clouds.png")
-  private val frontMountainImage = new BitmapImage("data/parallax/skies/sky_front_mountain.png")
   override def onGraphicRender(g: GdxGraphics): Unit = {
     val screenW = g.getScreenWidth
     val screenH = g.getScreenHeight
     val horizon = screenH / 2f
+    val biome = World.INSTANCE.TRACK.biome
 
-    g.drawTransformedPicture(screenW / 2f, horizon + (screenH / 4f), 0, screenW, screenH / 2f, skyImage)
+    g.drawTransformedPicture(screenW / 2f, horizon + (screenH / 4f), 0, screenW, screenH / 2f, biome.skyImage())
 
-    drawConstrainedLayer(g, backMountainImage, Game.Rotation * -400f, horizon, 0.30f)
-    drawConstrainedLayer(g, cloudsImage, Game.Rotation * -800f, horizon, 0.20f)
-    drawConstrainedLayer(g, frontMountainImage, Game.Rotation * -1500f, horizon, 0.3f)
-    drawConstrainedLayer(g, cloudFloorImage, Game.Rotation * -2500f, g.getScreenHeight - 100, 0.15f)
+    for(layer <- biome.parallaxLayers()) {
+      val y = if(layer.isFloor) g.getScreenHeight - 100 else horizon
+
+      drawConstrainedLayer(g, layer.image, Game.Rotation * layer.scrollOffset, y, layer.heightPercentage)
+    }
   }
 
   private def drawConstrainedLayer(g: GdxGraphics, image: BitmapImage, scrollOffset: Float, yBase: Float, heightPercentage: Float): Unit = {
