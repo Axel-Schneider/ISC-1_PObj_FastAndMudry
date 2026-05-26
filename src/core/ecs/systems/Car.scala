@@ -9,6 +9,8 @@ import utils.Constant.GAME.CAR.FACTOR
 import ui.hud.DebugHUD
 
 class Car extends AGameLoop with Orientable with Moveable with Steerable {
+  MaxSpeed = FACTOR.MAX_SPEED
+
   override def onGameLoop(elapsedTime: Float): Unit = {
     var isTurning = false;
     if(Gdx.input.isKeyPressed(Input.Keys.UP))
@@ -30,8 +32,8 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable {
       if (Math.abs(WheelAngle) < 0.001f) WheelAngle = 0f
     }
 
-    if(WheelAngle > 1) WheelAngle = 1
-    if(WheelAngle < -1) WheelAngle = -1
+    if(WheelAngle > FACTOR.WHEEL_MAX_ANGLE) WheelAngle = FACTOR.WHEEL_MAX_ANGLE
+    if(WheelAngle < -FACTOR.WHEEL_MAX_ANGLE) WheelAngle = -FACTOR.WHEEL_MAX_ANGLE
 
     if(Speed > 0.01f) {
       Rotation += Speed * WheelAngle * elapsedTime

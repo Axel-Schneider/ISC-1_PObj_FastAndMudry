@@ -3,6 +3,7 @@ package screens.loading
 
 import screens.{AbstractScreen, CustomScreenManager}
 
+import ch.hevs.fastandmudry.core.world.World
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Interpolation
@@ -21,7 +22,8 @@ class LoadingScreen extends AbstractScreen {
   final private val MAX_ANGLE: Float = 20
 
   override def onInit(): Unit = {
-
+    World.INSTANCE.TRACK.generateNewMap()
+    isFinishedLoading = true
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {

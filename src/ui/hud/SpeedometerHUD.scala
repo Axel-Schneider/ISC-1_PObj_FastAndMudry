@@ -2,6 +2,7 @@ package ch.hevs.fastandmudry
 package ui.hud
 
 import utils.Constant.Hud
+import utils.Constant.GAME.CAR.FACTOR
 
 import core.ecs.systems.Car
 import ch.hevs.gdx2d.lib.GdxGraphics
@@ -35,7 +36,7 @@ object SpeedometerHUD {
     }
 
     // Speedometer needle
-    val carSpeedInKmH = (Hud.Speedometer.MAX_SPEED * car.Speed) / car.MaxSpeed
+    val carSpeedInKmH = (Hud.Speedometer.MAX_SPEED * car.Speed) / FACTOR.MAX_SPEED
     val angleDeg = Hud.Speedometer.SPEEDOMETER_START_ANGLE + (carSpeedInKmH * (Hud.Speedometer.SPEEDOMETER_END_ANGLE - Hud.Speedometer.SPEEDOMETER_START_ANGLE)) / Hud.Speedometer.MAX_SPEED
     val angleRad = Math.toRadians(angleDeg)
 

@@ -8,7 +8,8 @@ uniform vec3  cameraAxis;
 uniform float cameraAngle;
 uniform float screenPlanDistance;
 uniform float pitch;
-uniform float renderingFactor;
+uniform vec2 renderingFactor;
+uniform vec2 mapOrigin;
 
 mat3 rotationMatrix(vec3 axis, float angle)
 {
@@ -34,7 +35,7 @@ void main() {
         if (pixelRay.z > 0.0) {
             vec2 hitPosition = cameraPosition.xy + pixelRay.xy * (cameraPosition.z / pixelRay.z) + vec2(0.5, 0);
 
-            hitPosition *= renderingFactor;
+            hitPosition = (hitPosition - mapOrigin) * renderingFactor;
 
             if (hitPosition.x >= 0.0 && hitPosition.x <= 1.0 &&
                 hitPosition.y >= 0.0 && hitPosition.y <= 1.0)

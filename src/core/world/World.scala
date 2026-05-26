@@ -2,7 +2,8 @@ package ch.hevs.fastandmudry
 package core.world
 
 import core.ecs.components.AGameLoop
-import core.ecs.systems.{Car, Track}
+import core.ecs.systems.Car
+import core.ecs.systems.track.Track
 
 import ch.hevs.fastandmudry.utils.Constant.GAME
 
