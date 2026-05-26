@@ -4,32 +4,44 @@ package core.ecs.systems
 import core.ecs.components._
 
 import com.badlogic.gdx.{Gdx, Input}
+import utils.Constant.GAME.CAR.FACTOR
 
-// TODO: Replace the temporary car constants
-object Car {
-  val MAX_SPEED: Float    = 15f
-  val ACCELERATION: Float = 12f
-  val DECELERATION: Float = 4f
-  val TURN_RATE: Float    = 0.7f
-}
+import ui.hud.DebugHUD
 
 class Car extends AGameLoop with Orientable with Moveable with Steerable {
-  MaxSpeed = Car.MAX_SPEED
+  MaxSpeed = FACTOR.MAX_SPEED
 
   override def onGameLoop(elapsedTime: Float): Unit = {
-    if (Gdx.input.isKeyPressed(Input.Keys.UP))
-      Speed += Car.ACCELERATION * elapsedTime
+    var isTurning = false;
+    if(Gdx.input.isKeyPressed(Input.Keys.UP))
+      Speed += FACTOR.ACCELERATION * elapsedTime
     else
-      Speed -= Car.DECELERATION * elapsedTime
+      Speed -= FACTOR.DECELERATION * elapsedTime
 
-    WheelAngle = 0
-    if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-      Rotation -= Car.TURN_RATE * elapsedTime
-      WheelAngle += 1
+    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+      WheelAngle -= FACTOR.WHEEL_ROTATION * elapsedTime
+      isTurning = true
     }
-    if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-      Rotation += Car.TURN_RATE * elapsedTime
-      WheelAngle -= 1
+    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+      WheelAngle += FACTOR.WHEEL_ROTATION * elapsedTime
+      isTurning = true
     }
+
+    if(!isTurning) {
+      WheelAngle *= Math.pow(FACTOR.WHEEL_RETURN, elapsedTime.toDouble).toFloat
+      if (Math.abs(WheelAngle) < 0.001f) WheelAngle = 0f
+    }
+
+    if(WheelAngle > 1) WheelAngle = 1
+    if(WheelAngle < -1) WheelAngle = -1
+
+    if(Speed > 0.01f) {
+      Rotation += Speed * WheelAngle * elapsedTime
+      Rotation %= (Math.PI * 2).toFloat
+    }
+
+    DebugHUD.setLogVar("Car - Rotation", Rotation)
+    DebugHUD.setLogVar("Car - WheelAngle", WheelAngle)
+    DebugHUD.setLogVar("Car - Speed", Speed)
   }
 }

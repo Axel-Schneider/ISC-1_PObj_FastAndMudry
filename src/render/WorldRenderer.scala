@@ -3,13 +3,15 @@ package render
 
 import render.background.BackgroundRenderer
 import render.game.GameRenderer
-import render.hud.DebugHUD
+import render.hud.HudRenderer
 
 import ch.hevs.gdx2d.lib.GdxGraphics
 
 class WorldRenderer extends AbstractRenderer {
   private val backgroundRenderer = new BackgroundRenderer;
   private val gameRenderer = new GameRenderer
+  private val hudRenderer = new HudRenderer
+
 
   override def onInit(): Unit = {
     super.onInit()
@@ -20,6 +22,6 @@ class WorldRenderer extends AbstractRenderer {
   override def onGraphicRender(g: GdxGraphics): Unit = {
     backgroundRenderer.onGraphicRender(g)
     gameRenderer.onGraphicRender(g)
-    DebugHUD.draw() // Conflict with helder ! TO DO : Integrate this line in the main HUD renderer
+    hudRenderer.onGraphicRender(g)
   }
 }

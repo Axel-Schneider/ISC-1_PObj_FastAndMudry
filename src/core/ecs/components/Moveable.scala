@@ -9,7 +9,10 @@ trait Moveable extends Locatable with Orientable {
   def MaxSpeed: Float = _maxSpeed
 
   def Speed_=(value: Float): Unit = {
-    _speed = math.max(0f, math.min(value, _maxSpeed))
+    _speed =
+      if(value > _maxSpeed) _maxSpeed
+      else if(value < 0) 0
+      else value
   }
   def MaxSpeed_=(value: Float): Unit = {
     _maxSpeed = value
