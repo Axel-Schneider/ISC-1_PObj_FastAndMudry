@@ -3,6 +3,7 @@ package ui.hud
 
 
 import utils.Constant.{Hud, RENDERING}
+import utils.Constant.GAME.CAR.FACTOR
 import core.ecs.systems.Car
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
@@ -13,6 +14,7 @@ object CarHUD {
 
   def draw(g: GdxGraphics, car: Car): Unit = {
     val carPosScreen = g.getScreenWidth / 2f
-    g.drawAlphaPicture(carPosScreen, 0, car.WheelAngle * -RENDERING.CAR.WHEEL_MAX_ROTATION, 2, 1, STEERING_WHEEL_IMAGE)
+    val wheelRatio = car.WheelAngle / FACTOR.WHEEL_MAX_ANGLE
+    g.drawAlphaPicture(carPosScreen, 0, wheelRatio * -RENDERING.CAR.WHEEL_MAX_ROTATION, 2, 1, STEERING_WHEEL_IMAGE)
   }
 }
