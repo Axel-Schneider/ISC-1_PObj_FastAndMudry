@@ -5,11 +5,13 @@ import core.ecs.components._
 
 import com.badlogic.gdx.{Gdx, Input}
 import utils.Constant.GAME.CAR.FACTOR
-
 import ui.hud.DebugHUD
 
-class Car extends AGameLoop with Orientable with Moveable with Steerable {
+import ch.hevs.fastandmudry.utils.Constant.GAME.CAR
+
+class Car extends AGameLoop with Orientable with Moveable with Steerable with Temperable with HasTires {
   MaxSpeed = FACTOR.MAX_SPEED
+  var isBroken: Boolean = false
 
   override def onGameLoop(elapsedTime: Float): Unit = {
     var isTurning = false;
@@ -18,13 +20,25 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable {
     else
       Speed -= FACTOR.DECELERATION * elapsedTime
 
-    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+    if(Gdx.input.isKeyPressed(leftKey)) {
       WheelAngle -= FACTOR.WHEEL_ROTATION * elapsedTime
       isTurning = true
     }
-    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+    if(Gdx.input.isKeyPressed(rightKey)) {
       WheelAngle += FACTOR.WHEEL_ROTATION * elapsedTime
       isTurning = true
+    }
+
+    if(IsRightTirePerforated && WheelAngle >= 0){
+      WheelAngle += FACTOR.WHEEL_ROTATION * elapsedTime * 0.1f
+      isTurning = true
+      MaxSpeed = MaxSpeed * 0.5f
+    }
+
+    if(IsLeftTirePerforated && WheelAngle <= 0){
+      WheelAngle -= FACTOR.WHEEL_ROTATION * elapsedTime * 0.1f
+      isTurning = true
+      MaxSpeed = MaxSpeed * 0.5f
     }
 
     if(!isTurning) {
@@ -40,8 +54,24 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable {
       Rotation %= (Math.PI * 2).toFloat
     }
 
+    Temperature += 0.5f * elapsedTime
+    isBroken = checkCarState()
+
+
     DebugHUD.setLogVar("Car - Rotation", Rotation)
     DebugHUD.setLogVar("Car - WheelAngle", WheelAngle)
     DebugHUD.setLogVar("Car - Speed", Speed)
+    DebugHUD.setLogVar("Car - Temperature", Temperature)
+    DebugHUD.setLogVar("Car - Left Tire Perforated", IsLeftTirePerforated)
+    DebugHUD.setLogVar("Car - Right Tire Perforated", IsRightTirePerforated)
+
+  }
+
+  def checkCarState(): Boolean = {
+    if(Temperature <= CAR.FACTOR.MIN_TEMPERATURE || Temperature >= CAR.FACTOR.MAX_TEMPERATURE) {
+      return true
+    }
+
+    false
   }
 }

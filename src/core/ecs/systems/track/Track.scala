@@ -2,8 +2,9 @@ package ch.hevs.fastandmudry
 package core.ecs.systems.track
 
 import core.ecs.components.AGameLoop
-import core.ecs.systems.{Car, MapGenerator}
+import core.ecs.systems.Car
 import utils.Constant.GAME.CAR.FACTOR
+import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.PixmapIO
@@ -16,12 +17,18 @@ class Track(private val Car: Car) extends AGameLoop {
   private var texture: Texture = _
   private var finished: Boolean = false
 
+  var biome: Biome = new ForestBiome()
+
   def Geometry: TrackGeometry = geometry
   def Texture: Texture = texture
 
+  def setBiome(biome: Biome): Unit = {
+    this.biome = biome
+  }
+
   def generateNewMap(): Unit = {
     geometry = new TrackGeometry(new Vector2(0f, 100f), new Vector2(5000f, 100f), 20, 30)
-    val pixmap = TrackTexture.generate(geometry)
+    val pixmap = TrackTexture.generate(geometry, biome)
 
     // for debug
     PixmapIO.writePNG(Gdx.files.local("track_debug.png"), pixmap)
@@ -44,6 +51,10 @@ class Track(private val Car: Car) extends AGameLoop {
       println("Finish line crossed!")
       finished = true
     }
-    Car.MaxSpeed = if (geometry.isRoad(Car.Coordinates)) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * 0.5f
+    Car.MaxSpeed = if (geometry.isRoad(Car.Coordinates)) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
+    biome.updatePhysics(Car, !geometry.isRoad(Car.Coordinates), elapsedTime)
+    if(Car.isBroken) {
+      println("BOOM")
+    }
   }
 }

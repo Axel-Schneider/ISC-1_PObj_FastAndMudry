@@ -48,9 +48,11 @@ object Constant {
         val DECELERATION = 7f
         val SPEED = 5f
         val WHEEL_ROTATION = 0.05f
-        val WHEEL_RETURN = 0.1f
+        val WHEEL_RETURN = 0.01f
         val WHEEL_MAX_ANGLE = 0.05f
         val MAX_SPEED = 60f
+        val MAX_TEMPERATURE = 100f
+        val MIN_TEMPERATURE = -100f
       }
     }
   }
