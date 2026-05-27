@@ -4,6 +4,7 @@ package core.world.biome
 import core.ecs.systems.Car
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Color
 
 class DesertBiome extends Biome {
@@ -28,6 +29,10 @@ class DesertBiome extends Biome {
   override def skyImage(): BitmapImage = sky
 
   override def updatePhysics(car: Car, isOffRoad: Boolean, elapsedTime: Float): Unit = {
+    if(isOffRoad) {
+      car.Temperature += 4f * elapsedTime
+    } else {
 
+    }
   }
 }
