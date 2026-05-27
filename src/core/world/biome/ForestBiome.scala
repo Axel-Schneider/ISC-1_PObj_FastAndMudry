@@ -6,6 +6,8 @@ import core.ecs.systems.Car
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import com.badlogic.gdx.graphics.Color
 
+import scala.util.Random
+
 class ForestBiome extends Biome {
   private val sky: BitmapImage = new BitmapImage("data/parallax/forest/forest_sky.png")
   private val layers: Array[ParallaxLayer] = Array(
@@ -17,7 +19,13 @@ class ForestBiome extends Biome {
 
   override def offRoadDecreasingFactorSpeed: Float = 0.5f
   override def updatePhysics(car: Car, isOffRoad: Boolean, elapsedTime: Float): Unit = {
-
+    if(isOffRoad) {
+      if(Random.nextFloat()*elapsedTime < 0.01f*elapsedTime){
+        println("BOOM TIRE")
+        val r = Random.nextBoolean()
+        if(r) car.IsLeftTirePerforated = true else car.IsRightTirePerforated = true
+      }
+    }
   }
 
   override def getRoadColor(): Color = Color.GRAY

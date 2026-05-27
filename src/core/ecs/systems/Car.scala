@@ -9,7 +9,7 @@ import ui.hud.DebugHUD
 
 import ch.hevs.fastandmudry.utils.Constant.GAME.CAR
 
-class Car extends AGameLoop with Orientable with Moveable with Steerable with Temperable {
+class Car extends AGameLoop with Orientable with Moveable with Steerable with Temperable with HasTires {
   MaxSpeed = FACTOR.MAX_SPEED
   var isBroken: Boolean = false
 
@@ -27,6 +27,18 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
     if(Gdx.input.isKeyPressed(rightKey)) {
       WheelAngle += FACTOR.WHEEL_ROTATION * elapsedTime
       isTurning = true
+    }
+
+    if(IsRightTirePerforated && WheelAngle >= 0){
+      WheelAngle += FACTOR.WHEEL_ROTATION * elapsedTime * 0.1f
+      isTurning = true
+      MaxSpeed = MaxSpeed * 0.5f
+    }
+
+    if(IsLeftTirePerforated && WheelAngle <= 0){
+      WheelAngle -= FACTOR.WHEEL_ROTATION * elapsedTime * 0.1f
+      isTurning = true
+      MaxSpeed = MaxSpeed * 0.5f
     }
 
     if(!isTurning) {
@@ -50,6 +62,8 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
     DebugHUD.setLogVar("Car - WheelAngle", WheelAngle)
     DebugHUD.setLogVar("Car - Speed", Speed)
     DebugHUD.setLogVar("Car - Temperature", Temperature)
+    DebugHUD.setLogVar("Car - Left Tire Perforated", IsLeftTirePerforated)
+    DebugHUD.setLogVar("Car - Right Tire Perforated", IsRightTirePerforated)
 
   }
 
