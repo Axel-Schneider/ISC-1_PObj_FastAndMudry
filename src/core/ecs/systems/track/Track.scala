@@ -4,8 +4,8 @@ package core.ecs.systems.track
 import core.ecs.components.AGameLoop
 import core.ecs.systems.Car
 import utils.Constant.GAME.CAR.FACTOR
+import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
 
-import core.world.biome.{Biome, ForestBiome}
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.PixmapIO
 import com.badlogic.gdx.graphics.Texture.TextureFilter
@@ -17,7 +17,7 @@ class Track(private val Car: Car) extends AGameLoop {
   private var texture: Texture = _
   private var finished: Boolean = false
 
-  var biome: Biome = new ForestBiome()
+  var biome: Biome = new SnowBiome()
 
   def Geometry: TrackGeometry = geometry
   def Texture: Texture = texture
@@ -51,6 +51,6 @@ class Track(private val Car: Car) extends AGameLoop {
       println("Finish line crossed!")
       finished = true
     }
-    Car.MaxSpeed = if (geometry.isRoad(Car.Coordinates)) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * 0.5f
+    Car.MaxSpeed = if (geometry.isRoad(Car.Coordinates)) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
   }
 }
