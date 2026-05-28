@@ -3,6 +3,7 @@ package utils.noise
 
 import conversions._
 
+// The code comes from this repo: https://github.com/yatsukha/perlin-noise
 object Noise {
   def noise(g: IndexedSeq[IndexedSeq[(Double, Double)]], p: (Double, Double)): Double = {
     // floors and ceils of the point, aka bounds

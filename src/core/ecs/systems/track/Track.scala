@@ -9,7 +9,7 @@ import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.PixmapIO
 import com.badlogic.gdx.graphics.Texture.TextureFilter
-import com.badlogic.gdx.graphics.{Pixmap, Texture}
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 
 class Track(private val Car: Car) extends AGameLoop {
@@ -17,7 +17,7 @@ class Track(private val Car: Car) extends AGameLoop {
   private var texture: Texture = _
   private var finished: Boolean = false
 
-  var biome: Biome = new DesertBiome()
+  var biome: Biome = new ForestBiome()
 
   def Geometry: TrackGeometry = geometry
   def Texture: Texture = texture

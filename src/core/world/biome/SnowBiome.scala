@@ -22,7 +22,8 @@ class SnowBiome extends Biome {
 
   override def getRoadLineColor(): Color = Color.WHITE
 
-  override def getOffRoadColor(): Color = new Color(0xe6ffffff)
+  override def offRoadLowColor(): Color  = new Color(180f / 255f, 205f / 255f, 240f / 255f, 1f)
+  override def offRoadHighColor(): Color = new Color(255f / 255f, 255f / 255f, 255f / 255f, 1f)
 
   override def parallaxLayers(): Array[ParallaxLayer] = layers
 

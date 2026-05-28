@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package utils.noise
 
+// The code comes from this repo: https://github.com/yatsukha/perlin-noise
 object Util {
   def smoothStep(x: Double): Double =
     x * x * (3 - 2 * x)

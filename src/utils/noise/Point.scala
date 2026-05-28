@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package utils.noise
 
+// The code comes from this repo: https://github.com/yatsukha/perlin-noise
 sealed case class Point[A: Fractional](p: (A, A)) {
   import Fractional.Implicits._
 

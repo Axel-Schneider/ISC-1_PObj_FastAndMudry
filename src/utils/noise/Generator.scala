@@ -3,6 +3,7 @@ package utils.noise
 
 import scala.util.Random
 
+// The code comes from this repo: https://github.com/yatsukha/perlin-noise
 object Generator {
   def gradientStream(rng: Random): Stream[(Double, Double)] = {
     val x = rng.between(-1.0, 1.0)
