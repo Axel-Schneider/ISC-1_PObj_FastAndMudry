@@ -3,7 +3,7 @@ package core.ecs.systems.track
 
 import utils.Constant.MapTexture
 
-import ch.hevs.fastandmudry.core.world.biome.Biome
+import core.world.biome.Biome
 import com.badlogic.gdx.graphics.{Color, Pixmap}
 import com.badlogic.gdx.graphics.Pixmap.Format
 import com.badlogic.gdx.math.Vector2
@@ -15,6 +15,8 @@ object TrackTexture {
     val height = trackRectangle.height.toInt + 2 * MapTexture.MapPadding
     val pixmap = new Pixmap(width, height, Format.RGBA8888)
 
+    biome.prepareOffRoadTexture(width, height)
+
     for (y <- 0 until height) {
       for (x <- 0 until width) {
         val worldX = trackRectangle.x - MapTexture.MapPadding + x
@@ -24,7 +26,7 @@ object TrackTexture {
         val color = {
           if (onRoad && geometry.isFinishLine(worldP)) Color.rgba8888(Color.RED)
           else if (onRoad) Color.rgba8888(biome.getRoadColor())
-          else Color.rgba8888(biome.getOffRoadColor())
+          else Color.rgba8888(biome.getOffRoadColor(x, y))
         }
         pixmap.drawPixel(x, y, color)
       }

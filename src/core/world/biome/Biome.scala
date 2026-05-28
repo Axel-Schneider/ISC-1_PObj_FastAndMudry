@@ -12,6 +12,8 @@ trait Biome {
   def getRoadColor(): Color
   def getRoadLineColor(): Color
   def getOffRoadColor(): Color
+  def getOffRoadColor(x: Int, y: Int): Color = getOffRoadColor()
+  def prepareOffRoadTexture(width: Int, height: Int): Unit = ()
   def parallaxLayers(): Array[ParallaxLayer]
   def skyImage(): BitmapImage
 
