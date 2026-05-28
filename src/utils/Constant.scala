@@ -36,13 +36,13 @@ object Constant {
     }
   }
   object MapTexture {
-    val MapPadding: Int = 200
-    val HalfRoadWidth: Float = 30f
-    val ShoulderWidth: Float = 15f
-    val HalfShoulderWidth: Float = HalfRoadWidth + ShoulderWidth
-    val HalfLineWidth: Float = 2f
-    val ShoulderJitter: Float = 32f
-    val ShoulderJitterNoiseCell: Int = 32
+    val MAP_PADDING: Int = 200
+    val HALF_ROAD_WIDTH: Float = 30f
+    val SHOULDER_WIDTH: Float = 15f
+    val HALF_SHOULDER_WIDTH: Float = HALF_ROAD_WIDTH + SHOULDER_WIDTH
+    val HALF_LINE_WIDTH: Float = 2f
+    val SHOULDER_JITTER: Float = 32f
+    val SHOULDER_JITTER_NOISE_CELL: Int = 32
   }
   object KEYS {
     val ENABLING_DEBUG_KEY = Input.Keys.F12

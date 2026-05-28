@@ -34,7 +34,7 @@ trait Biome {
   def getShoulderColor(x: Int, y: Int): Color = shoulderNoiseField(x)(y)
 
   def getShoulderJitter(x: Int, y: Int): Float =
-    (shoulderJitterField(x)(y) * 2f - 1f) * MapTexture.ShoulderJitter
+    (shoulderJitterField(x)(y) * 2f - 1f) * MapTexture.SHOULDER_JITTER
 
   def prepareTextures(width: Int, height: Int): Unit = {
     offRoadNoiseField = BiomeTexture.generateNoiseField(
@@ -47,7 +47,7 @@ trait Biome {
       width, height, shoulderNoiseCell(), shoulderLowColor(), shoulderHighColor()
     )
     shoulderJitterField = BiomeTexture.generateScalarField(
-      width, height, MapTexture.ShoulderJitterNoiseCell
+      width, height, MapTexture.SHOULDER_JITTER_NOISE_CELL
     )
   }
 

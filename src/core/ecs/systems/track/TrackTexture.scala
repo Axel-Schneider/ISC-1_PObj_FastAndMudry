@@ -11,19 +11,19 @@ import com.badlogic.gdx.math.Vector2
 object TrackTexture {
   def generate(geometry: TrackGeometry, biome: Biome): Pixmap = {
     val trackRectangle = geometry.trackSize
-    val width  = trackRectangle.width.toInt  + 2 * MapTexture.MapPadding
-    val height = trackRectangle.height.toInt + 2 * MapTexture.MapPadding
+    val width = trackRectangle.width.toInt + 2 * MapTexture.MAP_PADDING
+    val height = trackRectangle.height.toInt + 2 * MapTexture.MAP_PADDING
     val pixmap = new Pixmap(width, height, Format.RGBA8888)
 
     biome.prepareTextures(width, height)
 
     val halfRoadSq = geometry.HalfRoadWidth * geometry.HalfRoadWidth
-    val halfLineSq = MapTexture.HalfLineWidth * MapTexture.HalfLineWidth
+    val halfLineSq = MapTexture.HALF_LINE_WIDTH * MapTexture.HALF_LINE_WIDTH
 
     for (y <- 0 until height) {
       for (x <- 0 until width) {
-        val worldX = trackRectangle.x - MapTexture.MapPadding + x
-        val worldY = trackRectangle.y - MapTexture.MapPadding + y
+        val worldX = trackRectangle.x - MapTexture.MAP_PADDING + x
+        val worldY = trackRectangle.y - MapTexture.MAP_PADDING + y
         val worldP = new Vector2(worldX, worldY)
         val distSq = geometry.distToCenterLineSq(worldP)
         val jitteredShoulder = geometry.HalfShoulderWidth + biome.getShoulderJitter(x, y)

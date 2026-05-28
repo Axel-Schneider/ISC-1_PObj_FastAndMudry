@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.{Rectangle, Vector2}
 import scala.collection.mutable.ArrayBuffer
 
 class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int) {
-  private val halfRoadWidth: Float = MapTexture.HalfRoadWidth
-  private val halfShoulderWidth: Float = MapTexture.HalfShoulderWidth
+  private val halfRoadWidth: Float = MapTexture.HALF_ROAD_WIDTH
+  private val halfShoulderWidth: Float = MapTexture.HALF_SHOULDER_WIDTH
   private val centerLine: ArrayBuffer[Vector2] = generateCatmullChain(nControlPoints)
 
   lazy val trackSize: Rectangle = calculateTrackSize()

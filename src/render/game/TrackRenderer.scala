@@ -57,7 +57,7 @@ class TrackRenderer extends AbstractRenderer {
     g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.RENDERING_FACTOR, renderingFactor)
 
     val trackRectangle = World.INSTANCE.TRACK.Geometry.trackSize
-    g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.MAP_ORIGIN, new Vector2(trackRectangle.x - MapTexture.MapPadding, trackRectangle.y - MapTexture.MapPadding))
+    g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.MAP_ORIGIN, new Vector2(trackRectangle.x - MapTexture.MAP_PADDING, trackRectangle.y - MapTexture.MAP_PADDING))
 
     g.drawShader()
   }
