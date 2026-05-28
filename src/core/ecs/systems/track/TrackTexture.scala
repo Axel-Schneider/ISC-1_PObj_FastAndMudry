@@ -26,12 +26,16 @@ object TrackTexture {
         val worldY = trackRectangle.y - MapTexture.MapPadding + y
         val worldP = new Vector2(worldX, worldY)
         val distSq = geometry.distToCenterLineSq(worldP)
+        val jitteredShoulder = geometry.HalfShoulderWidth + biome.getShoulderJitter(x, y)
+        val halfShoulderSq = jitteredShoulder * jitteredShoulder
         val onRoad = distSq <= halfRoadSq
+        val onShoulder = !onRoad && distSq <= halfShoulderSq
         val onCenterLine = distSq <= halfLineSq
         val color = {
           if (onRoad && geometry.isFinishLine(worldP)) Color.rgba8888(Color.RED)
           else if (onCenterLine) Color.rgba8888(biome.getRoadLineColor())
           else if (onRoad) Color.rgba8888(biome.getRoadColor(x, y))
+          else if (onShoulder) Color.rgba8888(biome.getShoulderColor(x, y))
           else Color.rgba8888(biome.getOffRoadColor(x, y))
         }
         pixmap.drawPixel(x, y, color)

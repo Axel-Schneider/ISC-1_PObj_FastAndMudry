@@ -52,4 +52,35 @@ object BiomeTexture {
     }
     field
   }
+
+  def generateScalarField(width: Int, height: Int, noiseCell: Int): Array[Array[Float]] = {
+    val r = width
+    val c = height
+    val t = noiseCell
+    val gf = Generator.gradientField(
+      new scala.util.Random(System.currentTimeMillis),
+      (r / t + 2, c / t + 2)
+    )
+
+    val perlin =
+      (0 until r)
+        .map(_.toDouble / t.toDouble)
+        .map(
+          x =>
+            (0 until c)
+              .map(_.toDouble / t.toDouble)
+              .map(y => Noise.noise(gf, (x, y)))
+              .map(_ + 1)
+              .map(_ / 2)
+        )
+
+    val field = Array.ofDim[Float](width, height)
+    for (x <- 0 until width) {
+      for (y <- 0 until height) {
+        val n = Noise.turbulence(perlin, 8)(x, y)
+        field(x)(y) = math.min(1.0, math.max(0.0, n)).toFloat
+      }
+    }
+    field
+  }
 }

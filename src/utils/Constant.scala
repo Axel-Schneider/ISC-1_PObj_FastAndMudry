@@ -38,7 +38,11 @@ object Constant {
   object MapTexture {
     val MapPadding: Int = 200
     val HalfRoadWidth: Float = 30f
+    val ShoulderWidth: Float = 15f
+    val HalfShoulderWidth: Float = HalfRoadWidth + ShoulderWidth
     val HalfLineWidth: Float = 2f
+    val ShoulderJitter: Float = 32f
+    val ShoulderJitterNoiseCell: Int = 32
   }
   object KEYS {
     val ENABLING_DEBUG_KEY = Input.Keys.F12

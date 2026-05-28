@@ -51,8 +51,9 @@ class Track(private val Car: Car) extends AGameLoop {
       println("Finish line crossed!")
       finished = true
     }
-    Car.MaxSpeed = if (geometry.isRoad(Car.Coordinates)) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
-    biome.updatePhysics(Car, !geometry.isRoad(Car.Coordinates), elapsedTime)
+    val isOffRoad = geometry.isOffRoad(Car.Coordinates)
+    Car.MaxSpeed = if (!isOffRoad) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
+    biome.updatePhysics(Car, isOffRoad, elapsedTime)
     if(Car.isBroken) {
       println("BOOM")
     }

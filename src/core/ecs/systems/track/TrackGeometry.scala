@@ -10,6 +10,7 @@ import scala.collection.mutable.ArrayBuffer
 
 class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int) {
   private val halfRoadWidth: Float = MapTexture.HalfRoadWidth
+  private val halfShoulderWidth: Float = MapTexture.HalfShoulderWidth
   private val centerLine: ArrayBuffer[Vector2] = generateCatmullChain(nControlPoints)
 
   lazy val trackSize: Rectangle = calculateTrackSize()
@@ -17,6 +18,7 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int) {
   def CenterLine: ArrayBuffer[Vector2] = centerLine
   def FinishPoint: Vector2 = centerLine(centerLine.length - 1)
   def HalfRoadWidth: Float = halfRoadWidth
+  def HalfShoulderWidth: Float = halfShoulderWidth
 
   def distToCenterLineSq(p: Vector2): Float = {
     var minDist = 999999f
@@ -39,8 +41,8 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int) {
     dist2(p, new Vector2(v.x + t * (w.x - v.x), v.y + t * (w.y - v.y)))
   }
 
-  def isRoad(p: Vector2): Boolean =
-    distToCenterLineSq(p) <= halfRoadWidth * halfRoadWidth
+  def isOffRoad(p: Vector2): Boolean =
+    distToCenterLineSq(p) > halfShoulderWidth * halfShoulderWidth
 
   /**
    * Create a chain from {@link # start} to {@link # stop} using {@code nPoints}.
