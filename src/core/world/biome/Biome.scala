@@ -8,19 +8,29 @@ import com.badlogic.gdx.graphics.Color
 
 trait Biome {
   private var offRoadNoiseField: Array[Array[Color]] = _
+  private var roadNoiseField: Array[Array[Color]] = _
 
   // The factor decreasing the car speed when the car is off the road
   def offRoadDecreasingFactorSpeed: Float
-  def getRoadColor(): Color
   def getRoadLineColor(): Color
+
   def offRoadLowColor(): Color
   def offRoadHighColor(): Color
   def offRoadNoiseCell(): Int = 24
 
+  def roadLowColor(): Color
+  def roadHighColor(): Color
+  def roadNoiseCell(): Int = 4
+
   def getOffRoadColor(x: Int, y: Int): Color = offRoadNoiseField(x)(y)
-  def prepareOffRoadTexture(width: Int, height: Int): Unit = {
+  def getRoadColor(x: Int, y: Int): Color = roadNoiseField(x)(y)
+
+  def prepareTextures(width: Int, height: Int): Unit = {
     offRoadNoiseField = BiomeTexture.generateNoiseField(
       width, height, offRoadNoiseCell(), offRoadLowColor(), offRoadHighColor()
+    )
+    roadNoiseField = BiomeTexture.generateNoiseField(
+      width, height, roadNoiseCell(), roadLowColor(), roadHighColor()
     )
   }
 

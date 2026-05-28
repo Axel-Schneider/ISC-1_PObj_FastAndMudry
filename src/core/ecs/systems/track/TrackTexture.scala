@@ -15,7 +15,7 @@ object TrackTexture {
     val height = trackRectangle.height.toInt + 2 * MapTexture.MapPadding
     val pixmap = new Pixmap(width, height, Format.RGBA8888)
 
-    biome.prepareOffRoadTexture(width, height)
+    biome.prepareTextures(width, height)
 
     for (y <- 0 until height) {
       for (x <- 0 until width) {
@@ -25,7 +25,7 @@ object TrackTexture {
         val onRoad: Boolean = geometry.isRoad(worldP)
         val color = {
           if (onRoad && geometry.isFinishLine(worldP)) Color.rgba8888(Color.RED)
-          else if (onRoad) Color.rgba8888(biome.getRoadColor())
+          else if (onRoad) Color.rgba8888(biome.getRoadColor(x, y))
           else Color.rgba8888(biome.getOffRoadColor(x, y))
         }
         pixmap.drawPixel(x, y, color)

@@ -17,7 +17,7 @@ class Track(private val Car: Car) extends AGameLoop {
   private var texture: Texture = _
   private var finished: Boolean = false
 
-  var biome: Biome = new ForestBiome()
+  var biome: Biome = new DesertBiome()
 
   def Geometry: TrackGeometry = geometry
   def Texture: Texture = texture
