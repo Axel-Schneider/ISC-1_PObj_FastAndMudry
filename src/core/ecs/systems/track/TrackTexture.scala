@@ -17,14 +17,20 @@ object TrackTexture {
 
     biome.prepareTextures(width, height)
 
+    val halfRoadSq = geometry.HalfRoadWidth * geometry.HalfRoadWidth
+    val halfLineSq = MapTexture.HalfLineWidth * MapTexture.HalfLineWidth
+
     for (y <- 0 until height) {
       for (x <- 0 until width) {
         val worldX = trackRectangle.x - MapTexture.MapPadding + x
         val worldY = trackRectangle.y - MapTexture.MapPadding + y
         val worldP = new Vector2(worldX, worldY)
-        val onRoad: Boolean = geometry.isRoad(worldP)
+        val distSq = geometry.distToCenterLineSq(worldP)
+        val onRoad = distSq <= halfRoadSq
+        val onCenterLine = distSq <= halfLineSq
         val color = {
           if (onRoad && geometry.isFinishLine(worldP)) Color.rgba8888(Color.RED)
+          else if (onCenterLine) Color.rgba8888(biome.getRoadLineColor())
           else if (onRoad) Color.rgba8888(biome.getRoadColor(x, y))
           else Color.rgba8888(biome.getOffRoadColor(x, y))
         }

@@ -17,7 +17,7 @@ class Track(private val Car: Car) extends AGameLoop {
   private var texture: Texture = _
   private var finished: Boolean = false
 
-  var biome: Biome = new DesertBiome()
+  var biome: Biome = new SnowBiome()
 
   def Geometry: TrackGeometry = geometry
   def Texture: Texture = texture
@@ -27,7 +27,7 @@ class Track(private val Car: Car) extends AGameLoop {
   }
 
   def generateNewMap(): Unit = {
-    geometry = new TrackGeometry(new Vector2(0f, 100f), new Vector2(5000f, 100f), 20, 30)
+    geometry = new TrackGeometry(new Vector2(0f, 100f), new Vector2(5000f, 100f), 20)
     val pixmap = TrackTexture.generate(geometry, biome)
 
     // for debug

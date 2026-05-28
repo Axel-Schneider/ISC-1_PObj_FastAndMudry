@@ -37,6 +37,8 @@ object Constant {
   }
   object MapTexture {
     val MapPadding: Int = 200
+    val HalfRoadWidth: Float = 30f
+    val HalfLineWidth: Float = 2f
   }
   object KEYS {
     val ENABLING_DEBUG_KEY = Input.Keys.F12

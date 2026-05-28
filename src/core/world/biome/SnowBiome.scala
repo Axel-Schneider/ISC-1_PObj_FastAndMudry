@@ -18,7 +18,7 @@ class SnowBiome extends Biome {
 
   override def offRoadDecreasingFactorSpeed: Float = 0.7f
 
-  override def getRoadLineColor(): Color = Color.WHITE
+  override def getRoadLineColor(): Color = Color.YELLOW
 
   override def offRoadLowColor(): Color  = new Color(180f / 255f, 205f / 255f, 240f / 255f, 1f)
   override def offRoadHighColor(): Color = new Color(255f / 255f, 255f / 255f, 255f / 255f, 1f)

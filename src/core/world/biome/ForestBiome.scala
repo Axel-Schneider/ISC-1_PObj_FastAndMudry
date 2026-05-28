@@ -28,7 +28,7 @@ class ForestBiome extends Biome {
     }
   }
 
-  override def getRoadLineColor(): Color = Color.YELLOW
+  override def getRoadLineColor(): Color = Color.WHITE
 
   override def offRoadLowColor(): Color  = new Color( 22f / 255f,  85f / 255f,  30f / 255f, 1f)
   override def offRoadHighColor(): Color = new Color( 50f / 255f, 170f / 255f,  70f / 255f, 1f)
