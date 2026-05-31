@@ -90,8 +90,8 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int) {
    */
   private def generateCatmullChain(nPoints: Int): ArrayBuffer[Vector2] = {
     val vertices = randomVertices(nPoints, 200f)
-    // Interpolates new points with a Catmull-Rom spline, using 60 subdivisions per segment
-    val spline: Array[Vector2] = CatmullRomUtils.subdividePoints(vertices.toArray, 60)
+    // Interpolates new points with a Catmull-Rom spline, using 30 subdivisions per segment
+    val spline: Array[Vector2] = CatmullRomUtils.subdividePoints(vertices.toArray, 30)
     // Replace the existing vertices by the spline generated
     vertices.clear()
     for (i <- spline.indices) {
