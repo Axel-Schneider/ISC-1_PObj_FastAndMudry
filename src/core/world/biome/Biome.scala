@@ -8,9 +8,9 @@ import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import com.badlogic.gdx.graphics.Color
 
 trait Biome {
-  private var offRoadNoiseField: Array[Array[Color]] = _
-  private var roadNoiseField: Array[Array[Color]] = _
-  private var shoulderNoiseField: Array[Array[Color]] = _
+  private var offRoadNoiseField: Array[Array[Int]] = _
+  private var roadNoiseField: Array[Array[Int]] = _
+  private var shoulderNoiseField: Array[Array[Int]] = _
   private var shoulderJitterField: Array[Array[Float]] = _
 
   // The factor decreasing the car speed when the car is off the road
@@ -29,9 +29,9 @@ trait Biome {
   def shoulderHighColor(): Color
   def shoulderNoiseCell(): Int = 16
 
-  def getOffRoadColor(x: Int, y: Int): Color = offRoadNoiseField(x)(y)
-  def getRoadColor(x: Int, y: Int): Color = roadNoiseField(x)(y)
-  def getShoulderColor(x: Int, y: Int): Color = shoulderNoiseField(x)(y)
+  def getOffRoadColor(x: Int, y: Int): Int = offRoadNoiseField(x)(y)
+  def getRoadColor(x: Int, y: Int): Int = roadNoiseField(x)(y)
+  def getShoulderColor(x: Int, y: Int): Int = shoulderNoiseField(x)(y)
 
   def getShoulderJitter(x: Int, y: Int): Float =
     (shoulderJitterField(x)(y) * 2f - 1f) * MapTexture.SHOULDER_JITTER

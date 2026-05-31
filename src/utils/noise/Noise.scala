@@ -1,73 +1,71 @@
 package ch.hevs.fastandmudry
 package utils.noise
 
-import conversions._
-
 // The code comes from this repo: https://github.com/yatsukha/perlin-noise
 object Noise {
   def noise(g: IndexedSeq[IndexedSeq[(Double, Double)]], p: (Double, Double)): Double = {
     // floors and ceils of the point, aka bounds
-    val bx  = (p.x.toInt, (p.x + 1).toInt)
-    val by  = (p.y.toInt, (p.y + 1).toInt)
+    val bx  = (p._1.toInt, (p._1 + 1).toInt)
+    val by  = (p._2.toInt, (p._2 + 1).toInt)
 
     // distances to the bounds
-    val dx  = (p.x - bx._1, p.x - bx._2)
-    val dy  = (p.y - by._1, p.y - by._2)
+    val dx  = (p._1 - bx._1, p._1 - bx._2)
+    val dy  = (p._2 - by._1, p._2 - by._2)
 
     // smooth step of the upperleft bound is used as weight
     val w   = (Util.smoothStep(dx._1), Util.smoothStep(dy._1))
 
     // dot product for upper bounds
-    var vx0 = g(bx._1)(by._1) * (dx._1, dy._1)
-    var vx1 = g(bx._2)(by._1) * (dx._2, dy._1)
+    var vx0 = dot(g(bx._1)(by._1), (dx._1, dy._1))
+    var vx1 = dot(g(bx._2)(by._1), (dx._2, dy._1))
 
-    val vy0 = (vx0, vx1).scale(w.x)
+    val vy0 = scale(vx0, vx1, w._1)
 
     // dot product for lower bounds
-    vx0 = g(bx._1)(by._2) * (dx._1, dy._2)
-    vx1 = g(bx._2)(by._2) * (dx._2, dy._2)
+    vx0 = dot(g(bx._1)(by._2), (dx._1, dy._2))
+    vx1 = dot(g(bx._2)(by._2), (dx._2, dy._2))
 
-    val vy1 = (vx0, vx1).scale(w.x)
+    val vy1 = scale(vx0, vx1, w._1)
 
-    (vy0, vy1).scale(w.y)
+    scale(vy0, vy1, w._2)
   }
 
-  def smooth(n: IndexedSeq[IndexedSeq[Double]])(xy: (Double, Double)): Double = {
-    val indices  = (xy._1.toInt, xy._2.toInt)
-    val distance = (xy._1 - indices._1.toDouble, xy._2 - indices._2.toDouble)
+  private def dot(a: (Double, Double), b: (Double, Double)): Double =
+    a._1 * b._1 + a._2 * b._2
 
-    val dxdy = Vector(
-      (0, 0, 1 - distance._1, 1 - distance._2),
-      (0, 1, 1 - distance._1, distance._2),
-      (1, 0, distance._1, 1 - distance._2),
-      (1, 1, distance._1, distance._2)
-    )
+  private def scale(x: Double, y: Double, w: Double): Double =
+    (1.0 - w) * x + w * y
 
-    var value = 0.0
 
-    for (idx <- dxdy) {
-      val pos = (indices._1 + idx._1, indices._2 + idx._2)
-      value = value + n(pos._1 % n.length)(pos._2 % n.head.length) * idx._3 * idx._4
-    }
+  def smooth(grid: Array[Double], rows: Int, cols: Int, x: Double, y: Double): Double = {
+    val ix = x.toInt
+    val iy = y.toInt
+    val fx = x - ix
+    val fy = y - iy
 
-    value
+    val x0 = ix % rows
+    val x1 = (ix + 1) % rows
+    val y0 = iy % cols
+    val y1 = (iy + 1) % cols
+
+    val c00 = grid(x0 * cols + y0)
+    val c01 = grid(x0 * cols + y1)
+    val c10 = grid(x1 * cols + y0)
+    val c11 = grid(x1 * cols + y1)
+
+    c00 * (1 - fx) * (1 - fy) +
+      c01 * (1 - fx) * fy +
+      c10 * fx * (1 - fy) +
+      c11 * fx * fy
   }
 
-  def turbulence(n: IndexedSeq[IndexedSeq[Double]], s: Int)(xy: (Int, Int)): Double = {
+  def turbulence(grid: Array[Double], rows: Int, cols: Int, s: Int, x: Int, y: Int): Double = {
     var counter = s
     var value = 0.0
-
     while (counter >= 1) {
-      value = value + smooth(n)(
-        xy._1.toDouble / counter.toDouble,
-        xy._2.toDouble / counter.toDouble
-      ) * counter
-
+      value += smooth(grid, rows, cols, x.toDouble / counter, y.toDouble / counter) * counter
       counter = counter / 2
     }
-
     value / (2 * s.toDouble)
-    //math.min(math.max(value / s.toDouble, -1.0), 1.0)
   }
-
 }

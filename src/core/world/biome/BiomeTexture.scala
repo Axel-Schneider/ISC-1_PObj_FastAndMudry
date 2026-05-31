@@ -8,10 +8,9 @@ import com.badlogic.gdx.graphics.Color
 object BiomeTexture {
 
   // Most of the code come from this git repo: https://github.com/yatsukha/perlin-noise
-  def generateNoiseField(width: Int, height: Int, noiseCell: Int,
-                         low: Color, high: Color): Array[Array[Color]] = {
-    val r = width
-    val c = height
+  def generateNoiseField(width: Int, height: Int, noiseCell: Int, low: Color, high: Color): Array[Array[Int]] = {
+    val r: Int = width
+    val c: Int = height
     val t = noiseCell
     val gf = Generator.gradientField(
       new scala.util.Random(System.currentTimeMillis),
@@ -33,21 +32,23 @@ object BiomeTexture {
               .map(_ / 2) // scale to [0, 1]
         )
 
-    val field = Array.ofDim[Color](width, height)
+    val perlinFlat = flatten(perlin, r, c)
+
+    val field = Array.ofDim[Int](width, height)
 
     for (x <- 0 until width) {
       for (y <- 0 until height) {
-        val noiseVal = Noise.turbulence(perlin, 8)(x, y)
+        val noiseVal = Noise.turbulence(perlinFlat, r, c, 8, x, y)
 
-        val r = low.r + (high.r - low.r) * noiseVal
+        val red = low.r + (high.r - low.r) * noiseVal
         val g = low.g + (high.g - low.g) * noiseVal
         val b = low.b + (high.b - low.b) * noiseVal
 
-        val finalR = math.min(1.0, math.max(0.0, r)).toFloat
+        val finalR = math.min(1.0, math.max(0.0, red)).toFloat
         val finalG = math.min(1.0, math.max(0.0, g)).toFloat
         val finalB = math.min(1.0, math.max(0.0, b)).toFloat
 
-        field(x)(y) = new Color(finalR, finalG, finalB, 1f)
+        field(x)(y) = Color.rgba8888(finalR, finalG, finalB, 1f)
       }
     }
     field
@@ -74,13 +75,26 @@ object BiomeTexture {
               .map(_ / 2)
         )
 
+    val perlinFlat = flatten(perlin, r, c)
+
     val field = Array.ofDim[Float](width, height)
     for (x <- 0 until width) {
       for (y <- 0 until height) {
-        val n = Noise.turbulence(perlin, 8)(x, y)
+        val n = Noise.turbulence(perlinFlat, r, c, 8, x, y)
         field(x)(y) = math.min(1.0, math.max(0.0, n)).toFloat
       }
     }
     field
+  }
+
+  // flatten the IndexedSeq[IndexedSeq[Double]] to a 1D array -> improve performances
+  private def flatten(perlin: IndexedSeq[IndexedSeq[Double]], rows: Int, cols: Int): Array[Double] = {
+    val flat = new Array[Double](rows * cols)
+    for (i <- 0 until rows) {
+      for (j <- 0 until cols) {
+        flat(i * cols + j) = perlin(i)(j)
+      }
+    }
+    return flat
   }
 }
