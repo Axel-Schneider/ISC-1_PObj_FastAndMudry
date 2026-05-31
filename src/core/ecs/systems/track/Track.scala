@@ -7,7 +7,7 @@ import utils.Constant.GAME.CAR.FACTOR
 import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.PixmapIO
+import com.badlogic.gdx.graphics.{Pixmap, PixmapIO}
 import com.badlogic.gdx.graphics.Texture.TextureFilter
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
@@ -26,10 +26,12 @@ class Track(private val Car: Car) extends AGameLoop {
     this.biome = biome
   }
 
-  def generateNewMap(): Unit = {
+  def buildPixmap(): Pixmap = {
     geometry = new TrackGeometry(new Vector2(0f, 100f), new Vector2(5000f, 100f), 20)
-    val pixmap = TrackTexture.generate(geometry, biome)
+    TrackTexture.generate(geometry, biome)
+  }
 
+  def installPixmap(pixmap: Pixmap): Unit = {
     // for debug
     PixmapIO.writePNG(Gdx.files.local("track_debug.png"), pixmap)
 

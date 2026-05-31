@@ -6,11 +6,12 @@ import screens.{AbstractScreen, CustomScreenManager}
 import ch.hevs.fastandmudry.core.world.World
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.math.Interpolation
 
 class LoadingScreen extends AbstractScreen {
   private var isFinishedLoading = false
-  private var timeLoaded = 0f
+  private var tempPixmap: Pixmap = _
 
   /**
    * Some animation related variables
@@ -22,8 +23,12 @@ class LoadingScreen extends AbstractScreen {
   final private val MAX_ANGLE: Float = 20
 
   override def onInit(): Unit = {
-    World.INSTANCE.TRACK.generateNewMap()
-    isFinishedLoading = true
+    val track = World.INSTANCE.TRACK
+    val worker = new Thread(() => {
+      tempPixmap = track.buildPixmap()
+    })
+    worker.setDaemon(true)
+    worker.start()
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
@@ -34,8 +39,9 @@ class LoadingScreen extends AbstractScreen {
     g.drawTransformedPicture(g.getScreenWidth / 2.0f, g.getScreenHeight / 2.0f, angle, 0.7f, LOGO)
     g.drawStringCentered(g.getScreenHeight * 0.9f, "Loading...")
 
-    timeLoaded += Gdx.graphics.getDeltaTime
-    if (timeLoaded > 2.0f) {
+    if (!isFinishedLoading && tempPixmap != null) {
+      World.INSTANCE.TRACK.installPixmap(tempPixmap)
+      tempPixmap = null
       isFinishedLoading = true
     }
 
