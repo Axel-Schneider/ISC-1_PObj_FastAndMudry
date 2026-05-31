@@ -47,15 +47,18 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int) {
     bounds.toArray
   }
 
-  def distToCenterLineSq(p: Vector2): Float = {
+  def distToCenterLineSq(p: Vector2): Float =
+    distToCenterLineSq(p.x, p.y)
+
+  def distToCenterLineSq(px: Float, py: Float): Float = {
     var minDist = 999999f
     var i = 0
     // while loop is more performant in this case (runned millions/billions of times) than a for loop
     while (i < segmentBounds.length) {
       val b = segmentBounds(i)
       // only do math if it is in the segment bound (increase performance)
-      if (p.x >= b.minX && p.x <= b.maxX && p.y >= b.minY && p.y <= b.maxY) {
-        val d = distToSegmentSquared(p.x, p.y, b.startVector, b.endVector)
+      if (px >= b.minX && px <= b.maxX && py >= b.minY && py <= b.maxY) {
+        val d = distToSegmentSquared(px, py, b.startVector, b.endVector)
         if (d < minDist) minDist = d
       }
       i += 1
@@ -111,7 +114,10 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int) {
   }
 
   def isFinishLine(p: Vector2): Boolean =
-    p.dst(FinishPoint) <= halfRoadWidth
+    isFinishLine(p.x, p.y)
+
+  def isFinishLine(px: Float, py: Float): Boolean =
+    sqr(px - FinishPoint.x) + sqr(py - FinishPoint.y) <= halfRoadWidth * halfRoadWidth
 
   private def calculateTrackSize(): Rectangle = {
     var minX = 999999999999f
