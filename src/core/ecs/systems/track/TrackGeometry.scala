@@ -1,33 +1,48 @@
 package ch.hevs.fastandmudry
 package core.ecs.systems.track
 
+import utils.Constant.MapTexture
+
 import ch.hevs.gdx2d.lib.utils.catmull.CatmullRomUtils
 import com.badlogic.gdx.math.{Rectangle, Vector2}
 
 import scala.collection.mutable.ArrayBuffer
 
-class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int, private val halfRoadWidth: Float) {
+class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int) {
+  private val halfRoadWidth: Float = MapTexture.HALF_ROAD_WIDTH
+  private val halfShoulderWidth: Float = MapTexture.HALF_SHOULDER_WIDTH
   private val centerLine: ArrayBuffer[Vector2] = generateCatmullChain(nControlPoints)
-  private val leftLine: ArrayBuffer[Vector2] = createChainWithOffset(halfRoadWidth, centerLine)
-  private val rightLine: ArrayBuffer[Vector2] = createChainWithOffset(-halfRoadWidth, centerLine)
 
   lazy val trackSize: Rectangle = calculateTrackSize()
 
   def CenterLine: ArrayBuffer[Vector2] = centerLine
-  def LeftLine: ArrayBuffer[Vector2] = leftLine
-  def RightLine: ArrayBuffer[Vector2] = rightLine
   def FinishPoint: Vector2 = centerLine(centerLine.length - 1)
   def HalfRoadWidth: Float = halfRoadWidth
+  def HalfShoulderWidth: Float = halfShoulderWidth
 
-  def isRoad(p: Vector2): Boolean = {
+  def distToCenterLineSq(p: Vector2): Float = {
     var minDist = 999999f
-    for(v <- centerLine) {
-      val d = p.dst2(v) // dist(p, v) = (vx - px)^2 + (vy - py) ^2
-      if(d < minDist)minDist = d
+    for (i <- 0 until centerLine.length - 1) {
+      val d = distToSegmentSquared(p, centerLine(i), centerLine(i + 1))
+      if (d < minDist) minDist = d
     }
-    return minDist <= halfRoadWidth  * halfRoadWidth // d^2 <= w^2
+    minDist
   }
 
+  // Taken from: https://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
+  private def sqr(x: Float): Float = x * x
+  private def dist2(v: Vector2, w: Vector2): Float = sqr(v.x - w.x) + sqr(v.y - w.y)
+
+  private def distToSegmentSquared(p: Vector2, v: Vector2, w: Vector2): Float = {
+    val l2 = dist2(v, w)
+    if (l2 == 0f) return dist2(p, v)
+    var t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2
+    t = math.max(0f, math.min(1f, t))
+    dist2(p, new Vector2(v.x + t * (w.x - v.x), v.y + t * (w.y - v.y)))
+  }
+
+  def isOffRoad(p: Vector2): Boolean =
+    distToCenterLineSq(p) > halfShoulderWidth * halfShoulderWidth
 
   /**
    * Create a chain from {@link # start} to {@link # stop} using {@code nPoints}.
@@ -58,14 +73,7 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int, private 
     }
     vertices
   }
-  private def createChainWithOffset(offset: Float, chain: ArrayBuffer[Vector2]): ArrayBuffer[Vector2] = {
-    val newChain: ArrayBuffer[Vector2] = new ArrayBuffer[Vector2]
-    for (i <- chain.indices) {
-      val v = chain(i)
-      newChain.addOne(new Vector2(v.x, v.y + offset))
-    }
-    return newChain
-  }
+
   def isFinishLine(p: Vector2): Boolean =
     p.dst(FinishPoint) <= halfRoadWidth
 
@@ -86,10 +94,7 @@ class TrackGeometry(start: Vector2, stop: Vector2, nControlPoints: Int, private 
     }
 
     checkMinMax(centerLine)
-    checkMinMax(leftLine)
-    checkMinMax(rightLine)
 
     return new Rectangle(minX, minY, maxX - minX, maxY - minY)
   }
 }
-

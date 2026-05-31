@@ -9,7 +9,7 @@ import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.PixmapIO
 import com.badlogic.gdx.graphics.Texture.TextureFilter
-import com.badlogic.gdx.graphics.{Pixmap, Texture}
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 
 class Track(private val Car: Car) extends AGameLoop {
@@ -17,7 +17,7 @@ class Track(private val Car: Car) extends AGameLoop {
   private var texture: Texture = _
   private var finished: Boolean = false
 
-  var biome: Biome = new ForestBiome()
+  var biome: Biome = new SnowBiome()
 
   def Geometry: TrackGeometry = geometry
   def Texture: Texture = texture
@@ -27,7 +27,7 @@ class Track(private val Car: Car) extends AGameLoop {
   }
 
   def generateNewMap(): Unit = {
-    geometry = new TrackGeometry(new Vector2(0f, 100f), new Vector2(5000f, 100f), 20, 30)
+    geometry = new TrackGeometry(new Vector2(0f, 100f), new Vector2(5000f, 100f), 20)
     val pixmap = TrackTexture.generate(geometry, biome)
 
     // for debug
@@ -51,8 +51,9 @@ class Track(private val Car: Car) extends AGameLoop {
       println("Finish line crossed!")
       finished = true
     }
-    Car.MaxSpeed = if (geometry.isRoad(Car.Coordinates)) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
-    biome.updatePhysics(Car, !geometry.isRoad(Car.Coordinates), elapsedTime)
+    val isOffRoad = geometry.isOffRoad(Car.Coordinates)
+    Car.MaxSpeed = if (!isOffRoad) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
+    biome.updatePhysics(Car, isOffRoad, elapsedTime)
     if(Car.isBroken) {
       println("BOOM")
     }
