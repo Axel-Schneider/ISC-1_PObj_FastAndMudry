@@ -1,24 +1,99 @@
 package ch.hevs.fastandmudry
 package screens.quiz
 
+import core.quiz.{Quiz, QuizData, QuizPhase}
 import core.state.{GameStateMachine, QuizCompleted}
 import screens.AbstractScreen
+import ui.components.{ButtonFactory, CustomButton}
 
 import ch.hevs.gdx2d.lib.GdxGraphics
-import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.{Gdx, Input}
 
 class QuizScreen extends AbstractScreen {
+  private val REVEAL_DURATION: Float = 3f
+
+  private val BUTTON_WIDTH: Float = 300
+  private val BUTTON_HEIGHT: Float = 80
+  private val GRID_GAP: Float = 30
+
+  private val quiz = new Quiz(QuizData.questions)
+  private var revealTimer: Float = 0f
+  private var buttons: Array[CustomButton] = Array.empty
+
   override def onInit(): Unit = {
     Gdx.input.setInputProcessor(stage)
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
-    g.drawStringCentered(g.getScreenHeight / 2f, "Quiz")
-    renderStage(g, Gdx.graphics.getDeltaTime)
+    g.drawStringCentered(g.getScreenHeight * 0.15f, quiz.currentQuestion.text)
 
-    if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)) {
-      GameStateMachine.handle(QuizCompleted)
+    quiz.getPhase match {
+      case QuizPhase.ShowingQuestion => {
+        g.drawStringCentered(g.getScreenHeight * 0.08f, "Press SPACE")
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+          quiz.revealAnswers()
+          buildAnswerButtons()
+        }
+      }
+      case QuizPhase.ShowingAnswers => // nothing, the click on button does the job
+      case QuizPhase.Revealing => {
+        revealTimer += Gdx.graphics.getDeltaTime
+        if (revealTimer >= REVEAL_DURATION) {
+          clearAnswerButtons()
+          if (!quiz.doContinueQuestions()) GameStateMachine.handle(QuizCompleted)
+        }
+      }
     }
+
+    renderStage(g, Gdx.graphics.getDeltaTime)
+  }
+
+  private def buildAnswerButtons(): Unit = {
+    val answers = quiz.currentQuestion.answers
+    val totalWidth = 2 * BUTTON_WIDTH + GRID_GAP
+    val totalHeight = 2 * BUTTON_HEIGHT + GRID_GAP
+    val startX = (Gdx.graphics.getWidth - totalWidth) / 2f
+    val startY = (Gdx.graphics.getHeight - totalHeight) / 2f
+
+    buttons = new Array[CustomButton](answers.length)
+
+    for (i <- answers.indices) {
+      val col = i % 2
+      val row = i / 2
+
+      val button = ButtonFactory.primary(answers(i))
+      button.setSize(BUTTON_WIDTH, BUTTON_HEIGHT)
+      button.setPosition(
+        startX + col * (BUTTON_WIDTH + GRID_GAP),
+        startY + (1 - row) * (BUTTON_HEIGHT + GRID_GAP)
+      )
+      button.onClick(() => onAnswerClicked(i))
+
+      stage.addActor(button)
+      buttons(i) = button
+    }
+  }
+
+  private def onAnswerClicked(index: Int): Unit = {
+    if (quiz.getPhase != QuizPhase.ShowingAnswers) return
+
+    val correct = quiz.answer(index)
+    if (correct) println("CORRECT") else println("WRONG")
+
+    val correctIndex = quiz.currentQuestion.correctIndex
+    for (i <- buttons.indices) {
+      buttons(i).setDisabled(i != correctIndex)
+      val c = if (i == correctIndex) Color.GREEN else Color.DARK_GRAY
+      buttons(i).setColor(c)
+    }
+
+    revealTimer = 0f
+  }
+
+  private def clearAnswerButtons(): Unit = {
+    stage.clear()
+    buttons = Array.empty
   }
 }
