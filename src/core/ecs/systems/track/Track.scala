@@ -4,7 +4,9 @@ package core.ecs.systems.track
 import core.ecs.components.AGameLoop
 import core.ecs.systems.Car
 import utils.Constant.GAME.CAR.FACTOR
-import core.world.biome.{Biome, DesertBiome, SnowBiome}
+import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
+import ch.hevs.fastandmudry.core.ecs.entities.Item.{AItem, SimpleRock, SimpleTree}
+import ch.hevs.fastandmudry.utils.Constant.MapTexture
 import core.state.{CarBroke, FinishLineCrossed, GameStateMachine}
 
 import com.badlogic.gdx.Gdx
@@ -12,6 +14,8 @@ import com.badlogic.gdx.graphics.{Pixmap, PixmapIO}
 import com.badlogic.gdx.graphics.Texture.TextureFilter
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
+
+import scala.util.Random
 
 class Track(private val Car: Car) extends AGameLoop {
   private var geometry: TrackGeometry = _
@@ -46,6 +50,7 @@ class Track(private val Car: Car) extends AGameLoop {
     Car.Coordinates = new Vector2(spawn.x, spawn.y)
     Car.Rotation    = math.atan2(end.x - spawn.x, end.y - spawn.y).toFloat
 
+    generateMapItems()
     finished = false
   }
 
@@ -67,4 +72,28 @@ class Track(private val Car: Car) extends AGameLoop {
       return
     }
   }
+
+  private var mapItems = List[AItem]()
+  def generateMapItems(): Unit = {
+    val random = new Random()
+
+    // Récupération des limites de la carte basées sur ton architecture
+    val trackWidth = Geometry.trackSize.getWidth + MapTexture.MAP_PADDING * 2
+    val trackHeight = Geometry.trackSize.getHeight + MapTexture.MAP_PADDING * 2
+
+    // List.fill exécute le bloc de code 50 fois et retourne une List immuable
+    mapItems = List.fill(500) {
+
+      val tree = if(random.nextInt(2) % 2 == 0) new SimpleTree() else new SimpleRock()
+
+      // nextFloat() génère une valeur entre 0.0f et 1.0f
+      tree.Coordinates.x = random.nextFloat() * trackWidth
+      tree.Coordinates.y = random.nextFloat() * trackHeight
+
+      tree
+    }
+  }
+
+  def getMapItems: List[AItem] = mapItems
 }
+

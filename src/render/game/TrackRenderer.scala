@@ -17,16 +17,16 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.{Gdx, Input}
 
 
-class TrackRenderer extends AbstractRenderer {
+object TrackRenderer extends AbstractRenderer {
   var imageBackground : BitmapImage = null
   var fbo: FrameBuffer = null
 
-  private var cameraFov = Mode7.DEFAULT_VALUES.CAMERA.FOV
-  private var cameraAngle = Mode7.DEFAULT_VALUES.CAMERA.ANGLE
-  private val cameraPosition =  Mode7.DEFAULT_VALUES.CAMERA.POSITION
-  private val cameraAxis =  Mode7.DEFAULT_VALUES.CAMERA.AXIS
-  private var pitch = Mode7.DEFAULT_VALUES.PITCH
-  private val renderingFactor = new Vector2(0.01f, 0.01f)
+  var cameraFov = Mode7.DEFAULT_VALUES.CAMERA.FOV
+  var cameraAngle = Mode7.DEFAULT_VALUES.CAMERA.ANGLE
+  val cameraPosition =  Mode7.DEFAULT_VALUES.CAMERA.POSITION
+  val cameraAxis =  Mode7.DEFAULT_VALUES.CAMERA.AXIS
+  var pitch = Mode7.DEFAULT_VALUES.PITCH
+  var renderingFactor = Mode7.DEFAULT_VALUES.RENDERING_FACTOR
 
   override def onInit(): Unit = {
     val texture = World.INSTANCE.TRACK.Texture
@@ -60,6 +60,9 @@ class TrackRenderer extends AbstractRenderer {
     g.getShaderRenderer.setUniform(Mode7.Parameter.KEY.MAP_ORIGIN, new Vector2(trackRectangle.x - MapTexture.MAP_PADDING, trackRectangle.y - MapTexture.MAP_PADDING))
 
     g.drawShader()
+
+    // Item rendering
+    ItemsRenderer.onGraphicRender(g)
   }
 
   private def graphicalSetup(): Unit = {
