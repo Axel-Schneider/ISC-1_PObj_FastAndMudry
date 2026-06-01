@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package screens.cinematic
 
-import core.state.{EndDayCinematicEnded, GameState, GameStateMachine, StartDayCinematicEnded}
+import core.state.{EndDayCinematicEnded, FinalCinematicEnded, GameState, GameStateMachine, StartDayCinematicEnded}
 import screens.AbstractScreen
 
 import ch.hevs.gdx2d.lib.GdxGraphics
@@ -24,6 +24,7 @@ class CinematicScreen extends AbstractScreen {
       GameStateMachine.getGameState match {
         case GameState.StartDayCinematic(_) => GameStateMachine.handle(StartDayCinematicEnded)
         case GameState.EndDayCinematic(_) => GameStateMachine.handle(EndDayCinematicEnded)
+        case GameState.FinalCinematic => GameStateMachine.handle(FinalCinematicEnded)
         case _ => // nothing
       }
     }

@@ -9,5 +9,6 @@ case object FinishLineCrossed extends GameEvent
 case object EndDayCinematicEnded extends GameEvent
 case object QuizCompleted extends GameEvent
 case object StartDayCinematicEnded extends GameEvent
+case object FinalCinematicEnded extends GameEvent
 case object CarBroke extends GameEvent
 case object BackToMenu extends GameEvent
