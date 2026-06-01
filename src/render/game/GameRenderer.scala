@@ -4,15 +4,13 @@ package render.game
 import render.AbstractRenderer
 import ch.hevs.gdx2d.lib.GdxGraphics
 
-class GameRenderer extends AbstractRenderer {
-  private val trackRenderer = new TrackRenderer;
-
+object GameRenderer extends AbstractRenderer {
   override def onInit(): Unit = {
     super.onInit()
-    trackRenderer.onInit()
+    TrackRenderer.onInit()
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
-    trackRenderer.onGraphicRender(g)
+    TrackRenderer.onGraphicRender(g)
   }
 }

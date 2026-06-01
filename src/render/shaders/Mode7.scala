@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package render.shaders
 
-import com.badlogic.gdx.math.Vector3
+import com.badlogic.gdx.math.{Vector2, Vector3}
 
 object Mode7 {
   val SHADER_PATH = "data/shaders/mode7.glsl"
@@ -33,6 +33,6 @@ object Mode7 {
       val AXIS = new Vector3(0f, -0f, -0.1f)
     }
     val PITCH = 0f
-    val RENDERING_FACTOR = 0.01f
+    val RENDERING_FACTOR = new Vector2(0.01f, 0.01f)
   }
 }
