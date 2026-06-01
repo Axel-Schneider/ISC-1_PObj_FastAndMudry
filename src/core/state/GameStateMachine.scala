@@ -28,9 +28,9 @@ object GameStateMachine {
       case GameState.StartDayCinematic(_) => csm.activateScreen(CustomScreenManager.CINEMATIC)
       case GameState.EndDayCinematic(_) => csm.activateScreen(CustomScreenManager.CINEMATIC)
       case GameState.Quiz(_) => csm.activateScreen(CustomScreenManager.QUIZ)
+      case GameState.Garage(_) => csm.activateScreen(CustomScreenManager.GARAGE)
       case GameState.FinalCinematic => csm.activateScreen(CustomScreenManager.CINEMATIC)
       case GameState.Dead => csm.activateScreen(CustomScreenManager.DEATH)
-      case GameState.Finished => csm.activateScreen(CustomScreenManager.MENU)
     }
   }
 }

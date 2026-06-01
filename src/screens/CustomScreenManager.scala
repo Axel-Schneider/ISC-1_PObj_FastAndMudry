@@ -4,6 +4,7 @@ package screens
 import screens.cinematic.CinematicScreen
 import screens.death.DeathScreen
 import screens.game.GameScreen
+import screens.garage.GarageScreen
 import screens.loading.LoadingScreen
 import screens.menu.MenuScreen
 import screens.quiz.QuizScreen
@@ -18,6 +19,7 @@ object CustomScreenManager {
   val CINEMATIC = 3
   val QUIZ = 4
   val DEATH = 5
+  val GARAGE = 6
 
   def getInstance: ScreenManager = s
 
@@ -28,4 +30,5 @@ object CustomScreenManager {
   s.registerScreen(classOf[CinematicScreen])
   s.registerScreen(classOf[QuizScreen])
   s.registerScreen(classOf[DeathScreen])
+  s.registerScreen(classOf[GarageScreen])
 }

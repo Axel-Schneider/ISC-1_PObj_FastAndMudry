@@ -17,15 +17,6 @@ object GameState {
     }
   }
 
-  case object Finished extends GameState {
-    def next(event: GameEvent): GameState = {
-      event match {
-        case BackToMenu => Menu
-        case _ => this
-      }
-    }
-  }
-
   case object Dead extends GameState {
     def next(event: GameEvent): GameState = {
       event match {
@@ -85,14 +76,16 @@ object GameState {
   final case class Quiz(day: Day) extends GameState {
     def next(event: GameEvent): GameState = {
       event match {
-        case QuizCompleted => {
-          day.next match {
-            // skip to next day
-            case Some(nextDay) => StartDayCinematic(nextDay)
-            // on the last day
-            case None => Finished
-          }
-        }
+        case QuizCompleted => Garage(day)
+        case _ => this
+      }
+    }
+  }
+
+  final case class Garage(day: Day) extends GameState {
+    def next(event: GameEvent): GameState = {
+      event match {
+        case GarageReady => StartDayCinematic(day.next.get)
         case _ => this
       }
     }
