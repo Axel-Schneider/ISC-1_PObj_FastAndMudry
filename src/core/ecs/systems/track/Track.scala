@@ -42,6 +42,7 @@ class Track(private val Car: Car) extends AGameLoop {
 
     val spawn = geometry.CenterLine(0)
     val end  = geometry.CenterLine(1)
+    Car.reset()
     Car.Coordinates = new Vector2(spawn.x, spawn.y)
     Car.Rotation    = math.atan2(end.x - spawn.x, end.y - spawn.y).toFloat
 
