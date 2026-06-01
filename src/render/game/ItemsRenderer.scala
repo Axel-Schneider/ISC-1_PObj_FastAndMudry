@@ -3,21 +3,16 @@ package render.game
 
 import render.AbstractRenderer
 
-import ch.hevs.fastandmudry.core.ecs.components.Item.AItem
+import ch.hevs.fastandmudry.core.ecs.entities.Item.AItem
 import ch.hevs.fastandmudry.core.world.World
-import ch.hevs.fastandmudry.ui.hud.DebugHUD
-import ch.hevs.fastandmudry.utils.Constant.MapTexture
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.math.{Vector2, Vector3}
+import com.badlogic.gdx.math.Vector2
 
 import java.nio.file.{Files, Paths}
 
 object ItemsRenderer extends AbstractRenderer{
   case class ProjectionResult(screenX: Float, screenY: Float, scale: Float, distance: Float)
   private case class RenderItem(item: AItem, proj: ProjectionResult)
-  val treeTexture = new Texture("data/images/item/SimpleTree.png")
   private val GLOBAL_SPRITE_SCALE = 100f
   def projectToScreen(position: Vector2, screenW: Float, screenH: Float): Option[ProjectionResult] = {
     val cameraPosition = TrackRenderer.cameraPosition
@@ -53,11 +48,11 @@ object ItemsRenderer extends AbstractRenderer{
     World.INSTANCE.TRACK.getMapItems.flatMap {
       case(i) => projectToScreen(i.Coordinates, g.getScreenWidth.toFloat, g.getScreenHeight.toFloat).map(p => RenderItem(i, p))
     }.sortBy(_.proj.distance)(Ordering[Float].reverse).foreach(r => {
-      val rw = treeTexture.getWidth * r.proj.scale * GLOBAL_SPRITE_SCALE
-      val rh = treeTexture.getHeight * r.proj.scale * GLOBAL_SPRITE_SCALE
+      val rw = r.item.getTexture.getWidth * r.proj.scale * GLOBAL_SPRITE_SCALE
+      val rh = r.item.getTexture.getHeight * r.proj.scale * GLOBAL_SPRITE_SCALE
       val rx = r.proj.screenX - rw/2f
       val ry = r.proj.screenY
-      g.draw(treeTexture, rx , ry, rw, rh)
+      g.draw(r.item.getTexture, rx , ry, rw, rh)
     })
   }
 }

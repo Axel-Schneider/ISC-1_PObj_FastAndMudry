@@ -6,7 +6,7 @@ import core.ecs.systems.Car
 import utils.Constant.GAME.CAR.FACTOR
 import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
 
-import ch.hevs.fastandmudry.core.ecs.components.Item.{AItem, SimpleTree}
+import ch.hevs.fastandmudry.core.ecs.entities.Item.{AItem, SimpleTree}
 import ch.hevs.fastandmudry.utils.Constant.MapTexture
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.{Pixmap, PixmapIO}
