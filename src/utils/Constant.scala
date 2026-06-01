@@ -43,6 +43,16 @@ object Constant {
     val HALF_LINE_WIDTH: Float = 2f
     val SHOULDER_JITTER: Float = 32f
     val SHOULDER_JITTER_NOISE_CELL: Int = 32
+    object ITEMS {
+      object SIMPLE_TREE {
+        val RENDERING_FACTOR = 100
+        val IMAGE_SOURCE = "data/images/item/SimpleTree.png"
+      }
+      object SIMPLE_ROCK {
+        val RENDERING_FACTOR = 2
+        val IMAGE_SOURCE = "data/images/item/SimpleRock.png"
+      }
+    }
   }
   object KEYS {
     val ENABLING_DEBUG_KEY = Input.Keys.F12
