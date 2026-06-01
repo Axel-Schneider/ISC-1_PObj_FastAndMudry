@@ -5,8 +5,10 @@ import core.ecs.components.AGameLoop
 import core.ecs.systems.Car
 import utils.Constant.GAME.CAR.FACTOR
 import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
-import ch.hevs.fastandmudry.core.ecs.entities.Item.{AItem, SimpleRock, SimpleTree}
-import ch.hevs.fastandmudry.utils.Constant.MapTexture
+import core.ecs.entities.Item.{AItem, SimpleRock, SimpleTree}
+import utils.Constant.MapTexture
+import core.state.{CarBroke, FinishLineCrossed, GameStateMachine}
+
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.{Pixmap, PixmapIO}
 import com.badlogic.gdx.graphics.Texture.TextureFilter
@@ -20,7 +22,7 @@ class Track(private val Car: Car) extends AGameLoop {
   private var texture: Texture = _
   private var finished: Boolean = false
 
-  var biome: Biome = new SnowBiome()
+  var biome: Biome = new DesertBiome()
 
   def Geometry: TrackGeometry = geometry
   def Texture: Texture = texture
@@ -44,6 +46,7 @@ class Track(private val Car: Car) extends AGameLoop {
 
     val spawn = geometry.CenterLine(0)
     val end  = geometry.CenterLine(1)
+    Car.reset()
     Car.Coordinates = new Vector2(spawn.x, spawn.y)
     Car.Rotation    = math.atan2(end.x - spawn.x, end.y - spawn.y).toFloat
 
@@ -52,16 +55,21 @@ class Track(private val Car: Car) extends AGameLoop {
   }
 
   override def onGameLoop(elapsedTime: Float): Unit = {
-    if (geometry == null || finished) return
+    if (geometry == null) return
+    if (finished) return
     if (geometry.isFinishLine(Car.Coordinates)) {
       println("Finish line crossed!")
       finished = true
+      GameStateMachine.handle(FinishLineCrossed)
+      return
     }
     val isOffRoad = geometry.isOffRoad(Car.Coordinates)
     Car.MaxSpeed = if (!isOffRoad) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
     biome.updatePhysics(Car, isOffRoad, elapsedTime)
-    if(Car.isBroken) {
-      println("BOOM")
+    if (Car.isBroken) {
+      finished = true
+      GameStateMachine.handle(CarBroke)
+      return
     }
   }
 

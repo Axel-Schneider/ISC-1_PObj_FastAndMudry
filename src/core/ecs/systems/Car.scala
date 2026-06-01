@@ -67,6 +67,16 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
 
   }
 
+  def reset(): Unit = {
+    MaxSpeed = FACTOR.MAX_SPEED
+    Speed = 0f
+    WheelAngle = 0f
+    Temperature = 0f
+    IsLeftTirePerforated = false
+    IsRightTirePerforated = false
+    isBroken = false
+  }
+
   def checkCarState(): Boolean = {
     if(Temperature <= CAR.FACTOR.MIN_TEMPERATURE || Temperature >= CAR.FACTOR.MAX_TEMPERATURE) {
       return true
