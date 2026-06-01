@@ -5,8 +5,8 @@ import core.ecs.components.AGameLoop
 import core.ecs.systems.Car
 import utils.Constant.GAME.CAR.FACTOR
 import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
-import ch.hevs.fastandmudry.core.ecs.entities.Item.{AItem, SimpleRock, SimpleTree}
-import ch.hevs.fastandmudry.utils.Constant.MapTexture
+import core.ecs.entities.Item.{AItem, SimpleRock, SimpleTree}
+import utils.Constant.MapTexture
 import core.state.{CarBroke, FinishLineCrossed, GameStateMachine}
 
 import com.badlogic.gdx.Gdx
