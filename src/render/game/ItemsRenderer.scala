@@ -13,7 +13,6 @@ import java.nio.file.{Files, Paths}
 object ItemsRenderer extends AbstractRenderer{
   case class ProjectionResult(screenX: Float, screenY: Float, scale: Float, distance: Float)
   private case class RenderItem(item: AItem, proj: ProjectionResult)
-  private val GLOBAL_SPRITE_SCALE = 100f
   def projectToScreen(position: Vector2, screenW: Float, screenH: Float): Option[ProjectionResult] = {
     val cameraPosition = TrackRenderer.cameraPosition
     val alpha = TrackRenderer.cameraAngle
@@ -48,8 +47,9 @@ object ItemsRenderer extends AbstractRenderer{
     World.INSTANCE.TRACK.getMapItems.flatMap {
       case(i) => projectToScreen(i.Coordinates, g.getScreenWidth.toFloat, g.getScreenHeight.toFloat).map(p => RenderItem(i, p))
     }.sortBy(_.proj.distance)(Ordering[Float].reverse).foreach(r => {
-      val rw = r.item.getTexture.getWidth * r.proj.scale * GLOBAL_SPRITE_SCALE
-      val rh = r.item.getTexture.getHeight * r.proj.scale * GLOBAL_SPRITE_SCALE
+      val (mw, mh) = r.item.getMaxSize
+      val rw = mw * r.proj.scale
+      val rh = mh * r.proj.scale
       val rx = r.proj.screenX - rw/2f
       val ry = r.proj.screenY
       g.draw(r.item.getTexture, rx , ry, rw, rh)

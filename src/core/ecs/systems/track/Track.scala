@@ -5,8 +5,7 @@ import core.ecs.components.AGameLoop
 import core.ecs.systems.Car
 import utils.Constant.GAME.CAR.FACTOR
 import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
-
-import ch.hevs.fastandmudry.core.ecs.entities.Item.{AItem, SimpleTree}
+import ch.hevs.fastandmudry.core.ecs.entities.Item.{AItem, SimpleRock, SimpleTree}
 import ch.hevs.fastandmudry.utils.Constant.MapTexture
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.{Pixmap, PixmapIO}
@@ -76,13 +75,12 @@ class Track(private val Car: Car) extends AGameLoop {
 
     // List.fill exécute le bloc de code 50 fois et retourne une List immuable
     mapItems = List.fill(500) {
-      val tree = new SimpleTree()
+
+      val tree = if(random.nextInt(2) % 2 == 0) new SimpleTree() else new SimpleRock()
 
       // nextFloat() génère une valeur entre 0.0f et 1.0f
       tree.Coordinates.x = random.nextFloat() * trackWidth
       tree.Coordinates.y = random.nextFloat() * trackHeight
-
-      println(tree.Coordinates)
 
       tree
     }
