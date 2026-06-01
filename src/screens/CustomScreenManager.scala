@@ -2,6 +2,7 @@ package ch.hevs.fastandmudry
 package screens
 
 import screens.cinematic.CinematicScreen
+import screens.death.DeathScreen
 import screens.game.GameScreen
 import screens.loading.LoadingScreen
 import screens.menu.MenuScreen
@@ -16,6 +17,7 @@ object CustomScreenManager {
   val GAME = 2
   val CINEMATIC = 3
   val QUIZ = 4
+  val DEATH = 5
 
   def getInstance: ScreenManager = s
 
@@ -25,4 +27,5 @@ object CustomScreenManager {
   s.registerScreen(classOf[GameScreen])
   s.registerScreen(classOf[CinematicScreen])
   s.registerScreen(classOf[QuizScreen])
+  s.registerScreen(classOf[DeathScreen])
 }

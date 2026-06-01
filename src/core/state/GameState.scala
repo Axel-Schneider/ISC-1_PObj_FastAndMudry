@@ -26,6 +26,15 @@ object GameState {
     }
   }
 
+  case object Dead extends GameState {
+    def next(event: GameEvent): GameState = {
+      event match {
+        case BackToMenu => Menu
+        case _ => this
+      }
+    }
+  }
+
   final case class Loading(day: Day) extends GameState {
     def next(event: GameEvent): GameState = {
       event match {
@@ -39,6 +48,7 @@ object GameState {
     def next(event: GameEvent): GameState = {
       event match {
         case FinishLineCrossed => EndDayCinematic(day)
+        case CarBroke => Dead
         case _ => this
       }
     }
