@@ -1,0 +1,12 @@
+package ch.hevs.fastandmudry
+package core.state
+
+sealed trait GameEvent
+
+case object StartGame extends GameEvent
+case object MapLoaded extends GameEvent
+case object FinishLineCrossed extends GameEvent
+case object EndDayCinematicEnded extends GameEvent
+case object QuizCompleted extends GameEvent
+case object StartDayCinematicEnded extends GameEvent
+case object BackToMenu extends GameEvent

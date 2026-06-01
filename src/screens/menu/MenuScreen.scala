@@ -1,7 +1,8 @@
 package ch.hevs.fastandmudry
 package screens.menu
 
-import screens.{AbstractScreen, CustomScreenManager}
+import core.state.{GameStateMachine, StartGame}
+import screens.AbstractScreen
 import ui.components.ButtonFactory
 
 import ui.dialogs.{DialogFactory, SettingsDialog}
@@ -15,10 +16,7 @@ class MenuScreen extends AbstractScreen {
     (Gdx.graphics.getWidth  - btnPlay.getWidth)  / 2,
     (Gdx.graphics.getHeight - btnPlay.getHeight) / 2
   )
-  btnPlay.onClick(() => {
-    val manager = CustomScreenManager.getInstance
-    manager.activateScreen(CustomScreenManager.GAME)
-  })
+  btnPlay.onClick(() => GameStateMachine.handle(StartGame))
 
   private val settingsDialog: SettingsDialog = DialogFactory.createSettingsDialog("Settings")
 

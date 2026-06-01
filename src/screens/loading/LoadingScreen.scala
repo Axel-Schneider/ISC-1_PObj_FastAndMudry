@@ -1,9 +1,10 @@
 package ch.hevs.fastandmudry
 package screens.loading
 
-import screens.{AbstractScreen, CustomScreenManager}
+import core.state.{GameStateMachine, MapLoaded}
+import screens.AbstractScreen
 
-import ch.hevs.fastandmudry.core.world.World
+import core.world.World
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Pixmap
@@ -47,10 +48,7 @@ class LoadingScreen extends AbstractScreen {
 
     if (isFinishedLoading) {
       Gdx.app.log("LoadingScreen", "Lancement du jeu !")
-
-      val manager = CustomScreenManager.getInstance
-
-      manager.activateScreen(CustomScreenManager.MENU)
+      GameStateMachine.handle(MapLoaded)
     }
   }
 

@@ -4,8 +4,9 @@ package core.ecs.systems.track
 import core.ecs.components.AGameLoop
 import core.ecs.systems.Car
 import utils.Constant.GAME.CAR.FACTOR
-import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
+import core.world.biome.{Biome, SnowBiome}
 
+import core.state.{FinishLineCrossed, GameStateMachine}
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.{Pixmap, PixmapIO}
 import com.badlogic.gdx.graphics.Texture.TextureFilter
@@ -48,10 +49,13 @@ class Track(private val Car: Car) extends AGameLoop {
   }
 
   override def onGameLoop(elapsedTime: Float): Unit = {
-    if (geometry == null || finished) return
+    if (geometry == null) return
+    if (finished) return
     if (geometry.isFinishLine(Car.Coordinates)) {
       println("Finish line crossed!")
       finished = true
+      GameStateMachine.handle(FinishLineCrossed)
+      return
     }
     val isOffRoad = geometry.isOffRoad(Car.Coordinates)
     Car.MaxSpeed = if (!isOffRoad) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
