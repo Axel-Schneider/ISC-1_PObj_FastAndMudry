@@ -70,8 +70,8 @@ class Track(private val Car: Car) extends AGameLoop {
     val random = new Random()
 
     // Récupération des limites de la carte basées sur ton architecture
-    val trackWidth = Geometry.trackSize.getWidth + MapTexture.MAP_PADDING
-    val trackHeight = Geometry.trackSize.getHeight + MapTexture.MAP_PADDING
+    val trackWidth = Geometry.trackSize.getWidth + MapTexture.MAP_PADDING * 2
+    val trackHeight = Geometry.trackSize.getHeight + MapTexture.MAP_PADDING * 2
 
     // List.fill exécute le bloc de code 50 fois et retourne une List immuable
     mapItems = List.fill(500) {
