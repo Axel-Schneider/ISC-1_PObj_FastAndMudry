@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package screens.loading
 
-import core.state.{GameStateMachine, MapLoaded}
+import core.state.{GameState, GameStateMachine, MapLoaded}
 import screens.AbstractScreen
 
 import core.world.World
@@ -24,7 +24,12 @@ class LoadingScreen extends AbstractScreen {
   final private val MAX_ANGLE: Float = 20
 
   override def onInit(): Unit = {
+    isFinishedLoading = false
     val track = World.INSTANCE.TRACK
+    GameStateMachine.getGameState match {
+      case GameState.Loading(day) => track.setBiome(day.newBiome)
+      case _ =>
+    }
     val worker = new Thread(() => {
       tempPixmap = track.buildPixmap()
     })
