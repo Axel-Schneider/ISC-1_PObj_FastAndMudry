@@ -18,13 +18,15 @@ class QuizScreen extends AbstractScreen {
   private val BUTTON_HEIGHT: Float = 80
   private val GRID_GAP: Float = 30
 
-  private val quiz = new Quiz(QuizData.questions)
+  private var quiz: Quiz = _
   private val background: BitmapImage = new BitmapImage("data/images/quiz/bg.png")
   private var revealTimer: Float = 0f
   private var buttons: Array[CustomButton] = Array.empty
 
   override def onInit(): Unit = {
     Gdx.input.setInputProcessor(stage)
+    quiz = new Quiz(QuizData.nextSession())
+    revealTimer = 0f
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
