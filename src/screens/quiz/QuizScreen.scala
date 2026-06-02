@@ -13,14 +13,8 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.{Gdx, Input}
 
 class QuizScreen extends AbstractScreen {
-  private val REVEAL_DURATION: Float = 3f
-
-  private val BUTTON_WIDTH: Float = 300
-  private val BUTTON_HEIGHT: Float = 80
-  private val GRID_GAP: Float = 30
-
   private var quiz: Quiz = _
-  private val background: BitmapImage = new BitmapImage("data/images/quiz/bg.png")
+  private val background: BitmapImage = new BitmapImage(QUIZ.BACKGROUND_IMAGE)
   private var revealTimer: Float = 0f
   private var buttons: Array[CustomButton] = Array.empty
 
@@ -46,7 +40,7 @@ class QuizScreen extends AbstractScreen {
       case QuizPhase.ShowingAnswers => // nothing, the click on button does the job
       case QuizPhase.Revealing => {
         revealTimer += Gdx.graphics.getDeltaTime
-        if (revealTimer >= REVEAL_DURATION) {
+        if (revealTimer >= QUIZ.REVEAL_DURATION) {
           clearAnswerButtons()
           if (!quiz.doContinueQuestions()) GameStateMachine.handle(QuizCompleted)
         }
@@ -71,8 +65,8 @@ class QuizScreen extends AbstractScreen {
 
   private def buildAnswerButtons(): Unit = {
     val answers = quiz.currentQuestion.answers
-    val totalWidth = 2 * BUTTON_WIDTH + GRID_GAP
-    val totalHeight = 2 * BUTTON_HEIGHT + GRID_GAP
+    val totalWidth = 2 * QUIZ.BUTTON_WIDTH + QUIZ.GRID_GAP
+    val totalHeight = 2 * QUIZ.BUTTON_HEIGHT + QUIZ.GRID_GAP
     val startX = (Gdx.graphics.getWidth - totalWidth) / 2f
     val startY = (Gdx.graphics.getHeight - totalHeight) / 2f
 
@@ -83,10 +77,10 @@ class QuizScreen extends AbstractScreen {
       val row = i / 2
 
       val button = ButtonFactory.primary(answers(i))
-      button.setSize(BUTTON_WIDTH, BUTTON_HEIGHT)
+      button.setSize(QUIZ.BUTTON_WIDTH, QUIZ.BUTTON_HEIGHT)
       button.setPosition(
-        startX + col * (BUTTON_WIDTH + GRID_GAP),
-        startY + (1 - row) * (BUTTON_HEIGHT + GRID_GAP)
+        startX + col * (QUIZ.BUTTON_WIDTH + QUIZ.GRID_GAP),
+        startY + (1 - row) * (QUIZ.BUTTON_HEIGHT + QUIZ.GRID_GAP)
       )
       button.onClick(() => onAnswerClicked(i))
 
