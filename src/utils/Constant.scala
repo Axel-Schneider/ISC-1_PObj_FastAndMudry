@@ -57,6 +57,9 @@ object Constant {
   object KEYS {
     val ENABLING_DEBUG_KEY = Input.Keys.F12
   }
+  object QUIZ {
+    val COINS_PER_CORRECT_ANSWER: Int = 10
+  }
   object GAME {
     object CAR {
       object FACTOR {

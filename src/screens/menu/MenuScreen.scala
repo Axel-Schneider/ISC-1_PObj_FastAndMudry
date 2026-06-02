@@ -2,7 +2,7 @@ package ch.hevs.fastandmudry
 package screens.menu
 
 import core.quiz.QuizData
-import core.state.{GameStateMachine, StartGame}
+import core.state.{GameStateMachine, StartGame, Wallet}
 import screens.AbstractScreen
 import ui.components.ButtonFactory
 
@@ -19,6 +19,7 @@ class MenuScreen extends AbstractScreen {
   )
   btnPlay.onClick(() => {
     QuizData.reset()
+    Wallet.reset()
     GameStateMachine.handle(StartGame)
   })
 
