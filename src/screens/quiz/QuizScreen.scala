@@ -6,6 +6,7 @@ import core.state.{GameStateMachine, QuizCompleted}
 import screens.AbstractScreen
 import ui.components.{ButtonFactory, CustomButton}
 
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.{Gdx, Input}
@@ -18,6 +19,7 @@ class QuizScreen extends AbstractScreen {
   private val GRID_GAP: Float = 30
 
   private val quiz = new Quiz(QuizData.questions)
+  private val background: BitmapImage = new BitmapImage("data/images/quiz/bg.png")
   private var revealTimer: Float = 0f
   private var buttons: Array[CustomButton] = Array.empty
 
@@ -27,6 +29,7 @@ class QuizScreen extends AbstractScreen {
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
+    drawBackground(g)
     g.drawStringCentered(g.getScreenHeight * 0.15f, quiz.currentQuestion.text)
 
     quiz.getPhase match {
@@ -48,6 +51,19 @@ class QuizScreen extends AbstractScreen {
     }
 
     renderStage(g, Gdx.graphics.getDeltaTime)
+  }
+
+  private def drawBackground(g: GdxGraphics): Unit = {
+    val screenW = g.getScreenWidth.toFloat
+    val screenH = g.getScreenHeight.toFloat
+    val imgW = background.getImage.getWidth.toFloat
+    val imgH = background.getImage.getHeight.toFloat
+
+    val scale = math.min(screenW / imgW, screenH / imgH)
+    val drawW = imgW * scale
+    val drawH = imgH * scale
+
+    g.drawTransformedPicture(screenW / 2f, screenH / 2f, 0f, drawW / 2f, drawH / 2f, background)
   }
 
   private def buildAnswerButtons(): Unit = {
