@@ -1,7 +1,8 @@
 package ch.hevs.fastandmudry
 package screens.menu
 
-import core.state.{GameStateMachine, StartGame}
+import core.quiz.QuizData
+import core.state.{GameStateMachine, StartGame, Wallet}
 import screens.AbstractScreen
 import ui.components.ButtonFactory
 
@@ -16,7 +17,11 @@ class MenuScreen extends AbstractScreen {
     (Gdx.graphics.getWidth  - btnPlay.getWidth)  / 2,
     (Gdx.graphics.getHeight - btnPlay.getHeight) / 2
   )
-  btnPlay.onClick(() => GameStateMachine.handle(StartGame))
+  btnPlay.onClick(() => {
+    QuizData.reset()
+    Wallet.reset()
+    GameStateMachine.handle(StartGame)
+  })
 
   private val settingsDialog: SettingsDialog = DialogFactory.createSettingsDialog("Settings")
 

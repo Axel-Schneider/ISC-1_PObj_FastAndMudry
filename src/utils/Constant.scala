@@ -57,6 +57,14 @@ object Constant {
   object KEYS {
     val ENABLING_DEBUG_KEY = Input.Keys.F12
   }
+  object QUIZ {
+    val COINS_PER_CORRECT_ANSWER: Int = 10
+    val REVEAL_DURATION: Float = 3f
+    val BUTTON_WIDTH: Float = 300
+    val BUTTON_HEIGHT: Float = 80
+    val GRID_GAP: Float = 30
+    val BACKGROUND_IMAGE: String = "data/images/quiz/bg.png"
+  }
   object GAME {
     object CAR {
       object FACTOR {
