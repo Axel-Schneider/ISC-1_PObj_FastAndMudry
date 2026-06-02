@@ -65,6 +65,12 @@ object Constant {
     val GRID_GAP: Float = 30
     val BACKGROUND_IMAGE: String = "data/images/quiz/bg.png"
   }
+  object GARAGE {
+    val LIST_WIDTH: Float = 600
+    val LIST_PADDING: Float = 40
+    val ROW_GAP: Float = 15
+    val BACKGROUND_IMAGE: String = "data/images/garage/bg.png"
+  }
   object GAME {
     object CAR {
       object FACTOR {
