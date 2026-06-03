@@ -16,6 +16,7 @@ import com.badlogic.gdx.{Gdx, Input}
 class GarageScreen extends AbstractScreen {
   val BOTTOM_MESSAGE: String = "Réparez votre voiture"
   private val background: BitmapImage = new BitmapImage(GARAGE.BACKGROUND_IMAGE)
+  private val carImage: BitmapImage = new BitmapImage(GARAGE.CAR_IMAGE)
 
   override def onInit(): Unit = {
     Gdx.input.setInputProcessor(stage)
@@ -25,6 +26,7 @@ class GarageScreen extends AbstractScreen {
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
     drawBackground(g)
+    drawCar(g)
     g.drawStringCentered(g.getScreenHeight * 0.06f, BOTTOM_MESSAGE)
 
     if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -47,11 +49,20 @@ class GarageScreen extends AbstractScreen {
     g.drawTransformedPicture(screenW / 2f, screenH / 2f, 0f, drawW / 2f, drawH / 2f, background)
   }
 
+  private def drawCar(g: GdxGraphics): Unit = {
+    val screenW = g.getScreenWidth.toFloat
+    val screenH = g.getScreenHeight.toFloat
+    val imgW = carImage.getImage.getWidth.toFloat
+    val imgH = carImage.getImage.getHeight.toFloat
+
+    g.drawTransformedPicture((screenW+screenW/2) / 2f, (screenH-screenH/4) / 2f, 0f, imgW / 2f, imgH / 2f, carImage)
+  }
+
   private def buildList(): Unit = {
     val repairsList = new Table(UISkin.skin)
 
     for (item <- GarageData.items) {
-      val row = ListItemRow.create(item.imagePath, item.text, item.buttonText)
+      val row = ListItemRow.create(item.imagePath, item.text, s"${item.buttonText} - ${item.price}.-")
       row.onClick(() => onItemClicked(item.text))
       repairsList.add(row).growX().pad(GARAGE.ROW_GAP)
       repairsList.row() // line break
