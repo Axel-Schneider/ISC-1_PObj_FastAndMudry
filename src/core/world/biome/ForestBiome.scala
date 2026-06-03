@@ -20,11 +20,10 @@ class ForestBiome extends Biome {
   override def offRoadDecreasingFactorSpeed: Float = 0.5f
   override def updatePhysics(car: Car, isOffRoad: Boolean, elapsedTime: Float): Unit = {
     if(isOffRoad) {
-      if(Random.nextFloat()*elapsedTime < 0.01f*elapsedTime){
-        println("BOOM TIRE")
-        val r = Random.nextBoolean()
-        if(r) car.IsLeftTirePerforated = true else car.IsRightTirePerforated = true
-      }
+      car.FrontLeftTire.updateBroken(0.005f)
+      car.BackLeftTire.updateBroken(0.005f)
+      car.FrontRightTire.updateBroken(0.005f)
+      car.BackRightTire.updateBroken(0.005f)
     }
   }
 
