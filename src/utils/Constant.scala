@@ -72,6 +72,10 @@ object Constant {
     val BACKGROUND_IMAGE: String = "data/images/garage/bg.png"
     val CAR_IMAGE: String = "data/images/garage/car.png"
   }
+  object CINEMATIC {
+    val BACKGROUND_IMAGE: String = "data/images/cinematic/bg.png"
+    val CAR_IMAGE: String = "data/images/cinematic/car.png"
+  }
   object GAME {
     object CAR {
       object FACTOR {
