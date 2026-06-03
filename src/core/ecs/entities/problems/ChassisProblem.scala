@@ -4,9 +4,12 @@ import ch.hevs.fastandmudry.core.ecs.components.problems.{Problem, Reparable}
 import ch.hevs.fastandmudry.core.ecs.systems.Car
 
 class ChassisProblem extends Problem with Reparable {
-  var hasChanged = false
+  Title = "Chassis"
+  ReparationPrice = 500
+
+  private var hasChanged = false
   override def impactCar(elapsedTime: Float, car: Car): Unit = {
-    if(IsBroken && !hasChanged) {
+    if(IsDefected && !hasChanged) {
       car.MaxSpeed -= 10f
       hasChanged = true
     }

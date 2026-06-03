@@ -17,7 +17,7 @@ class SimpleTree extends AItem with CircleCollision {
 
   override def onCollision(obj: Car): Unit = {
     super.onCollision(obj)
-    obj.ChassisProblem.IsBroken = true
+    obj.ChassisProblem.IsDefected = true
     println("Car hit a tree")
   }
 }
