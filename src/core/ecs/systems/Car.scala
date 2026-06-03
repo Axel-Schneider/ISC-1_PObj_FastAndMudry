@@ -2,7 +2,7 @@ package ch.hevs.fastandmudry
 package core.ecs.systems
 
 import ch.hevs.fastandmudry.core.ecs.components.problems.{Critical, Problem}
-import ch.hevs.fastandmudry.core.ecs.entities.Item.problems.{Temperature, Tire}
+import ch.hevs.fastandmudry.core.ecs.entities.problems.{TemperatureProblem, TireProblem, TireSlippageProblem}
 import core.ecs.components._
 import com.badlogic.gdx.{Gdx, Input}
 import utils.Constant.GAME.CAR.FACTOR
@@ -15,18 +15,20 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
   MaxSpeed = FACTOR.MAX_SPEED
   var isBroken: Boolean = false
 
-  val FrontLeftTire = new Tire(Side.Left, Axle.Front)
-  val BackLeftTire = new Tire(Side.Left, Axle.Rear)
-  val FrontRightTire = new Tire(Side.Right, Axle.Front)
-  val BackRightTire = new Tire(Side.Right, Axle.Rear)
-  val TemperatureProblem = new Temperature(this)
+  val FrontLeftTire = new TireProblem(Side.Left, Axle.Front)
+  val BackLeftTire = new TireProblem(Side.Left, Axle.Rear)
+  val FrontRightTire = new TireProblem(Side.Right, Axle.Front)
+  val BackRightTire = new TireProblem(Side.Right, Axle.Rear)
+  val TemperatureProblem = new TemperatureProblem(this)
+  val TireSlippage = new TireSlippageProblem
 
   private val Problems = ArrayBuffer[Problem](
     FrontLeftTire,
     BackLeftTire,
     FrontRightTire,
     BackRightTire,
-    TemperatureProblem
+    TemperatureProblem,
+    TireSlippage
   )
 
   override def onGameLoop(elapsedTime: Float): Unit = {
@@ -75,7 +77,6 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
     Speed = 0f
     WheelAngle = 0f
     Temperature = 0f
-    Problems.foreach(_.reset())
     isBroken = false
   }
 

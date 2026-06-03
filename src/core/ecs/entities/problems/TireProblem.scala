@@ -1,4 +1,4 @@
-package ch.hevs.fastandmudry.core.ecs.entities.Item.problems
+package ch.hevs.fastandmudry.core.ecs.entities.problems
 
 import ch.hevs.fastandmudry.core.ecs.components
 import ch.hevs.fastandmudry.core.ecs.components.Axle.Axle
@@ -10,7 +10,7 @@ import ch.hevs.fastandmudry.utils.Constant.GAME.CAR.FACTOR
 
 import scala.util.Random
 
-class Tire(val Side: Side, val Axle: Axle) extends Problem with Reparable {
+class TireProblem(val Side: Side, val Axle: Axle) extends Problem with Reparable {
   Title = s"$Axle $Side tire"
   ReparationPrice = 50
 

@@ -34,13 +34,7 @@ class SnowBiome extends Biome {
   override def skyImage(): BitmapImage = sky
 
   override def updatePhysics(car: Car, isOffRoad: Boolean, elapsedTime: Float): Unit = {
-    if(isOffRoad) {
-      car.rightKey = Input.Keys.LEFT
-      car.leftKey = Input.Keys.RIGHT
-      car.TemperatureProblem.updateBroken(elapsedTime, -5f)
-    } else {
-      car.rightKey = Input.Keys.RIGHT
-      car.leftKey = Input.Keys.LEFT
-    }
+    if(isOffRoad) car.TemperatureProblem.updateBroken(elapsedTime, -5f)
+    car.TireSlippage.IsBroken = isOffRoad
   }
 }
