@@ -64,7 +64,7 @@ class Track(private val Car: Car) extends AGameLoop {
       return
     }
     val isOffRoad = geometry.isOffRoad(Car.Coordinates)
-    Car.MaxSpeed = if (!isOffRoad) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
+    Car.MaxSpeed = if (!isOffRoad || Car.IsGodModeEnable) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
     biome.updatePhysics(Car, isOffRoad, elapsedTime)
     if (Car.isBroken) {
       finished = true

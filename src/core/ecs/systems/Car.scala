@@ -1,47 +1,56 @@
 package ch.hevs.fastandmudry
 package core.ecs.systems
 
+import ch.hevs.fastandmudry.core.ecs.components.problems.{Critical, Problem}
+import ch.hevs.fastandmudry.core.ecs.entities.problems.{TemperatureProblem, TireProblem, TireSlippageProblem}
 import core.ecs.components._
-
 import com.badlogic.gdx.{Gdx, Input}
 import utils.Constant.GAME.CAR.FACTOR
 import ui.hud.DebugHUD
-
 import ch.hevs.fastandmudry.utils.Constant.GAME.CAR
 
-class Car extends AGameLoop with Orientable with Moveable with Steerable with Temperable with HasTires {
+import scala.collection.mutable.ArrayBuffer
+
+class Car extends AGameLoop with Orientable with Moveable with Steerable with Temperable with GodMode {
   MaxSpeed = FACTOR.MAX_SPEED
   var isBroken: Boolean = false
 
+  val FrontLeftTire = new TireProblem(Side.Left, Axle.Front)
+  val BackLeftTire = new TireProblem(Side.Left, Axle.Rear)
+  val FrontRightTire = new TireProblem(Side.Right, Axle.Front)
+  val BackRightTire = new TireProblem(Side.Right, Axle.Rear)
+  val TemperatureProblem = new TemperatureProblem(this)
+  val TireSlippage = new TireSlippageProblem
+
+  private val Problems = ArrayBuffer[Problem](
+    FrontLeftTire,
+    BackLeftTire,
+    FrontRightTire,
+    BackRightTire,
+    TemperatureProblem,
+    TireSlippage
+  )
+
   override def onGameLoop(elapsedTime: Float): Unit = {
-    var isTurning = false;
-    if(Gdx.input.isKeyPressed(Input.Keys.UP))
+    checkGodMode()
+    IsSteeringWheelReturnEnable = true;
+    if (Gdx.input.isKeyPressed(Input.Keys.UP))
       Speed += FACTOR.ACCELERATION * elapsedTime
     else
       Speed -= FACTOR.DECELERATION * elapsedTime
 
-    if(Gdx.input.isKeyPressed(leftKey)) {
+    if (Gdx.input.isKeyPressed(leftKey)) {
       WheelAngle -= FACTOR.WHEEL_ROTATION * elapsedTime
-      isTurning = true
+      IsSteeringWheelReturnEnable = false
     }
-    if(Gdx.input.isKeyPressed(rightKey)) {
+    if (Gdx.input.isKeyPressed(rightKey)) {
       WheelAngle += FACTOR.WHEEL_ROTATION * elapsedTime
-      isTurning = true
+      IsSteeringWheelReturnEnable = false
     }
 
-    if(IsRightTirePerforated && WheelAngle >= 0){
-      WheelAngle += FACTOR.WHEEL_ROTATION * elapsedTime * 0.1f
-      isTurning = true
-      MaxSpeed = MaxSpeed * 0.5f
-    }
+    if(!IsGodModeEnable) Problems.foreach(_.impactCar(elapsedTime, this))
 
-    if(IsLeftTirePerforated && WheelAngle <= 0){
-      WheelAngle -= FACTOR.WHEEL_ROTATION * elapsedTime * 0.1f
-      isTurning = true
-      MaxSpeed = MaxSpeed * 0.5f
-    }
-
-    if(!isTurning) {
+    if(IsSteeringWheelReturnEnable) {
       WheelAngle *= Math.pow(FACTOR.WHEEL_RETURN, elapsedTime.toDouble).toFloat
       if (Math.abs(WheelAngle) < 0.001f) WheelAngle = 0f
     }
@@ -57,14 +66,10 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
     Temperature += 0.5f * elapsedTime
     isBroken = checkCarState()
 
-
     DebugHUD.setLogVar("Car - Rotation", Rotation)
     DebugHUD.setLogVar("Car - WheelAngle", WheelAngle)
     DebugHUD.setLogVar("Car - Speed", Speed)
     DebugHUD.setLogVar("Car - Temperature", Temperature)
-    DebugHUD.setLogVar("Car - Left Tire Perforated", IsLeftTirePerforated)
-    DebugHUD.setLogVar("Car - Right Tire Perforated", IsRightTirePerforated)
-
   }
 
   def reset(): Unit = {
@@ -72,16 +77,10 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
     Speed = 0f
     WheelAngle = 0f
     Temperature = 0f
-    IsLeftTirePerforated = false
-    IsRightTirePerforated = false
     isBroken = false
   }
 
   def checkCarState(): Boolean = {
-    if(Temperature <= CAR.FACTOR.MIN_TEMPERATURE || Temperature >= CAR.FACTOR.MAX_TEMPERATURE) {
-      return true
-    }
-
-    false
+    Problems.filter(_.isInstanceOf[Critical]).exists(_.IsDefected)
   }
 }

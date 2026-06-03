@@ -9,7 +9,7 @@ import ch.hevs.gdx2d.lib.GdxGraphics
 class MainWindow extends PortableApplication(Window.WIDTH, Window.HEIGHT) {
   override def onInit(): Unit = {
     setTitle("Fast & Mudry")
-    CustomScreenManager.getInstance.activateScreen(CustomScreenManager.GARAGE)
+    CustomScreenManager.getInstance.activateScreen(CustomScreenManager.MENU)
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
