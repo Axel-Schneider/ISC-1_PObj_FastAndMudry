@@ -34,7 +34,7 @@ class DesertBiome extends Biome {
 
   override def updatePhysics(car: Car, isOffRoad: Boolean, elapsedTime: Float): Unit = {
     if(isOffRoad) {
-      car.Temperature += 4f * elapsedTime
+      car.TemperatureProblem.updateBroken(elapsedTime, 4f)
     } else {
 
     }

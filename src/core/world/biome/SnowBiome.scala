@@ -37,7 +37,7 @@ class SnowBiome extends Biome {
     if(isOffRoad) {
       car.rightKey = Input.Keys.LEFT
       car.leftKey = Input.Keys.RIGHT
-      car.Temperature -= 5f * elapsedTime
+      car.TemperatureProblem.updateBroken(elapsedTime, -5f)
     } else {
       car.rightKey = Input.Keys.RIGHT
       car.leftKey = Input.Keys.LEFT

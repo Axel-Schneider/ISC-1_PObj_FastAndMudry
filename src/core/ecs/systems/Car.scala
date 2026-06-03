@@ -1,7 +1,8 @@
 package ch.hevs.fastandmudry
 package core.ecs.systems
 
-import ch.hevs.fastandmudry.core.ecs.components.problems.{Problem, Tire}
+import ch.hevs.fastandmudry.core.ecs.components.problems.{Critical, Problem}
+import ch.hevs.fastandmudry.core.ecs.entities.Item.problems.{Temperature, Tire}
 import core.ecs.components._
 import com.badlogic.gdx.{Gdx, Input}
 import utils.Constant.GAME.CAR.FACTOR
@@ -18,12 +19,14 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
   val BackLeftTire = new Tire(Side.Left, Axle.Rear)
   val FrontRightTire = new Tire(Side.Right, Axle.Front)
   val BackRightTire = new Tire(Side.Right, Axle.Rear)
+  val TemperatureProblem = new Temperature(this)
 
   private val Problems = ArrayBuffer[Problem](
     FrontLeftTire,
     BackLeftTire,
     FrontRightTire,
-    BackRightTire
+    BackRightTire,
+    TemperatureProblem
   )
 
   override def onGameLoop(elapsedTime: Float): Unit = {
@@ -61,7 +64,6 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
     Temperature += 0.5f * elapsedTime
     isBroken = checkCarState()
 
-
     DebugHUD.setLogVar("Car - Rotation", Rotation)
     DebugHUD.setLogVar("Car - WheelAngle", WheelAngle)
     DebugHUD.setLogVar("Car - Speed", Speed)
@@ -78,9 +80,6 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
   }
 
   def checkCarState(): Boolean = {
-    if (Temperature <= CAR.FACTOR.MIN_TEMPERATURE || Temperature >= CAR.FACTOR.MAX_TEMPERATURE) {
-      return true
-    }
-    false
+    Problems.filter(_.isInstanceOf[Critical]).exists(_.IsBroken)
   }
 }
