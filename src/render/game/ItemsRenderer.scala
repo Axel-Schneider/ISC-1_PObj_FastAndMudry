@@ -2,13 +2,10 @@ package ch.hevs.fastandmudry
 package render.game
 
 import render.AbstractRenderer
-import ch.hevs.fastandmudry.core.ecs.entities.Item.AItem
-import ch.hevs.fastandmudry.core.world.World
-import ch.hevs.fastandmudry.utils.Constant.MapTexture
+import core.ecs.entities.Item.AItem
+import core.world.World
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.math.Vector2
-
-import java.nio.file.{Files, Paths}
 
 object ItemsRenderer extends AbstractRenderer{
   case class ProjectionResult(screenX: Float, screenY: Float, scale: Float, distance: Float)
@@ -44,12 +41,9 @@ object ItemsRenderer extends AbstractRenderer{
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
-    val mapOriginX = World.INSTANCE.TRACK.Geometry.trackSize.x - MapTexture.MAP_PADDING
-    val mapOriginY = World.INSTANCE.TRACK.Geometry.trackSize.y - MapTexture.MAP_PADDING
-
     World.INSTANCE.TRACK.getMapItems.flatMap((i) => {
-        val coord = i.Coordinates.cpy().add(mapOriginX, mapOriginY)
-        projectToScreen(coord, g.getScreenWidth.toFloat, g.getScreenHeight.toFloat).map(p => RenderItem(i, p))
+      val coord = i.Coordinates.cpy()
+      projectToScreen(coord, g.getScreenWidth.toFloat, g.getScreenHeight.toFloat).map(p => RenderItem(i, p))
     }).sortBy(_.proj.distance)(Ordering[Float].reverse).foreach(r => {
       val (mw, mh) = r.item.getMaxSize
       val rw = mw * r.proj.scale
