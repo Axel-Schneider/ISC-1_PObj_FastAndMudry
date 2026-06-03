@@ -15,9 +15,9 @@ class TireProblem(val Side: Side, val Axle: Axle) extends Problem with Reparable
   ReparationPrice = 50
 
   override def impactCar(elapsedTime: Float, car: Car): Unit = {
-    DebugHUD.setLogVar(s"Tire - ${Axle} ${Side} Perforated", IsBroken)
+    DebugHUD.setLogVar(s"Tire - ${Axle} ${Side} Perforated", IsDefected)
 
-    if(IsBroken) {
+    if(IsDefected) {
       if(Axle == components.Axle.Front) {
         if((Side == components.Side.Right && car.WheelAngle >= 0) || (Side == components.Side.Left && car.WheelAngle <= 0)){
           car.WheelAngle += (if(Side == components.Side.Right) 1 else -1) * FACTOR.WHEEL_ROTATION * elapsedTime * 0.1f
@@ -30,6 +30,6 @@ class TireProblem(val Side: Side, val Axle: Axle) extends Problem with Reparable
   }
 
   def updateBroken(prob: Float): Unit = {
-    if(Random.nextFloat() < prob) IsBroken = true
+    if(Random.nextFloat() < prob) IsDefected = true
   }
 }

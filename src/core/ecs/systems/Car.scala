@@ -81,6 +81,6 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
   }
 
   def checkCarState(): Boolean = {
-    Problems.filter(_.isInstanceOf[Critical]).exists(_.IsBroken)
+    Problems.filter(_.isInstanceOf[Critical]).exists(_.IsDefected)
   }
 }

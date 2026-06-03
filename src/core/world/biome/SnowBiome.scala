@@ -35,6 +35,6 @@ class SnowBiome extends Biome {
 
   override def updatePhysics(car: Car, isOffRoad: Boolean, elapsedTime: Float): Unit = {
     if(isOffRoad) car.TemperatureProblem.updateBroken(elapsedTime, -5f)
-    car.TireSlippage.IsBroken = isOffRoad
+    car.TireSlippage.IsDefected = isOffRoad
   }
 }

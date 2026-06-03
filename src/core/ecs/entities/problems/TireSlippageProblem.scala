@@ -7,7 +7,7 @@ import com.badlogic.gdx.Input
 class TireSlippageProblem extends Problem {
 
   override def impactCar(elapsedTime: Float, car: Car): Unit = {
-    if(IsBroken) {
+    if(IsDefected) {
       car.rightKey = Input.Keys.LEFT
       car.leftKey = Input.Keys.RIGHT
     } else {

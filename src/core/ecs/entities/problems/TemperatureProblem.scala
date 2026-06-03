@@ -11,6 +11,6 @@ class TemperatureProblem(val Car: Car) extends Problem with Critical {
   def updateBroken(elapsedTime: Float, factor: Float): Unit = {
     Car.Temperature += factor * elapsedTime
 
-    if(Car.Temperature <= CAR.FACTOR.MIN_TEMPERATURE || Car.Temperature >= CAR.FACTOR.MAX_TEMPERATURE) IsBroken = true
+    if(Car.Temperature <= CAR.FACTOR.MIN_TEMPERATURE || Car.Temperature >= CAR.FACTOR.MAX_TEMPERATURE) IsDefected = true
   }
 }
