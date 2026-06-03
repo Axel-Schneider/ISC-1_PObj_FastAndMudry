@@ -66,6 +66,9 @@ class Track(private val Car: Car) extends AGameLoop {
     val isOffRoad = geometry.isOffRoad(Car.Coordinates)
     Car.MaxSpeed = if (!isOffRoad || Car.IsGodModeEnable) FACTOR.MAX_SPEED else FACTOR.MAX_SPEED * biome.offRoadDecreasingFactorSpeed
     biome.updatePhysics(Car, isOffRoad, elapsedTime)
+
+    mapItems.foreach(i => i.checkStats())
+
     if (Car.isBroken) {
       finished = true
       GameStateMachine.handle(CarBroke)
@@ -77,16 +80,12 @@ class Track(private val Car: Car) extends AGameLoop {
   def generateMapItems(): Unit = {
     val random = new Random()
 
-    // Récupération des limites de la carte basées sur ton architecture
     val trackWidth = Geometry.trackSize.getWidth + MapTexture.MAP_PADDING * 2
     val trackHeight = Geometry.trackSize.getHeight + MapTexture.MAP_PADDING * 2
 
-    // List.fill exécute le bloc de code 50 fois et retourne une List immuable
-    mapItems = List.fill(500) {
+    mapItems = List.fill(1) {
+      val tree = if(random.nextInt(2) % 1 == 0) new SimpleTree() else new SimpleRock()
 
-      val tree = if(random.nextInt(2) % 2 == 0) new SimpleTree() else new SimpleRock()
-
-      // nextFloat() génère une valeur entre 0.0f et 1.0f
       tree.Coordinates.x = random.nextFloat() * trackWidth
       tree.Coordinates.y = random.nextFloat() * trackHeight
 
