@@ -4,6 +4,18 @@ package core.ecs.components
 trait Moveable extends Locatable with Orientable {
   private var _speed = 0f
   private var _maxSpeed = 1f
+  private var _canGoForward: Boolean = true
+  private var _canGoBackward: Boolean = true
+
+  def CanGoForward: Boolean = _canGoForward
+  def CanGoForward_=(value: Boolean): Unit = {
+    _canGoForward = value
+  }
+
+  def CanGoBackward: Boolean = _canGoBackward
+  def CanGoBackward_=(value: Boolean): Unit = {
+    _canGoBackward = value
+  }
 
   def Speed: Float = _speed
   def MaxSpeed: Float = _maxSpeed
