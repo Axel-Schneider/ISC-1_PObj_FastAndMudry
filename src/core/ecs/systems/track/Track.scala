@@ -83,11 +83,14 @@ class Track(private val Car: Car) extends AGameLoop {
     val trackWidth = Geometry.trackSize.getWidth + MapTexture.MAP_PADDING * 2
     val trackHeight = Geometry.trackSize.getHeight + MapTexture.MAP_PADDING * 2
 
-    mapItems = List.fill(1) {
+    val originX = Geometry.trackSize.x - MapTexture.MAP_PADDING
+    val originY = Geometry.trackSize.y - MapTexture.MAP_PADDING
+
+    mapItems = List.fill(500) {
       val tree = if(random.nextInt(2) % 1 == 0) new SimpleTree() else new SimpleRock()
 
-      tree.Coordinates.x = random.nextFloat() * trackWidth
-      tree.Coordinates.y = random.nextFloat() * trackHeight
+      tree.Coordinates.x = random.nextFloat() * trackWidth + originX
+      tree.Coordinates.y = random.nextFloat() * trackHeight + originY
 
       tree
     }
