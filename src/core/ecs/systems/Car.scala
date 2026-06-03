@@ -10,7 +10,7 @@ import ch.hevs.fastandmudry.utils.Constant.GAME.CAR
 
 import scala.collection.mutable.ArrayBuffer
 
-class Car extends AGameLoop with Orientable with Moveable with Steerable with Temperable with HasTires {
+class Car extends AGameLoop with Orientable with Moveable with Steerable with Temperable with GodMode {
   MaxSpeed = FACTOR.MAX_SPEED
   var isBroken: Boolean = false
 
@@ -27,6 +27,7 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
   )
 
   override def onGameLoop(elapsedTime: Float): Unit = {
+    checkGodMode()
     IsSteeringWheelReturnEnable = true;
     if (Gdx.input.isKeyPressed(Input.Keys.UP))
       Speed += FACTOR.ACCELERATION * elapsedTime
@@ -42,9 +43,9 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
       IsSteeringWheelReturnEnable = false
     }
 
-    Problems.foreach(_.impactCar(elapsedTime, this))
+    if(!IsGodModeEnable) Problems.foreach(_.impactCar(elapsedTime, this))
 
-    if(!isTurning) {
+    if(IsSteeringWheelReturnEnable) {
       WheelAngle *= Math.pow(FACTOR.WHEEL_RETURN, elapsedTime.toDouble).toFloat
       if (Math.abs(WheelAngle) < 0.001f) WheelAngle = 0f
     }
