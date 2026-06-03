@@ -12,8 +12,8 @@ import com.badlogic.gdx.Gdx
 class CinematicScreen extends AbstractScreen {
   private var timeElapsed: Float = 0f
   private val DURATION: Float = 5f
-  private val background: BitmapImage = new BitmapImage(CINEMATIC.BACKGROUND_IMAGE)
   private val carImage: BitmapImage = new BitmapImage(CINEMATIC.CAR_IMAGE)
+  private val finalBackground: BitmapImage = new BitmapImage(CINEMATIC.FINAL_BACKGROUND_IMAGE)
 
   override def onInit(): Unit = {
     timeElapsed = 0f
@@ -22,20 +22,28 @@ class CinematicScreen extends AbstractScreen {
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
     timeElapsed += Gdx.graphics.getDeltaTime
-    drawBackground(g)
-    drawCar(g, 0f, 0f, g.getScreenWidth.toFloat / 2, carImage.getImage.getHeight.toFloat)
 
-    if (timeElapsed >= DURATION) {
-      GameStateMachine.getGameState match {
-        case GameState.StartDayCinematic(_) => GameStateMachine.handle(StartDayCinematicEnded)
-        case GameState.EndDayCinematic(_) => GameStateMachine.handle(EndDayCinematicEnded)
-        case GameState.FinalCinematic => GameStateMachine.handle(FinalCinematicEnded)
-        case _ => // nothing
-      }
+    GameStateMachine.getGameState match {
+      case GameState.StartDayCinematic(day) =>
+        drawBackground(g, day.startDayCinematicBackground)
+        drawCar(g, g.getScreenWidth.toFloat / 2, carImage.getImage.getHeight.toFloat, 0f, 0f)
+        if (timeElapsed >= DURATION) GameStateMachine.handle(StartDayCinematicEnded)
+
+      case GameState.EndDayCinematic(day) =>
+        drawBackground(g, day.endDayCinematicBackground)
+        drawCar(g, 0f, 0f, g.getScreenWidth.toFloat / 2, carImage.getImage.getHeight.toFloat)
+        if (timeElapsed >= DURATION) GameStateMachine.handle(EndDayCinematicEnded)
+
+      case GameState.FinalCinematic =>
+        drawBackground(g, finalBackground)
+        drawCar(g, 0f, 0f, g.getScreenWidth.toFloat / 2, carImage.getImage.getHeight.toFloat)
+        if (timeElapsed >= DURATION) GameStateMachine.handle(FinalCinematicEnded)
+
+      case _ =>
     }
   }
 
-  private def drawBackground(g: GdxGraphics): Unit = {
+  private def drawBackground(g: GdxGraphics, background: BitmapImage): Unit = {
     val screenW = g.getScreenWidth.toFloat
     val screenH = g.getScreenHeight.toFloat
     val imgW = background.getImage.getWidth.toFloat
