@@ -1,15 +1,19 @@
-package ch.hevs.fastandmudry.core.ecs.components.problems
+package ch.hevs.fastandmudry.core.ecs.entities.Item.problems
 
 import ch.hevs.fastandmudry.core.ecs.components
 import ch.hevs.fastandmudry.core.ecs.components.Axle.Axle
 import ch.hevs.fastandmudry.core.ecs.components.Side.Side
+import ch.hevs.fastandmudry.core.ecs.components.problems.{Problem, Reparable}
 import ch.hevs.fastandmudry.core.ecs.systems.Car
 import ch.hevs.fastandmudry.ui.hud.DebugHUD
 import ch.hevs.fastandmudry.utils.Constant.GAME.CAR.FACTOR
 
 import scala.util.Random
 
-class Tire(val Side: Side, val Axle: Axle) extends Problem {
+class Tire(val Side: Side, val Axle: Axle) extends Problem with Reparable {
+  Title = s"$Axle $Side tire"
+  ReparationPrice = 50
+
   override def impactCar(elapsedTime: Float, car: Car): Unit = {
     DebugHUD.setLogVar(s"Tire - ${Axle} ${Side} Perforated", IsBroken)
 
