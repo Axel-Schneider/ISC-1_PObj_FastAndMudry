@@ -48,8 +48,10 @@ object ItemsRenderer extends AbstractRenderer{
     val mapOriginY = World.INSTANCE.TRACK.Geometry.trackSize.y - MapTexture.MAP_PADDING
 
     World.INSTANCE.TRACK.getMapItems.flatMap((i) => {
-        val coord = i.Coordinates.cpy().add(mapOriginX, mapOriginY)
-        projectToScreen(coord, g.getScreenWidth.toFloat, g.getScreenHeight.toFloat).map(p => RenderItem(i, p))
+      val worldX = i.Coordinates.x + mapOriginX
+      val worldY = i.Coordinates.y + mapOriginY
+      val coord = new Vector2(worldX, worldY)
+      projectToScreen(coord, g.getScreenWidth.toFloat, g.getScreenHeight.toFloat).map(p => RenderItem(i, p))
     }).sortBy(_.proj.distance)(Ordering[Float].reverse).foreach(r => {
       val (mw, mh) = r.item.getMaxSize
       val rw = mw * r.proj.scale
