@@ -71,6 +71,19 @@ object Constant {
     val ROW_GAP: Float = 15
     val BACKGROUND_IMAGE: String = "data/images/garage/bg.png"
   }
+  object CAR_SELECTOR {
+    val BACKGROUND_IMAGE: String = "data/images/car_selector_bg.png"
+    val BUTTON_WIDTH: Float = 120
+    val BUTTON_HEIGHT: Float = 120
+    val SIDE_PADDING: Float = 80
+    val TOP_BOTTOM_PADDING: Float = 60
+    val SELECT_BUTTON_WIDTH: Float = 300
+    val SELECT_BUTTON_HEIGHT: Float = 80
+    val EXIT_BUTTON_WIDTH: Float = 200
+    val EXIT_BUTTON_HEIGHT: Float = 80
+    val CAR_VERTICAL_OFFSET: Float = 150
+    val FONT_SIZE: Float = 3f
+  }
   object CINEMATIC {
     val FINAL_BACKGROUND_IMAGE: String = "data/images/cinematic/final/bg.png"
   }
