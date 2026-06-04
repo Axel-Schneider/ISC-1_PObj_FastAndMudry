@@ -2,13 +2,13 @@ package ch.hevs.fastandmudry
 package screens.menu
 
 import core.quiz.QuizData
-import core.state.{GameStateMachine, OpenCarSelector, StartGame, Wallet}
+import core.state.{GameStateMachine, OpenCarDebug, OpenCarSelector, StartGame, Wallet}
 import screens.AbstractScreen
 import ui.components.ButtonFactory
 import ui.dialogs.{DialogFactory, SettingsDialog}
 
 import ch.hevs.gdx2d.lib.GdxGraphics
-import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.{Gdx, Input}
 
 class MenuScreen extends AbstractScreen {
   private val btnPlay = ButtonFactory.primary("Play")
@@ -51,6 +51,11 @@ class MenuScreen extends AbstractScreen {
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
     g.drawStringCentered(g.getScreenHeight - 50, "BIENVENUE SUR FAST & MUDRY !")
+
+    if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
+      GameStateMachine.handle(OpenCarDebug)
+    }
+
     renderStage(g, Gdx.graphics.getDeltaTime)
   }
 }

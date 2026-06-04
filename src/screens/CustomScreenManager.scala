@@ -10,6 +10,7 @@ import screens.menu.MenuScreen
 import screens.quiz.QuizScreen
 
 import ch.hevs.fastandmudry.screens.carSelector.CarSelectorScreen
+import ch.hevs.fastandmudry.screens.debug.CarDebugScreen
 import ch.hevs.gdx2d.lib.ScreenManager
 
 object CustomScreenManager {
@@ -22,6 +23,7 @@ object CustomScreenManager {
   val DEATH = 5
   val GARAGE = 6
   val CAR_SELECTOR = 7
+  val CAR_DEBUG = 8
 
   def getInstance: ScreenManager = s
 
@@ -34,4 +36,5 @@ object CustomScreenManager {
   s.registerScreen(classOf[DeathScreen])
   s.registerScreen(classOf[GarageScreen])
   s.registerScreen(classOf[CarSelectorScreen])
+  s.registerScreen(classOf[CarDebugScreen])
 }

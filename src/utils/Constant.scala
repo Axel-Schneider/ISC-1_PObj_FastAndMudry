@@ -105,6 +105,7 @@ object Constant {
   object RENDERING {
     object CAR {
       val WHEEL_MAX_ROTATION = 180
+      val WHEEL_SCALE = 1.75f
     }
   }
 }
