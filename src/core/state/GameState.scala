@@ -96,6 +96,7 @@ object GameState {
     def next(event: GameEvent): GameState = {
       event match {
         case BackToMenu => Menu
+        case CarSkinSelected(_) => Menu
         case _ => this
       }
     }

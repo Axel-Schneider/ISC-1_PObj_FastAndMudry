@@ -6,11 +6,12 @@ import utils.Constant.{Hud, RENDERING}
 import utils.Constant.GAME.CAR.FACTOR
 import core.ecs.systems.Car
 
+import ch.hevs.fastandmudry.core.world.World
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 
 object CarHUD {
-  val STEERING_WHEEL_IMAGE = new BitmapImage("data/images/SteeringWheel.png")
+  val STEERING_WHEEL_IMAGE = new BitmapImage(World.INSTANCE.selectedSkin.steeringWheelImagePath)
 
   def draw(g: GdxGraphics, car: Car): Unit = {
     val carPosScreen = g.getScreenWidth / 2f
