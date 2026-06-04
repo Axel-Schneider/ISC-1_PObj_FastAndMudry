@@ -40,10 +40,18 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
   override def onGameLoop(elapsedTime: Float): Unit = {
     checkGodMode()
     IsSteeringWheelReturnEnable = true;
-    if (Gdx.input.isKeyPressed(Input.Keys.UP))
-      Speed += FACTOR.ACCELERATION * elapsedTime
-    else
-      Speed -= FACTOR.DECELERATION * elapsedTime
+    if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+      Speed += FACTOR.ACCELERATION * elapsedTime * (if(IsGoingBackward) 4f else 1f)
+      if(Speed >= 0) IsGoingBackward = false
+    }
+    else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+      IsGoingBackward = true
+      Speed -= FACTOR.ACCELERATION * elapsedTime * (if(Speed > 0) 4f else 1f)
+    }
+    else {
+      Speed -= (if(IsGoingBackward) -1 else 1) * FACTOR.DECELERATION * elapsedTime
+      if(Speed >= 0) IsGoingBackward = false
+    }
 
     if (Gdx.input.isKeyPressed(leftKey)) {
       WheelAngle -= FACTOR.WHEEL_ROTATION * elapsedTime
@@ -64,7 +72,7 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
     if(WheelAngle > FACTOR.WHEEL_MAX_ANGLE) WheelAngle = FACTOR.WHEEL_MAX_ANGLE
     if(WheelAngle < -FACTOR.WHEEL_MAX_ANGLE) WheelAngle = -FACTOR.WHEEL_MAX_ANGLE
 
-    if(Speed > 0.01f) {
+    if (Math.abs(Speed) > 0.01f) {
       Rotation += Speed * WheelAngle * elapsedTime
       Rotation %= (Math.PI * 2).toFloat
     }
