@@ -5,7 +5,8 @@ import ch.hevs.fastandmudry.core.ecs.systems.Car
 
 class ChassisProblem extends Problem with Reparable {
   Title = "Chassis"
-  ReparationPrice = 500
+  ReparationPrice = 100
+  IconPath = "data/images/problems/chassis.png"
 
   private var hasChanged = false
   override def impactCar(elapsedTime: Float, car: Car): Unit = {

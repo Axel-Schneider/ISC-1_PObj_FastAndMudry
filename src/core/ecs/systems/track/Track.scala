@@ -8,8 +8,7 @@ import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
 import core.ecs.entities.Item.{AItem, SimpleRock, SimpleTree}
 import utils.Constant.MapTexture
 import core.state.{CarBroke, FinishLineCrossed, GameStateMachine}
-
-import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.graphics.{Pixmap, PixmapIO}
 import com.badlogic.gdx.graphics.Texture.TextureFilter
 import com.badlogic.gdx.graphics.Texture
@@ -74,6 +73,9 @@ class Track(private val Car: Car) extends AGameLoop {
       GameStateMachine.handle(CarBroke)
       return
     }
+
+    if(Gdx.input.isKeyJustPressed(Input.Keys.F7))
+      GameStateMachine.handle(FinishLineCrossed)
   }
 
   private var mapItems = List[AItem]()
