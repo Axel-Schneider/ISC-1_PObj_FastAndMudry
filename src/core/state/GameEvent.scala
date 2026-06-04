@@ -13,3 +13,4 @@ case object StartDayCinematicEnded extends GameEvent
 case object FinalCinematicEnded extends GameEvent
 case object CarBroke extends GameEvent
 case object BackToMenu extends GameEvent
+case object OpenCarSelector extends GameEvent

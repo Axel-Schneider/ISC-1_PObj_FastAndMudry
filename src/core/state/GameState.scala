@@ -11,6 +11,7 @@ object GameState {
     def next(event: GameEvent): GameState = {
       event match {
         case StartGame => Loading(Day1)
+        case OpenCarSelector => CarSelector
         // by default, does nothing, stay in Menu
         case _ => this
       }
@@ -86,6 +87,15 @@ object GameState {
     def next(event: GameEvent): GameState = {
       event match {
         case GarageReady => StartDayCinematic(day.next.get)
+        case _ => this
+      }
+    }
+  }
+
+  case object CarSelector extends GameState {
+    def next(event: GameEvent): GameState = {
+      event match {
+        case BackToMenu => Menu
         case _ => this
       }
     }

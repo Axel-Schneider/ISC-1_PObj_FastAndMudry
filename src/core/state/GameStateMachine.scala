@@ -31,6 +31,7 @@ object GameStateMachine {
       case GameState.Garage(_) => csm.activateScreen(CustomScreenManager.GARAGE)
       case GameState.FinalCinematic => csm.activateScreen(CustomScreenManager.CINEMATIC)
       case GameState.Dead => csm.activateScreen(CustomScreenManager.DEATH)
+      case GameState.CarSelector => csm.activateScreen(CustomScreenManager.CAR_SELECTOR)
     }
   }
 }
