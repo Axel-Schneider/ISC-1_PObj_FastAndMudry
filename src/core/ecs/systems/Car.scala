@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package core.ecs.systems
 
-import ch.hevs.fastandmudry.core.ecs.components.problems.{Critical, Problem}
+import ch.hevs.fastandmudry.core.ecs.components.problems.{Critical, Problem, Reparable}
 import ch.hevs.fastandmudry.core.ecs.entities.problems.{ChassisProblem, TemperatureProblem, TireProblem, TireSlippageProblem}
 import core.ecs.components._
 import com.badlogic.gdx.{Gdx, Input}
@@ -32,6 +32,10 @@ class Car extends AGameLoop with Orientable with Moveable with Steerable with Te
     TireSlippage,
     ChassisProblem
   )
+
+  def getReparableProblems: ArrayBuffer[Reparable] = Problems.collect[Reparable] {
+    case r: Reparable => r
+  }
 
   override def onGameLoop(elapsedTime: Float): Unit = {
     checkGodMode()
