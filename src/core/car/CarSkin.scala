@@ -1,14 +1,20 @@
 package ch.hevs.fastandmudry
 package core.car
 
+import com.badlogic.gdx.graphics.Color
+
 import scala.collection.mutable.ArrayBuffer
 
 final case class WheelPosition(x: Float, y: Float)
 
+final case class SpeedometerConfig(x: Float, y: Float, radius: Float,
+                                   backgroundColor: Color, ticksColor: Color, needleColor: Color)
+
 final case class CarSkin(pilotName: String, carName: String,
                          threeQuarterImagePath: String, sideImagePath: String, openHoodImagePath: String,
                          interiorImagePath: String, steeringWheelImagePath: String,
-                         wheelPosition: WheelPosition)
+                         wheelPosition: WheelPosition,
+                         speedometer: SpeedometerConfig)
 
 object CarSkins {
   private val prefix = "data/images/skins/"
@@ -23,11 +29,13 @@ object CarSkins {
       prefix + "e36" + threeQuarterImagePathSuffix, prefix + "e36" + sideImagePathSuffix, prefix + "e36" + openHoodImagePathSuffix,
       prefix + "e36" + interiorImagePathSuffix, prefix + "e36" + steeringWheelImagePathSuffix,
       WheelPosition(0.35f, 0.10f),
+      SpeedometerConfig(0.295f, 0.22f, 100f, Color.BLACK, Color.WHITE, Color.RED),
     ),
     CarSkin("Mudry", "Renault Zoe",
       prefix + "zoe" + threeQuarterImagePathSuffix, prefix + "zoe" + sideImagePathSuffix, prefix + "zoe" + openHoodImagePathSuffix,
       prefix + "zoe" + interiorImagePathSuffix, prefix + "zoe" + steeringWheelImagePathSuffix,
       WheelPosition(0.50f, 0.1f),
+      SpeedometerConfig(0.4f, 0.15f, 100f, Color.BLACK, Color.WHITE, Color.CYAN),
     ),
   )
 

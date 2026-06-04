@@ -20,7 +20,7 @@ object CarHUD {
     drawSteeringWheel(g, car)
   }
 
-  private def drawInterior(g: GdxGraphics): Unit = {
+  def drawInterior(g: GdxGraphics): Unit = {
     val screenW = g.getScreenWidth.toFloat
     val screenH = g.getScreenHeight.toFloat
     val imgW = INTERIOR_IMAGE.getImage.getWidth.toFloat
@@ -30,7 +30,7 @@ object CarHUD {
     g.drawTransformedPicture(screenW / 2f, screenH / 2f, 0f, scale, INTERIOR_IMAGE)
   }
 
-  private def drawSteeringWheel(g: GdxGraphics, car: Car): Unit = {
+  def drawSteeringWheel(g: GdxGraphics, car: Car): Unit = {
     val wheelRatio = car.WheelAngle / FACTOR.WHEEL_MAX_ANGLE
     val posX = g.getScreenWidth * skin.wheelPosition.x
     val posY = g.getScreenHeight * skin.wheelPosition.y

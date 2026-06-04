@@ -11,8 +11,9 @@ class HudRenderer extends AbstractRenderer {
   val Car = World.INSTANCE.CAR
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
+    CarHUD.drawInterior(g)
     SpeedometerHUD.draw(g, Car)
+    CarHUD.drawSteeringWheel(g, Car)
     DebugHUD.draw()
-    CarHUD.draw(g, Car)
   }
 }
