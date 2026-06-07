@@ -2,8 +2,7 @@ package ch.hevs.fastandmudry
 package ui.components
 
 import ui.UISkin
-
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.{Color, Texture}
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.{Image, Skin, Table, TextButton}
@@ -13,7 +12,7 @@ class ListItemRow(imagePath: String, text: String, buttonText: String, skin: Ski
 
   private val texture = new Texture(com.badlogic.gdx.Gdx.files.internal(imagePath))
   private val image = new Image(new TextureRegionDrawable(new TextureRegion(texture)))
-  private val button = new TextButton(buttonText, skin)
+  private val button = new CustomButton(buttonText, skin)
 
   add(image).size(ListItemRow.IMAGE_SIZE).pad(ListItemRow.PADDING)
   add(text, "default").expandX().left().pad(ListItemRow.PADDING)
@@ -21,8 +20,16 @@ class ListItemRow(imagePath: String, text: String, buttonText: String, skin: Ski
 
   def onClick(action: () => Unit): Unit = {
     button.addListener(new ClickListener {
-      override def clicked(event: InputEvent, x: Float, y: Float): Unit = action()
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        if(!button.isDisabled) action()
+      }
     })
+  }
+
+  def setDisabled(value: Boolean): Unit = {
+    println(s"$text - diable : $value")
+    button.setDisabled(value)
+    button.setColor(if (value) Color.DARK_GRAY else Color.LIGHT_GRAY)
   }
 }
 

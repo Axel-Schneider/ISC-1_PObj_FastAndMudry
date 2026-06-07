@@ -1,12 +1,12 @@
 package ch.hevs.fastandmudry
 package screens.quiz
 
+import ch.hevs.fastandmudry.ui.hud.WalletHUD
 import core.quiz.{Quiz, QuizData, QuizPhase}
 import core.state.{GameStateMachine, QuizCompleted, Wallet}
 import screens.AbstractScreen
 import ui.components.{ButtonFactory, CustomButton}
 import utils.Constant.QUIZ
-
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Color
@@ -46,7 +46,7 @@ class QuizScreen extends AbstractScreen {
         }
       }
     }
-
+    WalletHUD.draw(g)
     renderStage(g, Gdx.graphics.getDeltaTime)
   }
 

@@ -49,7 +49,7 @@ object Constant {
     val ENABLING_DEBUG_KEY = Input.Keys.F12
   }
   object QUIZ {
-    val COINS_PER_CORRECT_ANSWER: Int = 10
+    val COINS_PER_CORRECT_ANSWER: Int = 100
     val REVEAL_DURATION: Float = 3f
     val BUTTON_WIDTH: Float = 300
     val BUTTON_HEIGHT: Float = 80

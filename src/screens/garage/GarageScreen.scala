@@ -1,7 +1,9 @@
 package ch.hevs.fastandmudry
 package screens.garage
 
-import core.garage.GarageData
+import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.core.state.Wallet
+import ch.hevs.fastandmudry.ui.hud.WalletHUD
 import core.state.{GameStateMachine, GarageReady}
 import screens.AbstractScreen
 import ui.components.ListItemRow
@@ -35,6 +37,7 @@ class GarageScreen extends AbstractScreen {
     }
 
     renderStage(g, Gdx.graphics.getDeltaTime)
+    WalletHUD.draw(g)
   }
 
   private def drawBackground(g: GdxGraphics): Unit = {
@@ -62,12 +65,19 @@ class GarageScreen extends AbstractScreen {
   private def buildList(): Unit = {
     val repairsList = new Table(UISkin.skin)
 
-    for (item <- GarageData.items) {
-      val row = ListItemRow.create(item.imagePath, item.text, s"${item.buttonText} - ${item.price}.-")
-      row.onClick(() => onItemClicked(item.text))
+    World.INSTANCE.CAR.getReparableProblems.foreach(item => {
+      val row = ListItemRow.create(item.IconPath, item.Title , s"${item.ButtonText} - ${item.ReparationPrice}.-")
+      row.onClick(() => {
+        if(item.ReparationPrice <= Wallet.coins) {
+          item.IsDefected = false
+          Wallet.spend(item.ReparationPrice)
+          row.setDisabled(!item.IsDefected)
+        }
+      })
+      row.setDisabled(!item.IsDefected)
       repairsList.add(row).growX().pad(GARAGE.ROW_GAP)
       repairsList.row() // line break
-    }
+    })
 
     val scrollPane = new ScrollPane(repairsList, UISkin.skin)
     scrollPane.setFadeScrollBars(false)

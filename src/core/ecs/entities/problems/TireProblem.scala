@@ -12,7 +12,8 @@ import scala.util.Random
 
 class TireProblem(val Side: Side, val Axle: Axle) extends Problem with Reparable {
   Title = s"$Axle $Side tire"
-  ReparationPrice = 50
+  ReparationPrice = 25
+  IconPath = "data/images/problems/wheel.png"
 
   override def impactCar(elapsedTime: Float, car: Car): Unit = {
     DebugHUD.setLogVar(s"Tire - ${Axle} ${Side} Perforated", IsDefected)
