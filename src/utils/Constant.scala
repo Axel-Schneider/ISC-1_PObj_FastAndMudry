@@ -104,6 +104,22 @@ object Constant {
       val DESERT = "data/sounds/music/free-bird.mp3"
       val SNOW = "data/sounds/music/drive.mp3"
     }
+    object SFX {
+      val ENGINE_VOLUME: Float = 0.5f
+      val ENGINE = "data/sounds/sfx/car-engine.mp3"
+      val ENGINE_LOW_PITCH: Float = 0.6f
+      val ENGINE_TOP_PITCH: Float = 2.0f
+
+      val BACKFIRE = "data/sounds/sfx/pop.mp3"
+      val BACKFIRE_VOLUME: Float = 0.6f
+      val BACKFIRE_SPEED_RATIO: Float = 0.7f
+      val BACKFIRE_MIN_POPS: Int = 4
+      val BACKFIRE_MAX_POPS: Int = 5
+      val BACKFIRE_MIN_GAP: Float = 0.1f
+      val BACKFIRE_MAX_GAP: Float = 0.35f
+      val BACKFIRE_MIN_PITCH: Float = 0.8f
+      val BACKFIRE_MAX_PITCH: Float = 1.2f
+    }
   }
   object RENDERING {
     object CAR {

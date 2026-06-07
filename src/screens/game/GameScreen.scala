@@ -15,7 +15,12 @@ class GameScreen extends AbstractScreen {
 
   override def onInit(): Unit = {
     AudioManager.playTrack(World.INSTANCE.TRACK.biome.musicTrack)
+    AudioManager.startEngine()
     WorldRender.onInit()
+  }
+
+  override def dispose(): Unit = {
+    AudioManager.stopEngine()
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
