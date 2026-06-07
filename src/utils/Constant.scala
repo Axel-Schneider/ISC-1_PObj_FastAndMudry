@@ -97,6 +97,8 @@ object Constant {
     object CAR {
       val WHEEL_MAX_ROTATION = 180
       val WHEEL_SCALE = 1.75f
+      val INTERIOR_SCALE = 1.3f
+      val INTERIOR_VERTICAL_ANCHOR = 0.2f
     }
   }
 }

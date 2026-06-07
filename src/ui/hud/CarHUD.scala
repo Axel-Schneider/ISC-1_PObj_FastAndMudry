@@ -26,14 +26,19 @@ object CarHUD {
     val imgW = INTERIOR_IMAGE.getImage.getWidth.toFloat
     val imgH = INTERIOR_IMAGE.getImage.getHeight.toFloat
 
-    val scale = math.max(screenW / imgW, screenH / imgH)
-    g.drawTransformedPicture(screenW / 2f, screenH / 2f, 0f, scale, INTERIOR_IMAGE)
+    val scale = math.max(screenW / imgW, screenH / imgH) * RENDERING.CAR.INTERIOR_SCALE
+    val anchorY = screenH * RENDERING.CAR.INTERIOR_VERTICAL_ANCHOR
+    g.drawTransformedPicture(screenW / 2f, screenH / 2f - anchorY, 0f, scale, INTERIOR_IMAGE)
   }
 
   def drawSteeringWheel(g: GdxGraphics, car: Car): Unit = {
     val wheelRatio = car.WheelAngle / FACTOR.WHEEL_MAX_ANGLE
-    val posX = g.getScreenWidth * skin.wheelPosition.x
-    val posY = g.getScreenHeight * skin.wheelPosition.y
-    g.drawAlphaPicture(posX, posY, wheelRatio * -RENDERING.CAR.WHEEL_MAX_ROTATION, RENDERING.CAR.WHEEL_SCALE, 1f, STEERING_WHEEL_IMAGE)
+    val zoom = RENDERING.CAR.INTERIOR_SCALE
+    val cx = g.getScreenWidth / 2f
+    val cy = g.getScreenHeight / 2f
+    val anchorY = g.getScreenHeight * RENDERING.CAR.INTERIOR_VERTICAL_ANCHOR
+    val posX = cx + (g.getScreenWidth * skin.wheelPosition.x - cx) * zoom
+    val posY = cy + (g.getScreenHeight * skin.wheelPosition.y - cy) * zoom - anchorY
+    g.drawAlphaPicture(posX, posY, wheelRatio * -RENDERING.CAR.WHEEL_MAX_ROTATION, RENDERING.CAR.WHEEL_SCALE * zoom, 1f, STEERING_WHEEL_IMAGE)
   }
 }
