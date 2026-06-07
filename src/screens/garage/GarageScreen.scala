@@ -9,6 +9,8 @@ import screens.AbstractScreen
 import ui.components.ListItemRow
 import ui.UISkin
 import utils.Constant.GARAGE
+
+import ch.hevs.fastandmudry.core.world.World
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.scenes.scene2d.ui.{ScrollPane, Table}
@@ -17,7 +19,7 @@ import com.badlogic.gdx.{Gdx, Input}
 class GarageScreen extends AbstractScreen {
   val BOTTOM_MESSAGE: String = "Réparez votre voiture"
   private val background: BitmapImage = new BitmapImage(GARAGE.BACKGROUND_IMAGE)
-  private val carImage: BitmapImage = new BitmapImage(GARAGE.CAR_IMAGE)
+  private val carImage: BitmapImage = new BitmapImage(World.INSTANCE.selectedSkin.openHoodImagePath)
 
   override def onInit(): Unit = {
     Gdx.input.setInputProcessor(stage)

@@ -3,8 +3,9 @@ package screens.cinematic
 
 import core.state.{EndDayCinematicEnded, FinalCinematicEnded, GameState, GameStateMachine, StartDayCinematicEnded}
 import screens.AbstractScreen
-
 import utils.Constant.CINEMATIC
+
+import core.world.World
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
@@ -12,7 +13,7 @@ import com.badlogic.gdx.Gdx
 class CinematicScreen extends AbstractScreen {
   private var timeElapsed: Float = 0f
   private val DURATION: Float = 5f
-  private val carImage: BitmapImage = new BitmapImage(CINEMATIC.CAR_IMAGE)
+  private val carImage: BitmapImage = new BitmapImage(World.INSTANCE.selectedSkin.sideImagePath)
   private val finalBackground: BitmapImage = new BitmapImage(CINEMATIC.FINAL_BACKGROUND_IMAGE)
 
   override def onInit(): Unit = {

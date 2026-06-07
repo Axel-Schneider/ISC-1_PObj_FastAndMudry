@@ -1,8 +1,6 @@
 package ch.hevs.fastandmudry
 package utils
 
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.Input
 
 object Constant {
@@ -12,19 +10,12 @@ object Constant {
   }
   object Hud {
     object Speedometer {
-      val SPEEDOMETER_WIDTH: Float = 120f
-      val SPEEDOMETER_PADDING: Float = 30f
-      val SPEEDOMETER_COLOR: Color = Color.BLACK
-
       val MAX_SPEED: Int = 100
       val TICKS_EVERY: Int = 10
       val SPEEDOMETER_START_ANGLE: Int = 210
       val SPEEDOMETER_END_ANGLE: Int = -30
 
       val TICKS_LENGTH: Float = 10f
-      val TICKS_COLOR: Color = Color.YELLOW
-
-      val NEEDLE_COLOR: Color = Color.RED
       val NEEDLE_WIDTH: Float = 3f
     }
   }
@@ -70,10 +61,21 @@ object Constant {
     val LIST_PADDING: Float = 40
     val ROW_GAP: Float = 15
     val BACKGROUND_IMAGE: String = "data/images/garage/bg.png"
-    val CAR_IMAGE: String = "data/images/garage/car.png"
+  }
+  object CAR_SELECTOR {
+    val BACKGROUND_IMAGE: String = "data/images/car_selector_bg.png"
+    val BUTTON_WIDTH: Float = 120
+    val BUTTON_HEIGHT: Float = 120
+    val SIDE_PADDING: Float = 80
+    val TOP_BOTTOM_PADDING: Float = 60
+    val SELECT_BUTTON_WIDTH: Float = 300
+    val SELECT_BUTTON_HEIGHT: Float = 80
+    val EXIT_BUTTON_WIDTH: Float = 200
+    val EXIT_BUTTON_HEIGHT: Float = 80
+    val CAR_VERTICAL_OFFSET: Float = 150
+    val FONT_SIZE: Float = 3f
   }
   object CINEMATIC {
-    val CAR_IMAGE: String = "data/images/cinematic/car.png"
     val FINAL_BACKGROUND_IMAGE: String = "data/images/cinematic/final/bg.png"
   }
   object GAME {
@@ -94,6 +96,9 @@ object Constant {
   object RENDERING {
     object CAR {
       val WHEEL_MAX_ROTATION = 180
+      val WHEEL_SCALE = 1.75f
+      val INTERIOR_SCALE = 1.3f
+      val INTERIOR_VERTICAL_ANCHOR = 0.2f
     }
   }
 }
