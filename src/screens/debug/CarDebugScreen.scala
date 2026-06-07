@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package screens.debug
 
+import core.audio.{AudioManager, MusicTrack}
 import core.state.{BackToMenu, GameStateMachine}
 import core.world.World
 import screens.AbstractScreen
@@ -14,6 +15,7 @@ class CarDebugScreen extends AbstractScreen {
   private val car = World.INSTANCE.CAR
 
   override def onInit(): Unit = {
+    AudioManager.playTrack(MusicTrack.Menu)
     Gdx.input.setInputProcessor(stage)
   }
 

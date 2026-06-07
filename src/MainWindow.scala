@@ -1,5 +1,6 @@
 package ch.hevs.fastandmudry
 
+import core.audio.AudioManager
 import screens.CustomScreenManager
 import utils.Constant.Window
 
@@ -19,6 +20,11 @@ class MainWindow extends PortableApplication(Window.WIDTH, Window.HEIGHT) {
   override def onClick(x: Int, y: Int, button: Int): Unit = {
     super.onClick(x, y, button)
     CustomScreenManager.getInstance.getActiveScreen.onClick(x,y,button)
+  }
+
+  override def onDispose(): Unit = {
+    super.onDispose()
+    AudioManager.dispose()
   }
 }
 

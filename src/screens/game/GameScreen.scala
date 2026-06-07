@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package screens.game
 
+import core.audio.AudioManager
 import core.world.World
 import input.DebugInput
 import render.WorldRenderer
@@ -13,6 +14,7 @@ class GameScreen extends AbstractScreen {
   val WorldRender = new WorldRenderer
 
   override def onInit(): Unit = {
+    AudioManager.playTrack(World.INSTANCE.TRACK.biome.musicTrack)
     WorldRender.onInit()
   }
 

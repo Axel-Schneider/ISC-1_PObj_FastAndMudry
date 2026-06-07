@@ -93,6 +93,18 @@ object Constant {
       }
     }
   }
+  object AUDIO {
+    val MUSIC_VOLUME: Float = 0.2f
+    object MUSIC {
+      val MENU = "data/sounds/music/nfs.mp3"
+      val CINEMATIC = "data/sounds/music/car-arriving.mp3"
+      val QUIZ = "data/sounds/music/millionaire.mp3"
+      val GARAGE = "data/sounds/music/garage.mp3"
+      val FOREST = "data/sounds/music/tokyo-drift.mp3"
+      val DESERT = "data/sounds/music/free-bird.mp3"
+      val SNOW = "data/sounds/music/drive.mp3"
+    }
+  }
   object RENDERING {
     object CAR {
       val WHEEL_MAX_ROTATION = 180

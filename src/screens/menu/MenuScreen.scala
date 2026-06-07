@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package screens.menu
 
+import core.audio.{AudioManager, MusicTrack}
 import core.quiz.QuizData
 import core.state.{GameStateMachine, OpenCarDebug, OpenCarSelector, StartGame, Wallet}
 import screens.AbstractScreen
@@ -42,6 +43,7 @@ class MenuScreen extends AbstractScreen {
   btnCarSelector.onClick(() => GameStateMachine.handle(OpenCarSelector))
 
   override def onInit(): Unit = {
+    AudioManager.playTrack(MusicTrack.Menu)
     Gdx.input.setInputProcessor(stage) // send inputs events to the stage
     stage.addActor(btnPlay)
     stage.addActor(btnSettings)

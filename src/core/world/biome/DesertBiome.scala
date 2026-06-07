@@ -1,12 +1,15 @@
 package ch.hevs.fastandmudry
 package core.world.biome
 
+import core.audio.MusicTrack
 import core.ecs.systems.Car
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import com.badlogic.gdx.graphics.Color
 
 class DesertBiome extends Biome {
+  override def musicTrack: MusicTrack = MusicTrack.Desert
+
   private val sky: BitmapImage = new BitmapImage("data/parallax/desert/desert_sky.png")
   private val layers: Array[ParallaxLayer] = Array(
     new ParallaxLayer(new BitmapImage("data/parallax/desert/desert_mountain.png"), -400f, 0.30f, false),

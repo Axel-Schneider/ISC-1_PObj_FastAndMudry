@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package screens.death
 
+import core.audio.{AudioManager, MusicTrack}
 import core.state.{BackToMenu, GameStateMachine}
 import screens.AbstractScreen
 
@@ -9,7 +10,7 @@ import com.badlogic.gdx.{Gdx, Input}
 
 class DeathScreen extends AbstractScreen {
   override def onInit(): Unit = {
-
+    AudioManager.playTrack(MusicTrack.Menu)
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {

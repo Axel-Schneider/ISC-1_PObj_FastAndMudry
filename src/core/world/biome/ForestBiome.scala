@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package core.world.biome
 
+import core.audio.MusicTrack
 import core.ecs.systems.Car
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
@@ -9,6 +10,8 @@ import com.badlogic.gdx.graphics.Color
 import scala.util.Random
 
 class ForestBiome extends Biome {
+  override def musicTrack: MusicTrack = MusicTrack.Forest
+
   private val sky: BitmapImage = new BitmapImage("data/parallax/forest/forest_sky.png")
   private val layers: Array[ParallaxLayer] = Array(
     new ParallaxLayer(new BitmapImage("data/parallax/forest/forest_mountain.png"), -400f, 0.30f, false),

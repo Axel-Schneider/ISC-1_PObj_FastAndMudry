@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package screens.cinematic
 
+import core.audio.{AudioManager, MusicTrack}
 import core.state.{EndDayCinematicEnded, FinalCinematicEnded, GameState, GameStateMachine, StartDayCinematicEnded}
 import screens.AbstractScreen
 import utils.Constant.CINEMATIC
@@ -17,6 +18,7 @@ class CinematicScreen extends AbstractScreen {
   private val finalBackground: BitmapImage = new BitmapImage(CINEMATIC.FINAL_BACKGROUND_IMAGE)
 
   override def onInit(): Unit = {
+    AudioManager.playTrack(MusicTrack.Cinematic)
     timeElapsed = 0f
   }
 

@@ -2,6 +2,7 @@ package ch.hevs.fastandmudry
 package screens.quiz
 
 import ch.hevs.fastandmudry.ui.hud.WalletHUD
+import core.audio.{AudioManager, MusicTrack}
 import core.quiz.{Quiz, QuizData, QuizPhase}
 import core.state.{GameStateMachine, QuizCompleted, Wallet}
 import screens.AbstractScreen
@@ -19,6 +20,7 @@ class QuizScreen extends AbstractScreen {
   private var buttons: Array[CustomButton] = Array.empty
 
   override def onInit(): Unit = {
+    AudioManager.playTrack(MusicTrack.Quiz)
     Gdx.input.setInputProcessor(stage)
     quiz = new Quiz(QuizData.nextSession())
     revealTimer = 0f
