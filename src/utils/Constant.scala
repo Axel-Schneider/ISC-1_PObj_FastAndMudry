@@ -127,6 +127,12 @@ object Constant {
       val BACKFIRE_MAX_GAP: Float = 0.35f
       val BACKFIRE_MIN_PITCH: Float = 0.8f
       val BACKFIRE_MAX_PITCH: Float = 1.2f
+
+      val TIRE_EXPLOSION = "data/sounds/sfx/tire-explosion.mp3"
+      val TIRE_EXPLOSION_VOLUME: Float = 0.8f
+
+      val COLLISION = "data/sounds/sfx/crash.mp3"
+      val COLLISION_VOLUME: Float = 0.4f
     }
   }
   object RENDERING {

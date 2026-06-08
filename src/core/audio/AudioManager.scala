@@ -21,6 +21,9 @@ object AudioManager {
   private var popsLeft: Int = 0
   private var nextPopTimer: Float = 0f
 
+  private var tireExplosion: SoundSample = _
+  private var collision: SoundSample = _
+
   private def playerFor(track: MusicTrack): VolumeMusicPlayer = {
     var player = players.get(track)
     if (player == null) {
@@ -107,6 +110,22 @@ object AudioManager {
     }
   }
 
+  def playTireExplosion(): Unit = {
+    if (tireExplosion == null) {
+      tireExplosion = new SoundSample(AUDIO.SFX.TIRE_EXPLOSION)
+      tireExplosion.setVolume(AUDIO.SFX.TIRE_EXPLOSION_VOLUME)
+    }
+    tireExplosion.play()
+  }
+
+  def playCollision(): Unit = {
+    if (collision == null) {
+      collision = new SoundSample(AUDIO.SFX.COLLISION)
+      collision.setVolume(AUDIO.SFX.COLLISION_VOLUME)
+    }
+    collision.play()
+  }
+
   def dispose(): Unit = {
     val values = players.values.iterator
     while (values.hasNext) {
@@ -126,5 +145,15 @@ object AudioManager {
       backfire = null
     }
     popsLeft = 0
+
+    if (tireExplosion != null) {
+      tireExplosion.dispose()
+      tireExplosion = null
+    }
+
+    if (collision != null) {
+      collision.dispose()
+      collision = null
+    }
   }
 }

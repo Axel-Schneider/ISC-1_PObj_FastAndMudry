@@ -7,12 +7,16 @@ import com.badlogic.gdx.graphics.Texture
 import core.ecs.components.Locatable
 
 abstract class AItem extends Locatable {
+  private var isColliding: Boolean = false
+
   def getTexture: Texture
   def getMaxSize: (Int, Int) = (getTexture.getWidth, getTexture.getHeight)
   def checkStats(): Unit = {
     if(isInstanceOf[Collisional]) {
       val collisionnable = this.asInstanceOf[Collisional]
-      if(collisionnable.CheckCollision(World.INSTANCE.CAR)) collisionnable.onCollision(World.INSTANCE.CAR)
+      val collides = collisionnable.CheckCollision(World.INSTANCE.CAR)
+      if(collides && !isColliding) collisionnable.onCollision(World.INSTANCE.CAR)
+      isColliding = collides
     }
   }
 }
