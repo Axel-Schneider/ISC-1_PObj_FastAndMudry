@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.{ScrollPane, Table}
 import com.badlogic.gdx.{Gdx, Input}
 
 class GarageScreen extends AbstractScreen {
-  val BOTTOM_MESSAGE: String = "Réparez votre voiture"
+  val BOTTOM_MESSAGE: String = "Press SPACE to continue"
   private val background: BitmapImage = new BitmapImage(GARAGE.BACKGROUND_IMAGE)
   private val carImage: BitmapImage = new BitmapImage(World.INSTANCE.selectedSkin.openHoodImagePath)
 
@@ -32,7 +32,7 @@ class GarageScreen extends AbstractScreen {
     drawCar(g)
     g.drawStringCentered(g.getScreenHeight * 0.06f, BOTTOM_MESSAGE)
 
-    if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
       GameStateMachine.handle(GarageReady)
     }
 
