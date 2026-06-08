@@ -2,8 +2,11 @@ package ch.hevs.fastandmudry
 package core.world.biome
 
 import core.audio.MusicTrack
+import ch.hevs.fastandmudry.core.ecs.entities.Item.forest.{SimpleRock, SimpleTree}
+import ch.hevs.fastandmudry.core.ecs.entities.Item.AItem
+import ch.hevs.fastandmudry.core.ecs.systems.track.TrackGeometry
+import ch.hevs.fastandmudry.utils.Constant.MapTexture
 import core.ecs.systems.Car
-
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import com.badlogic.gdx.graphics.Color
 
@@ -44,4 +47,34 @@ class ForestBiome extends Biome {
   override def skyImage(): BitmapImage = sky
 
   override def parallaxLayers(): Array[ParallaxLayer] = layers
+
+  override def generateMapItems(geometry: TrackGeometry): List[AItem] = {
+    val random = new Random()
+    val trackWidth = geometry.trackSize.getWidth + MapTexture.MAP_PADDING * 2
+    val trackHeight = geometry.trackSize.getHeight + MapTexture.MAP_PADDING * 2
+
+    val originX = geometry.trackSize.x - MapTexture.MAP_PADDING
+    val originY = geometry.trackSize.y - MapTexture.MAP_PADDING
+
+    val res = List.fill(5000) {
+      val item = new SimpleTree()
+
+      do {
+        item.Coordinates.x = random.nextFloat() * trackWidth + originX
+        item.Coordinates.y = random.nextFloat() * trackHeight + originY
+      }while(item.isGenerationAllowed(geometry))
+      item
+    }
+
+    val res2 = List.fill(200) {
+      val item = new SimpleRock()
+      do {
+        item.Coordinates.x = random.nextFloat() * trackWidth + originX
+        item.Coordinates.y = random.nextFloat() * trackHeight + originY
+      } while (item.isGenerationAllowed(geometry))
+      item
+    }
+
+    res.appendedAll(res2)
+  }
 }

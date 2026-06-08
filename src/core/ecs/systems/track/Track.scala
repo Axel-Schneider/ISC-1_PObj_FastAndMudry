@@ -4,17 +4,14 @@ package core.ecs.systems.track
 import core.ecs.components.AGameLoop
 import core.ecs.systems.Car
 import utils.Constant.GAME.CAR.FACTOR
-import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
-import core.ecs.entities.Item.{AItem, HES, SimpleRock, SimpleTree}
-import utils.Constant.MapTexture
+import core.world.biome.{Biome, DesertBiome}
+import core.ecs.entities.Item.{AItem, HES}
 import core.state.{CarBroke, FinishLineCrossed, GameStateMachine}
 import com.badlogic.gdx.{Gdx, Input}
 import com.badlogic.gdx.graphics.{Pixmap, PixmapIO}
 import com.badlogic.gdx.graphics.Texture.TextureFilter
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
-
-import scala.util.Random
 
 class Track(private val Car: Car) extends AGameLoop {
   private var geometry: TrackGeometry = _
@@ -78,29 +75,13 @@ class Track(private val Car: Car) extends AGameLoop {
       GameStateMachine.handle(FinishLineCrossed)
   }
 
+  private val hesItem = new HES()
   private var mapItems = List[AItem]()
   def generateMapItems(): Unit = {
-    val random = new Random()
+    mapItems = biome.generateMapItems(Geometry)
 
-    val trackWidth = Geometry.trackSize.getWidth + MapTexture.MAP_PADDING * 2
-    val trackHeight = Geometry.trackSize.getHeight + MapTexture.MAP_PADDING * 2
-
-    val originX = Geometry.trackSize.x - MapTexture.MAP_PADDING
-    val originY = Geometry.trackSize.y - MapTexture.MAP_PADDING
-
-    mapItems = List.fill(500) {
-      val item = if(random.nextInt(2) % 2 == 0) new SimpleTree() else new SimpleRock()
-
-      do {
-        item.Coordinates.x = random.nextFloat() * trackWidth + originX
-        item.Coordinates.y = random.nextFloat() * trackHeight + originY
-      }while(item.isGenerationAllowed(Geometry))
-      item
-    }
-
-    val hes = new HES()
-    hes.Coordinates = Geometry.FinishPoint
-    mapItems = mapItems.appended(hes)
+    hesItem.Coordinates = Geometry.FinishPoint
+    mapItems = mapItems.appended(hesItem)
   }
 
   def getMapItems: List[AItem] = mapItems
