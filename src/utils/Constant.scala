@@ -46,6 +46,10 @@ object Constant {
         val RENDERING_FACTOR = 2
         val IMAGE_SOURCE = "data/images/item/SimpleRock.png"
       }
+      object HES {
+        val RENDERING_FACTOR = 500
+        val IMAGE_SOURCE = "data/images/item/HES.png"
+      }
     }
   }
   object KEYS {

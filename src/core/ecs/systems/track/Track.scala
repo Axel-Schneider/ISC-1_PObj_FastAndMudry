@@ -5,7 +5,7 @@ import core.ecs.components.AGameLoop
 import core.ecs.systems.Car
 import utils.Constant.GAME.CAR.FACTOR
 import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
-import core.ecs.entities.Item.{AItem, SimpleRock, SimpleTree}
+import core.ecs.entities.Item.{AItem, HES, SimpleRock, SimpleTree}
 import utils.Constant.MapTexture
 import core.state.{CarBroke, FinishLineCrossed, GameStateMachine}
 import com.badlogic.gdx.{Gdx, Input}
@@ -97,6 +97,10 @@ class Track(private val Car: Car) extends AGameLoop {
       }while(item.isGenerationAllowed(Geometry))
       item
     }
+
+    val hes = new HES()
+    hes.Coordinates = Geometry.FinishPoint
+    mapItems = mapItems.appended(hes)
   }
 
   def getMapItems: List[AItem] = mapItems
