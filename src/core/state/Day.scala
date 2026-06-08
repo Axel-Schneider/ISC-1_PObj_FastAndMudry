@@ -15,8 +15,8 @@ sealed trait Day {
 case object Day1 extends Day {
   val next: Option[Day] = Some(Day2)
   def newBiome: Biome = new ForestBiome()
-  def endDayCinematicBackground: BitmapImage = new BitmapImage("data/images/cinematic/day1/bg.jpg")
-  def startDayCinematicBackground: BitmapImage = new BitmapImage("data/images/cinematic/day1/bg.jpg")
+  def endDayCinematicBackground: BitmapImage = new BitmapImage("data/images/cinematic/day1/bg.png")
+  def startDayCinematicBackground: BitmapImage = new BitmapImage("data/images/cinematic/day1/bg.png")
 }
 
 case object Day2 extends Day {
@@ -29,6 +29,6 @@ case object Day2 extends Day {
 case object Day3 extends Day {
   val next: Option[Day] = None
   def newBiome: Biome = new SnowBiome()
-  def endDayCinematicBackground: BitmapImage = new BitmapImage("data/images/cinematic/day3/bg.png")
-  def startDayCinematicBackground: BitmapImage = new BitmapImage("data/images/cinematic/day3/bg.png")
+  def endDayCinematicBackground: BitmapImage = new BitmapImage("data/images/cinematic/day3/bg.jpg")
+  def startDayCinematicBackground: BitmapImage = new BitmapImage("data/images/cinematic/day3/bg.jpg")
 }

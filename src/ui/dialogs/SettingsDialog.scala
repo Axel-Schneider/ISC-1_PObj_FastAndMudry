@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package ui.dialogs
 
-import ui.components.{ButtonFactory, CheckBoxFactory, LabelFactory, SliderFactory}
+import ui.components.{ButtonFactory, LabelFactory, SliderFactory}
 
 import utils.Constant.UI
 import com.badlogic.gdx.Gdx
@@ -14,16 +14,14 @@ class SettingsDialog(title: String, skin: Skin) extends CustomDialog(title, skin
   sldVolume.setValue(50f)
   sldVolume.onChange(volume => lblVolumeValue.setText(volume.toInt.toString))
 
-  private val lblFullScreen = LabelFactory.create("Fullscreen")
-  private val cbFullScreen = CheckBoxFactory.create("")
-  cbFullScreen.onChange(_ => ())
-
   pad(20)
-  add(lblVolumeText)
-  add(sldVolume)
-  add(lblVolumeValue)
-  add(lblFullScreen)
-  add(cbFullScreen)
+
+  private val content = getContentTable
+  content.clear()
+  content.center()
+  content.add(lblVolumeText).padRight(15)
+  content.add(sldVolume).expandX().fillX().padRight(15)
+  content.add(lblVolumeValue).width(40)
 
   private val btnSave = ButtonFactory.primary("Save")
   private val btnCancel = ButtonFactory.primary("Cancel")
