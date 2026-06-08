@@ -79,7 +79,9 @@ object Constant {
     val FONT_SIZE: Float = 3f
   }
   object CINEMATIC {
-    val FINAL_BACKGROUND_IMAGE: String = "data/images/cinematic/final/bg.png"
+    val FRONT_FINAL_BACKGROUND_IMAGE: String = "data/images/cinematic/final/front_bg.png"
+    val BACK_FINAL_BACKGROUND_IMAGE: String = "data/images/cinematic/final/back_bg.png"
+    val MUDRY_BACKGROUND_IMAGE: String = "data/images/cinematic/final/mudry.png"
   }
   object GAME {
     object CAR {
