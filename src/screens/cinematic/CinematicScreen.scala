@@ -14,14 +14,16 @@ import com.badlogic.gdx.Gdx
 class CinematicScreen extends AbstractScreen {
   private var timeElapsed: Float = 0f
   private val DURATION: Float = 5f
-  private val FINAL_DURATION: Float = 10f
+  private val FINAL_DURATION: Float = 15f
   private val carImage: BitmapImage = new BitmapImage(World.INSTANCE.selectedSkin.sideImagePath)
   private val frontFinalBackground: BitmapImage = new BitmapImage(CINEMATIC.FRONT_FINAL_BACKGROUND_IMAGE)
   private val backFinalBackground: BitmapImage = new BitmapImage(CINEMATIC.BACK_FINAL_BACKGROUND_IMAGE)
   private val mudryImage: BitmapImage = new BitmapImage(CINEMATIC.MUDRY_BACKGROUND_IMAGE)
 
   override def onInit(): Unit = {
-    AudioManager.playTrack(MusicTrack.Cinematic)
+    // keep last biome music for final cinematic
+    if (GameStateMachine.getGameState != GameState.FinalCinematic)
+      AudioManager.playTrack(MusicTrack.Cinematic)
     timeElapsed = 0f
   }
 
