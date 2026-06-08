@@ -37,6 +37,12 @@ object CarSkins {
       WheelPosition(0.50f, 0.1f),
       SpeedometerConfig(0.4f, 0.15f, 100f, Color.BLACK, Color.WHITE, Color.CYAN),
     ),
+    CarSkin("Ryan Gosling", "Chevrolet Chevelle Malibu 1973",
+      prefix + "chevrolet" + threeQuarterImagePathSuffix, prefix + "chevrolet" + sideImagePathSuffix, prefix + "chevrolet" + openHoodImagePathSuffix,
+      prefix + "chevrolet" + interiorImagePathSuffix, prefix + "chevrolet" + steeringWheelImagePathSuffix,
+      WheelPosition(0.35f, 0.18f),
+      SpeedometerConfig(0.28f, 0.19f, 80f, Color.BLACK, Color.WHITE, Color.RED),
+    ),
   )
 
   val default: CarSkin = all(0)
