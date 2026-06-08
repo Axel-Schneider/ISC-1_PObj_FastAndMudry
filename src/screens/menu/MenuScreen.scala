@@ -8,16 +8,21 @@ import screens.AbstractScreen
 import ui.components.ButtonFactory
 import ui.dialogs.{DialogFactory, SettingsDialog}
 
+import utils.Constant.MENU
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.{Gdx, Input}
 
 class MenuScreen extends AbstractScreen {
+  private val background: BitmapImage = new BitmapImage(MENU.BACKGROUND_IMAGE)
+  private val BUTTON_WIDTH = 300
+  private val BUTTON_HEIGHT = 80
+  private val xButtonPosition = (Gdx.graphics.getWidth - BUTTON_WIDTH)  / 2
+  private val yButtonPosition = (Gdx.graphics.getHeight - BUTTON_HEIGHT) / 3
+
   private val btnPlay = ButtonFactory.primary("Play")
-  btnPlay.setSize(300, 80)
-  btnPlay.setPosition(
-    (Gdx.graphics.getWidth  - btnPlay.getWidth)  / 2,
-    (Gdx.graphics.getHeight - btnPlay.getHeight) / 2
-  )
+  btnPlay.setSize(BUTTON_WIDTH, BUTTON_HEIGHT)
+  btnPlay.setPosition(xButtonPosition, yButtonPosition)
   btnPlay.onClick(() => {
     QuizData.reset()
     Wallet.reset()
@@ -27,19 +32,13 @@ class MenuScreen extends AbstractScreen {
   private val settingsDialog: SettingsDialog = DialogFactory.createSettingsDialog("Settings")
 
   private val btnSettings = ButtonFactory.primary("Settings")
-  btnSettings.setSize(300, 80)
-  btnSettings.setPosition(
-    (Gdx.graphics.getWidth  - btnSettings.getWidth)  / 2,
-    (Gdx.graphics.getHeight - btnSettings.getHeight) / 2 - 100
-  )
+  btnSettings.setSize(BUTTON_WIDTH, BUTTON_HEIGHT)
+  btnSettings.setPosition(xButtonPosition, yButtonPosition - 100)
   btnSettings.onClick(() => settingsDialog.show(stage))
 
   private val btnCarSelector = ButtonFactory.primary("Car selector")
-  btnCarSelector.setSize(300, 80)
-  btnCarSelector.setPosition(
-    (Gdx.graphics.getWidth  - btnCarSelector.getWidth)  / 2,
-    (Gdx.graphics.getHeight - btnCarSelector.getHeight) / 2 - 200
-  )
+  btnCarSelector.setSize(BUTTON_WIDTH, BUTTON_HEIGHT)
+  btnCarSelector.setPosition(xButtonPosition, yButtonPosition - 200)
   btnCarSelector.onClick(() => GameStateMachine.handle(OpenCarSelector))
 
   override def onInit(): Unit = {
@@ -52,12 +51,25 @@ class MenuScreen extends AbstractScreen {
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
-    g.drawStringCentered(g.getScreenHeight - 50, "BIENVENUE SUR FAST & MUDRY !")
+    drawBackground(g)
 
     if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
       GameStateMachine.handle(OpenCarDebug)
     }
 
     renderStage(g, Gdx.graphics.getDeltaTime)
+  }
+
+  private def drawBackground(g: GdxGraphics): Unit = {
+    val screenW = g.getScreenWidth.toFloat
+    val screenH = g.getScreenHeight.toFloat
+    val imgW = background.getImage.getWidth.toFloat
+    val imgH = background.getImage.getHeight.toFloat
+
+    val scale = math.min(screenW / imgW, screenH / imgH)
+    val drawW = imgW * scale
+    val drawH = imgH * scale
+
+    g.drawTransformedPicture(screenW / 2f, screenH / 2f, 0f, drawW / 2f, drawH / 2f, background)
   }
 }

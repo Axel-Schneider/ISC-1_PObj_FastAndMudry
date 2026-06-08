@@ -8,6 +8,9 @@ object Constant {
     val WIDTH: Int = 1920
     val HEIGHT: Int = 1080
   }
+  object MENU {
+    val BACKGROUND_IMAGE = "data/images/menu_bg.png"
+  }
   object Hud {
     object Speedometer {
       val MAX_SPEED: Int = 100
@@ -76,7 +79,12 @@ object Constant {
     val FONT_SIZE: Float = 3f
   }
   object CINEMATIC {
-    val FINAL_BACKGROUND_IMAGE: String = "data/images/cinematic/final/bg.png"
+    val FRONT_FINAL_BACKGROUND_IMAGE: String = "data/images/cinematic/final/front_bg.png"
+    val BACK_FINAL_BACKGROUND_IMAGE: String = "data/images/cinematic/final/back_bg.png"
+    val MUDRY_BACKGROUND_IMAGE: String = "data/images/cinematic/final/mudry.png"
+  }
+  object DEATH {
+    val BACKGROUND_IMAGE: String = "data/images/death_bg.png"
   }
   object GAME {
     object CAR {
