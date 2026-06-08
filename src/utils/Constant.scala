@@ -8,6 +8,9 @@ object Constant {
     val WIDTH: Int = 1920
     val HEIGHT: Int = 1080
   }
+  object MENU {
+    val BACKGROUND_IMAGE = "data/images/menu_bg.png"
+  }
   object Hud {
     object Speedometer {
       val MAX_SPEED: Int = 100
