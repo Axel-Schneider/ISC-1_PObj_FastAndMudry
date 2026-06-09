@@ -14,7 +14,9 @@ final case class CarSkin(pilotName: String, carName: String,
                          threeQuarterImagePath: String, sideImagePath: String, openHoodImagePath: String,
                          interiorImagePath: String, steeringWheelImagePath: String,
                          wheelPosition: WheelPosition,
-                         speedometer: SpeedometerConfig)
+                         speedometer: SpeedometerConfig,
+                         skinBugged: Boolean
+                        )
 
 object CarSkins {
   private val prefix = "data/images/skins/"
@@ -30,30 +32,35 @@ object CarSkins {
       prefix + "e36" + interiorImagePathSuffix, prefix + "e36" + steeringWheelImagePathSuffix,
       WheelPosition(0.35f, 0.10f),
       SpeedometerConfig(0.295f, 0.22f, 100f, Color.BLACK, Color.WHITE, Color.RED),
+      true
     ),
     CarSkin("Mudry", "Renault Zoe",
       prefix + "zoe" + threeQuarterImagePathSuffix, prefix + "zoe" + sideImagePathSuffix, prefix + "zoe" + openHoodImagePathSuffix,
       prefix + "zoe" + interiorImagePathSuffix, prefix + "zoe" + steeringWheelImagePathSuffix,
       WheelPosition(0.50f, 0.1f),
       SpeedometerConfig(0.4f, 0.15f, 100f, Color.BLACK, Color.WHITE, Color.CYAN),
+      true
     ),
     CarSkin("Ryan Gosling", "Chevrolet Chevelle Malibu 1973",
       prefix + "chevrolet" + threeQuarterImagePathSuffix, prefix + "chevrolet" + sideImagePathSuffix, prefix + "chevrolet" + openHoodImagePathSuffix,
       prefix + "chevrolet" + interiorImagePathSuffix, prefix + "chevrolet" + steeringWheelImagePathSuffix,
       WheelPosition(0.35f, 0.18f),
       SpeedometerConfig(0.28f, 0.19f, 80f, Color.BLACK, Color.WHITE, Color.RED),
+      true
     ),
     CarSkin("Jacquemet", "Car Postal",
       prefix + "bus" + threeQuarterImagePathSuffix, prefix + "bus" + sideImagePathSuffix, prefix + "bus" + openHoodImagePathSuffix,
       prefix + "bus" + interiorImagePathSuffix, prefix + "bus" + steeringWheelImagePathSuffix,
       WheelPosition(0.19f, -0.1f),
       SpeedometerConfig(0.1f, 0f, 80f, Color.BLACK, Color.WHITE, Color.RED),
+      false
     ),
     CarSkin("Paul Walker", "Toyota Supra MK4",
       prefix + "supra" + threeQuarterImagePathSuffix, prefix + "supra" + sideImagePathSuffix, prefix + "supra" + openHoodImagePathSuffix,
       prefix + "supra" + interiorImagePathSuffix, prefix + "supra" + steeringWheelImagePathSuffix,
       WheelPosition(0.22f, 0.02f),
       SpeedometerConfig(0.187f, 0.127f, 80f, Color.BLACK, Color.ORANGE, Color.ORANGE),
+      false
     ),
   )
 
