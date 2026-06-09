@@ -38,18 +38,37 @@ object Constant {
     val SHOULDER_JITTER: Float = 32f
     val SHOULDER_JITTER_NOISE_CELL: Int = 32
     object ITEMS {
-      object SIMPLE_TREE {
-        val RENDERING_FACTOR = 80
-        val IMAGE_SOURCE = "data/images/item/forest/Tree"
+      object FOREST {
+        object SIMPLE_TREE {
+          val RENDERING_FACTOR = 80
+          val IMAGE_SOURCE = "data/images/item/forest/Tree"
+        }
+        object SIMPLE_ROCK {
+          val RENDERING_FACTOR = 20
+          val IMAGE_SOURCE = "data/images/item/forest/Rock"
+        }
+        object SIMPLE_BUSH {
+          val RENDERING_FACTOR = 30
+          val IMAGE_SOURCE = "data/images/item/forest/Bush"
+        }
       }
-      object SIMPLE_ROCK {
-        val RENDERING_FACTOR = 20
-        val IMAGE_SOURCE = "data/images/item/forest/Rock"
+      object DESERT {
+        object CACTUS {
+          val RENDERING_FACTOR = 50
+          val IMAGE_SOURCE = "data/images/item/desert/Cactus"
+        }
+
+        object DESERTIC_ROCK {
+          val RENDERING_FACTOR = 35
+          val IMAGE_SOURCE = "data/images/item/desert/DeserticRock"
+        }
+
+        object DESERTIC_SKELETON {
+          val RENDERING_FACTOR = 15
+          val IMAGE_SOURCE = "data/images/item/desert/DeserticSkeleton"
+        }
       }
-      object SIMPLE_BUSH {
-        val RENDERING_FACTOR = 30
-        val IMAGE_SOURCE = "data/images/item/forest/Bush"
-      }
+
       object HES {
         val RENDERING_FACTOR = 500
         val IMAGE_SOURCE = "data/images/item/HES.png"

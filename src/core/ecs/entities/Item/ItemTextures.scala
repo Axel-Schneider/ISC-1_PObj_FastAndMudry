@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package core.ecs.entities.Item
 
+import ch.hevs.fastandmudry.core.ecs.entities.Item.ItemTextures.Forest.SimpleTrees
 import com.badlogic.gdx.graphics.Texture
 import utils.Constant.MapTexture.ITEMS
 
@@ -16,13 +17,26 @@ object ItemTextures {
       .filter(file => file.isFile && file.getName.toLowerCase.endsWith(".png"))
       .map[Texture](f => new Texture(f.getPath)).toList
   }
-  private lazy val SimpleTrees = getAllTexture(ITEMS.SIMPLE_TREE.IMAGE_SOURCE)
-  private lazy val SimpleRocks = getAllTexture(ITEMS.SIMPLE_ROCK.IMAGE_SOURCE)
-  private lazy val SimpleBushs = getAllTexture(ITEMS.SIMPLE_BUSH.IMAGE_SOURCE)
+  object Forest {
+    private lazy val SimpleTrees = getAllTexture(ITEMS.FOREST.SIMPLE_TREE.IMAGE_SOURCE)
+    private lazy val SimpleRocks = getAllTexture(ITEMS.FOREST.SIMPLE_ROCK.IMAGE_SOURCE)
+    private lazy val SimpleBushs = getAllTexture(ITEMS.FOREST.SIMPLE_BUSH.IMAGE_SOURCE)
 
-  def SimpleTree: Texture = SimpleTrees(_random.nextInt(SimpleTrees.length))
-  def SimpleRock: Texture = SimpleRocks(_random.nextInt(SimpleRocks.length))
-  def SimpleBush: Texture = SimpleBushs(_random.nextInt(SimpleBushs.length))
+    def SimpleTree: Texture = SimpleTrees(_random.nextInt(SimpleTrees.length))
+    def SimpleRock: Texture = SimpleRocks(_random.nextInt(SimpleRocks.length))
+    def SimpleBush: Texture = SimpleBushs(_random.nextInt(SimpleBushs.length))
+  }
+
+  object Desert {
+    private lazy val Cactuss = getAllTexture(ITEMS.DESERT.CACTUS.IMAGE_SOURCE)
+    private lazy val DeserticRocks = getAllTexture(ITEMS.DESERT.DESERTIC_ROCK.IMAGE_SOURCE)
+    private lazy val DeserticSkeletons = getAllTexture(ITEMS.DESERT.DESERTIC_SKELETON.IMAGE_SOURCE)
+
+    def Cactus: Texture = Cactuss(_random.nextInt(Cactuss.length))
+    def DeserticRock: Texture = DeserticRocks(_random.nextInt(DeserticRocks.length))
+    def DeserticSkeleton: Texture = DeserticSkeletons(_random.nextInt(DeserticSkeletons.length))
+  }
+
   lazy val HES = new Texture(ITEMS.HES.IMAGE_SOURCE)
 
 }
