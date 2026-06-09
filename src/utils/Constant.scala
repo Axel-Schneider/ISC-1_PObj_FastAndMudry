@@ -101,6 +101,40 @@ object Constant {
       }
     }
   }
+  object AUDIO {
+    val MUSIC_VOLUME: Float = 0.2f
+    object MUSIC {
+      val MENU = "data/sounds/music/nfs.mp3"
+      val CINEMATIC = "data/sounds/music/car-arriving.mp3"
+      val QUIZ = "data/sounds/music/millionaire.mp3"
+      val GARAGE = "data/sounds/music/garage.mp3"
+      val FOREST = "data/sounds/music/tokyo-drift.mp3"
+      val DESERT = "data/sounds/music/free-bird.mp3"
+      val SNOW = "data/sounds/music/drive.mp3"
+    }
+    object SFX {
+      val ENGINE_VOLUME: Float = 0.5f
+      val ENGINE = "data/sounds/sfx/car-engine.mp3"
+      val ENGINE_LOW_PITCH: Float = 0.6f
+      val ENGINE_TOP_PITCH: Float = 2.0f
+
+      val BACKFIRE = "data/sounds/sfx/pop.mp3"
+      val BACKFIRE_VOLUME: Float = 0.6f
+      val BACKFIRE_SPEED_RATIO: Float = 0.7f
+      val BACKFIRE_MIN_POPS: Int = 4
+      val BACKFIRE_MAX_POPS: Int = 5
+      val BACKFIRE_MIN_GAP: Float = 0.1f
+      val BACKFIRE_MAX_GAP: Float = 0.35f
+      val BACKFIRE_MIN_PITCH: Float = 0.8f
+      val BACKFIRE_MAX_PITCH: Float = 1.2f
+
+      val TIRE_EXPLOSION = "data/sounds/sfx/tire-explosion.mp3"
+      val TIRE_EXPLOSION_VOLUME: Float = 0.8f
+
+      val COLLISION = "data/sounds/sfx/crash.mp3"
+      val COLLISION_VOLUME: Float = 0.4f
+    }
+  }
   object RENDERING {
     object CAR {
       val WHEEL_MAX_ROTATION = 180

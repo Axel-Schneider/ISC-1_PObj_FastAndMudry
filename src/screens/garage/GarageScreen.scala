@@ -2,6 +2,7 @@ package ch.hevs.fastandmudry
 package screens.garage
 
 import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.core.audio.{AudioManager, MusicTrack}
 import ch.hevs.fastandmudry.core.state.Wallet
 import ch.hevs.fastandmudry.ui.hud.WalletHUD
 import core.state.{GameStateMachine, GarageReady}
@@ -22,6 +23,7 @@ class GarageScreen extends AbstractScreen {
   private val carImage: BitmapImage = new BitmapImage(World.INSTANCE.selectedSkin.openHoodImagePath)
 
   override def onInit(): Unit = {
+    AudioManager.playTrack(MusicTrack.Garage)
     Gdx.input.setInputProcessor(stage)
     buildList()
   }

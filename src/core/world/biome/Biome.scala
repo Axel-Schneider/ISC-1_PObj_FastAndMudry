@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package core.world.biome
 
+import core.audio.MusicTrack
 import core.ecs.systems.Car
 import utils.Constant.MapTexture
 
@@ -12,6 +13,8 @@ trait Biome {
   private var roadNoiseField: Array[Array[Int]] = _
   private var shoulderNoiseField: Array[Array[Int]] = _
   private var shoulderJitterField: Array[Array[Float]] = _
+
+  def musicTrack: MusicTrack
 
   // The factor decreasing the car speed when the car is off the road
   def offRoadDecreasingFactorSpeed: Float

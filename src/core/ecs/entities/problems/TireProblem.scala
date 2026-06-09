@@ -3,6 +3,7 @@ package ch.hevs.fastandmudry.core.ecs.entities.problems
 import ch.hevs.fastandmudry.core.ecs.components
 import ch.hevs.fastandmudry.core.ecs.components.Axle.Axle
 import ch.hevs.fastandmudry.core.ecs.components.Side.Side
+import ch.hevs.fastandmudry.core.audio.AudioManager
 import ch.hevs.fastandmudry.core.ecs.components.problems.{Problem, Reparable}
 import ch.hevs.fastandmudry.core.ecs.systems.Car
 import ch.hevs.fastandmudry.ui.hud.DebugHUD
@@ -31,6 +32,9 @@ class TireProblem(val Side: Side, val Axle: Axle) extends Problem with Reparable
   }
 
   def updateBroken(prob: Float): Unit = {
-    if(Random.nextFloat() < prob) IsDefected = true
+    if(!IsDefected && Random.nextFloat() < prob) {
+      IsDefected = true
+      AudioManager.playTireExplosion()
+    }
   }
 }

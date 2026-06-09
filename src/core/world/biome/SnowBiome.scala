@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package core.world.biome
 
+import core.audio.MusicTrack
 import core.ecs.systems.Car
 
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
@@ -8,6 +9,8 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Color
 
 class SnowBiome extends Biome {
+  override def musicTrack: MusicTrack = MusicTrack.Snow
+
   private val sky: BitmapImage = new BitmapImage("data/parallax/skies/sky_sky.png")
   private val layers: Array[ParallaxLayer] = Array(
     new ParallaxLayer(new BitmapImage("data/parallax/skies/sky_back_mountain.png"), -400f, 0.30f, false),

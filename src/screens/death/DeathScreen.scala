@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package screens.death
 
+import core.audio.{AudioManager, MusicTrack}
 import core.state.{BackToMenu, GameStateMachine}
 import screens.AbstractScreen
 
@@ -15,7 +16,7 @@ class DeathScreen extends AbstractScreen {
   private val carImage: BitmapImage = new BitmapImage(World.INSTANCE.selectedSkin.openHoodImagePath)
 
   override def onInit(): Unit = {
-
+    AudioManager.playTrack(MusicTrack.Menu)
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {

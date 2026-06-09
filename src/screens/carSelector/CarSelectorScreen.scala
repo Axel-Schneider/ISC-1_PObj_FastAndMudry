@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package screens.carSelector
 
+import core.audio.{AudioManager, MusicTrack}
 import core.car.{CarSkin, CarSkins}
 import core.state.{BackToMenu, CarSkinSelected, GameStateMachine}
 import core.world.World
@@ -51,6 +52,7 @@ class CarSelectorScreen extends AbstractScreen {
   btnExit.onClick(() => GameStateMachine.handle(BackToMenu))
 
   override def onInit(): Unit = {
+    AudioManager.playTrack(MusicTrack.Menu)
     Gdx.input.setInputProcessor(stage)
     stage.addActor(btnPrevious)
     stage.addActor(btnNext)
