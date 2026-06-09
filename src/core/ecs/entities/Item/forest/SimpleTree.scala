@@ -10,7 +10,9 @@ import com.badlogic.gdx.graphics.Texture
 class SimpleTree extends AItem with CircleCollision with DefectChassis {
   this.Size = 50
 
-  override def getTexture: Texture = ItemTextures.SimpleTree
+  private lazy val texture = ItemTextures.SimpleTree
+
+  override def getTexture: Texture = texture
 
   override def getMaxSize: (Int, Int) = (getTexture.getWidth * RENDERING_FACTOR, getTexture.getHeight * RENDERING_FACTOR)
 }

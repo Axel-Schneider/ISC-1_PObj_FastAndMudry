@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture
 class SimpleRock extends AItem with CircleCollision with NoDefect {
   override def isOnTrackImportant: Boolean = false
   override def getIsOnTrack: Boolean = true
-  override def getTexture: Texture = ItemTextures.SimpleRock
+  private lazy val texture = ItemTextures.SimpleRock
+  override def getTexture: Texture = texture
   override def getMaxSize: (Int, Int) = (getTexture.getWidth*RENDERING_FACTOR, getTexture.getHeight*RENDERING_FACTOR)
 }

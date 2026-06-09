@@ -39,12 +39,16 @@ object Constant {
     val SHOULDER_JITTER_NOISE_CELL: Int = 32
     object ITEMS {
       object SIMPLE_TREE {
-        val RENDERING_FACTOR = 100
-        val IMAGE_SOURCE = "data/images/item/SimpleTree.png"
+        val RENDERING_FACTOR = 80
+        val IMAGE_SOURCE = "data/images/item/forest/Tree"
       }
       object SIMPLE_ROCK {
-        val RENDERING_FACTOR = 2
-        val IMAGE_SOURCE = "data/images/item/SimpleRock.png"
+        val RENDERING_FACTOR = 20
+        val IMAGE_SOURCE = "data/images/item/forest/Rock"
+      }
+      object SIMPLE_BUSH {
+        val RENDERING_FACTOR = 30
+        val IMAGE_SOURCE = "data/images/item/forest/Bush"
       }
       object HES {
         val RENDERING_FACTOR = 500

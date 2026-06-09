@@ -2,7 +2,7 @@ package ch.hevs.fastandmudry
 package core.world.biome
 
 import core.audio.MusicTrack
-import ch.hevs.fastandmudry.core.ecs.entities.Item.forest.{SimpleRock, SimpleTree}
+import ch.hevs.fastandmudry.core.ecs.entities.Item.forest.{SimpleBush, SimpleRock, SimpleTree}
 import ch.hevs.fastandmudry.core.ecs.entities.Item.AItem
 import ch.hevs.fastandmudry.core.ecs.systems.track.TrackGeometry
 import ch.hevs.fastandmudry.utils.Constant.MapTexture
@@ -56,7 +56,7 @@ class ForestBiome extends Biome {
     val originX = geometry.trackSize.x - MapTexture.MAP_PADDING
     val originY = geometry.trackSize.y - MapTexture.MAP_PADDING
 
-    val res = List.fill(5000) {
+    val res = List.fill(2500) {
       val item = new SimpleTree()
 
       do {
@@ -75,6 +75,15 @@ class ForestBiome extends Biome {
       item
     }
 
-    res.appendedAll(res2)
+    val res3 = List.fill(300) {
+      val item = new SimpleBush()
+      do {
+        item.Coordinates.x = random.nextFloat() * trackWidth + originX
+        item.Coordinates.y = random.nextFloat() * trackHeight + originY
+      } while (item.isGenerationAllowed(geometry))
+      item
+    }
+
+    res.appendedAll(res2).appendedAll(res3)
   }
 }
