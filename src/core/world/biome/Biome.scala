@@ -2,11 +2,15 @@ package ch.hevs.fastandmudry
 package core.world.biome
 
 import core.audio.MusicTrack
+import ch.hevs.fastandmudry.core.ecs.entities.Item.forest.{SimpleRock, SimpleTree}
+import ch.hevs.fastandmudry.core.ecs.entities.Item.AItem
+import ch.hevs.fastandmudry.core.ecs.systems.track.TrackGeometry
 import core.ecs.systems.Car
 import utils.Constant.MapTexture
-
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import com.badlogic.gdx.graphics.Color
+
+import scala.util.Random
 
 trait Biome {
   private var offRoadNoiseField: Array[Array[Int]] = _
@@ -59,4 +63,8 @@ trait Biome {
 
   // Update the car physics (tire explosion, motor overheat, ...)
   def updatePhysics(car: Car, isOffRoad: Boolean, elapsedTime: Float): Unit
+
+  def generateMapItems(geometry: TrackGeometry): List[AItem] = {
+    List.empty
+  }
 }

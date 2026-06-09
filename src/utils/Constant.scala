@@ -37,14 +37,62 @@ object Constant {
     val HALF_LINE_WIDTH: Float = 2f
     val SHOULDER_JITTER: Float = 32f
     val SHOULDER_JITTER_NOISE_CELL: Int = 32
+
     object ITEMS {
-      object SIMPLE_TREE {
-        val RENDERING_FACTOR = 100
-        val IMAGE_SOURCE = "data/images/item/SimpleTree.png"
+      object FOREST {
+        object SIMPLE_TREE {
+          val RENDERING_FACTOR = 80
+          val IMAGE_SOURCE = "data/images/item/forest/Tree"
+        }
+
+        object SIMPLE_ROCK {
+          val RENDERING_FACTOR = 20
+          val IMAGE_SOURCE = "data/images/item/forest/Rock"
+        }
+
+        object SIMPLE_BUSH {
+          val RENDERING_FACTOR = 30
+          val IMAGE_SOURCE = "data/images/item/forest/Bush"
+        }
       }
-      object SIMPLE_ROCK {
-        val RENDERING_FACTOR = 2
-        val IMAGE_SOURCE = "data/images/item/SimpleRock.png"
+
+      object DESERT {
+        object CACTUS {
+          val RENDERING_FACTOR = 50
+          val IMAGE_SOURCE = "data/images/item/desert/Cactus"
+        }
+
+        object DESERTIC_ROCK {
+          val RENDERING_FACTOR = 35
+          val IMAGE_SOURCE = "data/images/item/desert/DeserticRock"
+        }
+
+        object DESERTIC_SKELETON {
+          val RENDERING_FACTOR = 15
+          val IMAGE_SOURCE = "data/images/item/desert/DeserticSkeleton"
+        }
+      }
+
+      object SNOW {
+        object PIN_TREE {
+          val RENDERING_FACTOR = 50
+          val IMAGE_SOURCE = "data/images/item/snow/PinTree"
+        }
+
+        object SNOWY_ROCK {
+          val RENDERING_FACTOR = 35
+          val IMAGE_SOURCE = "data/images/item/snow/SnowyRock"
+        }
+
+        object SNOW_PILE {
+          val RENDERING_FACTOR = 15
+          val IMAGE_SOURCE = "data/images/item/snow/SnowPile"
+        }
+      }
+
+      object HES {
+        val RENDERING_FACTOR = 500
+        val IMAGE_SOURCE = "data/images/item/HES.png"
       }
     }
   }

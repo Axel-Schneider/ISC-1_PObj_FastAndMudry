@@ -19,7 +19,7 @@ object TrackTexture {
     val halfRoadSq = geometry.HalfRoadWidth * geometry.HalfRoadWidth
     val halfLineSq = MapTexture.HALF_LINE_WIDTH * MapTexture.HALF_LINE_WIDTH
 
-    val finishColor = Color.rgba8888(Color.RED)
+    val finishColor = Color.rgba8888(Color.BLACK)
     val roadLineColor = Color.rgba8888(biome.getRoadLineColor())
 
     for (y <- 0 until height) {
