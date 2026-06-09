@@ -43,6 +43,18 @@ object CarSkins {
       WheelPosition(0.35f, 0.18f),
       SpeedometerConfig(0.28f, 0.19f, 80f, Color.BLACK, Color.WHITE, Color.RED),
     ),
+    CarSkin("Jacquemet", "Car Postal",
+      prefix + "bus" + threeQuarterImagePathSuffix, prefix + "bus" + sideImagePathSuffix, prefix + "bus" + openHoodImagePathSuffix,
+      prefix + "bus" + interiorImagePathSuffix, prefix + "bus" + steeringWheelImagePathSuffix,
+      WheelPosition(0.19f, -0.1f),
+      SpeedometerConfig(0.1f, 0f, 80f, Color.BLACK, Color.WHITE, Color.RED),
+    ),
+    CarSkin("Paul Walker", "Toyota Supra MK4",
+      prefix + "supra" + threeQuarterImagePathSuffix, prefix + "supra" + sideImagePathSuffix, prefix + "supra" + openHoodImagePathSuffix,
+      prefix + "supra" + interiorImagePathSuffix, prefix + "supra" + steeringWheelImagePathSuffix,
+      WheelPosition(0.22f, 0.02f),
+      SpeedometerConfig(0.187f, 0.127f, 80f, Color.BLACK, Color.ORANGE, Color.ORANGE),
+    ),
   )
 
   val default: CarSkin = all(0)
