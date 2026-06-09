@@ -1,6 +1,7 @@
 package ch.hevs.fastandmudry
 package core.ecs.entities.Item
 
+import ch.hevs.fastandmudry.core.ecs.entities.Item.ItemTextures.Desert.DeserticSkeletons
 import ch.hevs.fastandmudry.core.ecs.entities.Item.ItemTextures.Forest.SimpleTrees
 import com.badlogic.gdx.graphics.Texture
 import utils.Constant.MapTexture.ITEMS
@@ -35,6 +36,15 @@ object ItemTextures {
     def Cactus: Texture = Cactuss(_random.nextInt(Cactuss.length))
     def DeserticRock: Texture = DeserticRocks(_random.nextInt(DeserticRocks.length))
     def DeserticSkeleton: Texture = DeserticSkeletons(_random.nextInt(DeserticSkeletons.length))
+  }
+
+  object Snow {
+    private lazy val PinTrees = getAllTexture(ITEMS.SNOW.PIN_TREE.IMAGE_SOURCE)
+    private lazy val SnowyRocks = getAllTexture(ITEMS.SNOW.SNOWY_ROCK.IMAGE_SOURCE)
+    private lazy val SnowPiles = getAllTexture(ITEMS.SNOW.SNOW_PILE.IMAGE_SOURCE)
+    def PinTree: Texture = PinTrees(_random.nextInt(PinTrees.length))
+    def SnowyRock: Texture = SnowyRocks(_random.nextInt(SnowyRocks.length))
+    def SnowPile: Texture = SnowPiles(_random.nextInt(SnowPiles.length))
   }
 
   lazy val HES = new Texture(ITEMS.HES.IMAGE_SOURCE)

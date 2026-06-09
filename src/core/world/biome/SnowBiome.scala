@@ -1,12 +1,18 @@
 package ch.hevs.fastandmudry
 package core.world.biome
 
+import ch.hevs.fastandmudry.core.ecs.entities.Item.AItem
+import ch.hevs.fastandmudry.core.ecs.entities.Item.forest.SimpleTree
+import ch.hevs.fastandmudry.core.ecs.entities.Item.snow.{PinTree, SnowPile, SnowyRock}
+import ch.hevs.fastandmudry.core.ecs.systems.track.TrackGeometry
+import ch.hevs.fastandmudry.utils.Constant.MapTexture
 import core.audio.MusicTrack
 import core.ecs.systems.Car
-
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Color
+
+import scala.util.Random
 
 class SnowBiome extends Biome {
   override def musicTrack: MusicTrack = MusicTrack.Snow
@@ -39,5 +45,45 @@ class SnowBiome extends Biome {
   override def updatePhysics(car: Car, isOffRoad: Boolean, elapsedTime: Float): Unit = {
     if(isOffRoad) car.TemperatureProblem.updateBroken(elapsedTime, -5f)
     car.TireSlippage.IsDefected = isOffRoad
+  }
+
+  override def generateMapItems(geometry: TrackGeometry): List[AItem] = {
+    val random = new Random()
+    val trackWidth = geometry.trackSize.getWidth + MapTexture.MAP_PADDING * 2
+    val trackHeight = geometry.trackSize.getHeight + MapTexture.MAP_PADDING * 2
+
+    val originX = geometry.trackSize.x - MapTexture.MAP_PADDING
+    val originY = geometry.trackSize.y - MapTexture.MAP_PADDING
+
+    val res = List.fill(2500) {
+      val item = new PinTree()
+
+      do {
+        item.Coordinates.x = random.nextFloat() * trackWidth + originX
+        item.Coordinates.y = random.nextFloat() * trackHeight + originY
+      }while(item.isGenerationAllowed(geometry))
+      item
+    }
+
+    val res2 = List.fill(250) {
+      val item = new SnowyRock()
+
+      do {
+        item.Coordinates.x = random.nextFloat() * trackWidth + originX
+        item.Coordinates.y = random.nextFloat() * trackHeight + originY
+      }while(item.isGenerationAllowed(geometry))
+      item
+    }
+
+    val res3 = List.fill(250) {
+      val item = new SnowPile()
+
+      do {
+        item.Coordinates.x = random.nextFloat() * trackWidth + originX
+        item.Coordinates.y = random.nextFloat() * trackHeight + originY
+      }while(item.isGenerationAllowed(geometry))
+      item
+    }
+    res.appendedAll(res2).appendedAll(res3)
   }
 }
