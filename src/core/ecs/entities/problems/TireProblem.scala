@@ -1,9 +1,9 @@
 package ch.hevs.fastandmudry.core.ecs.entities.problems
 
+import ch.hevs.fastandmudry.core.audio.AudioManager
 import ch.hevs.fastandmudry.core.ecs.components
 import ch.hevs.fastandmudry.core.ecs.components.Axle.Axle
 import ch.hevs.fastandmudry.core.ecs.components.Side.Side
-import ch.hevs.fastandmudry.core.audio.AudioManager
 import ch.hevs.fastandmudry.core.ecs.components.problems.{Problem, Reparable}
 import ch.hevs.fastandmudry.core.ecs.systems.Car
 import ch.hevs.fastandmudry.ui.hud.DebugHUD

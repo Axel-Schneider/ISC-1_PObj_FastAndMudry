@@ -1,16 +1,15 @@
 package ch.hevs.fastandmudry
 package screens
 
-import screens.cinematic.CinematicScreen
-import screens.death.DeathScreen
-import screens.game.GameScreen
-import screens.garage.GarageScreen
-import screens.loading.LoadingScreen
-import screens.menu.MenuScreen
-import screens.quiz.QuizScreen
-
 import ch.hevs.fastandmudry.screens.carSelector.CarSelectorScreen
+import ch.hevs.fastandmudry.screens.cinematic.CinematicScreen
+import ch.hevs.fastandmudry.screens.death.DeathScreen
 import ch.hevs.fastandmudry.screens.debug.CarDebugScreen
+import ch.hevs.fastandmudry.screens.game.GameScreen
+import ch.hevs.fastandmudry.screens.garage.GarageScreen
+import ch.hevs.fastandmudry.screens.loading.LoadingScreen
+import ch.hevs.fastandmudry.screens.menu.MenuScreen
+import ch.hevs.fastandmudry.screens.quiz.QuizScreen
 import ch.hevs.gdx2d.lib.ScreenManager
 
 object CustomScreenManager {

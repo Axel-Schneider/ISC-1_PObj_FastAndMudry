@@ -1,8 +1,7 @@
 package ch.hevs.fastandmudry
 package core.world.biome
 
-import utils.noise.{Generator, Noise}
-
+import ch.hevs.fastandmudry.utils.noise.{Generator, Noise}
 import com.badlogic.gdx.graphics.Color
 
 object BiomeTexture {

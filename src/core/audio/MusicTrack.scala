@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package core.audio
 
-import utils.Constant.AUDIO.MUSIC
+import ch.hevs.fastandmudry.utils.Constant.AUDIO.MUSIC
 
 sealed trait MusicTrack {
   def path: String

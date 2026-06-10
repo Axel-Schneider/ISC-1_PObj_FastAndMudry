@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package utils
 
-import input.DebugInput
+import ch.hevs.fastandmudry.input.DebugInput
 
 object Common {
   object Debugging {

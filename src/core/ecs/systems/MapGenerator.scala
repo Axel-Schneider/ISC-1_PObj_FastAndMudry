@@ -4,7 +4,6 @@ package core.ecs.systems
 import ch.hevs.gdx2d.lib.utils.catmull.CatmullRomUtils
 import com.badlogic.gdx.math.Vector2
 
-import java.util
 import scala.collection.mutable.ArrayBuffer
 /*
   The CatmullChain code has been taken from the ch.hevs.gdx2d.components.physics.PhysicsChain lib

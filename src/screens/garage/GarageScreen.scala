@@ -1,17 +1,14 @@
 package ch.hevs.fastandmudry
 package screens.garage
 
-import ch.hevs.fastandmudry.core.world.World
 import ch.hevs.fastandmudry.core.audio.{AudioManager, MusicTrack}
-import ch.hevs.fastandmudry.core.state.Wallet
-import ch.hevs.fastandmudry.ui.hud.WalletHUD
-import core.state.{GameStateMachine, GarageReady}
-import screens.AbstractScreen
-import ui.components.ListItemRow
-import ui.UISkin
-import utils.Constant.GARAGE
-
+import ch.hevs.fastandmudry.core.state.{GameStateMachine, GarageReady, Wallet}
 import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.screens.AbstractScreen
+import ch.hevs.fastandmudry.ui.UISkin
+import ch.hevs.fastandmudry.ui.components.ListItemRow
+import ch.hevs.fastandmudry.ui.hud.WalletHUD
+import ch.hevs.fastandmudry.utils.Constant.GARAGE
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.scenes.scene2d.ui.{ScrollPane, Table}

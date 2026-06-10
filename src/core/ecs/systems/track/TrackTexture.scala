@@ -1,11 +1,10 @@
 package ch.hevs.fastandmudry
 package core.ecs.systems.track
 
-import utils.Constant.MapTexture
-
-import core.world.biome.Biome
-import com.badlogic.gdx.graphics.{Color, Pixmap}
+import ch.hevs.fastandmudry.core.world.biome.Biome
+import ch.hevs.fastandmudry.utils.Constant.MapTexture
 import com.badlogic.gdx.graphics.Pixmap.Format
+import com.badlogic.gdx.graphics.{Color, Pixmap}
 
 object TrackTexture {
   def generate(geometry: TrackGeometry, biome: Biome): Pixmap = {

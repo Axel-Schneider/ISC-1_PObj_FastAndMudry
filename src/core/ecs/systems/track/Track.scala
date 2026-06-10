@@ -1,17 +1,16 @@
 package ch.hevs.fastandmudry
 package core.ecs.systems.track
 
-import core.ecs.components.AGameLoop
-import core.ecs.systems.Car
-import utils.Constant.GAME.CAR.FACTOR
-import core.world.biome.{Biome, DesertBiome}
-import core.ecs.entities.Item.{AItem, HES}
-import core.state.{CarBroke, FinishLineCrossed, GameStateMachine}
-import com.badlogic.gdx.{Gdx, Input}
-import com.badlogic.gdx.graphics.{Pixmap, PixmapIO}
+import ch.hevs.fastandmudry.core.ecs.components.AGameLoop
+import ch.hevs.fastandmudry.core.ecs.entities.Item.{AItem, HES}
+import ch.hevs.fastandmudry.core.ecs.systems.Car
+import ch.hevs.fastandmudry.core.state.{CarBroke, FinishLineCrossed, GameStateMachine}
+import ch.hevs.fastandmudry.core.world.biome.{Biome, DesertBiome}
+import ch.hevs.fastandmudry.utils.Constant.GAME.CAR.FACTOR
 import com.badlogic.gdx.graphics.Texture.TextureFilter
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.{Pixmap, PixmapIO, Texture}
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.{Gdx, Input}
 
 class Track(private val Car: Car) extends AGameLoop {
   private var geometry: TrackGeometry = _

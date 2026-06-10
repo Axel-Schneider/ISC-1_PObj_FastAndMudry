@@ -1,14 +1,13 @@
 package ch.hevs.fastandmudry
 package screens.menu
 
-import core.audio.{AudioManager, MusicTrack}
-import core.quiz.QuizData
-import core.state.{GameStateMachine, OpenCarDebug, OpenCarSelector, StartGame, Wallet}
-import screens.AbstractScreen
-import ui.components.ButtonFactory
-import ui.dialogs.{DialogFactory, SettingsDialog}
-
-import utils.Constant.MENU
+import ch.hevs.fastandmudry.core.audio.{AudioManager, MusicTrack}
+import ch.hevs.fastandmudry.core.quiz.QuizData
+import ch.hevs.fastandmudry.core.state._
+import ch.hevs.fastandmudry.screens.AbstractScreen
+import ch.hevs.fastandmudry.ui.components.ButtonFactory
+import ch.hevs.fastandmudry.ui.dialogs.{DialogFactory, SettingsDialog}
+import ch.hevs.fastandmudry.utils.Constant.MENU
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.{Gdx, Input}

@@ -1,12 +1,11 @@
 package ch.hevs.fastandmudry
 package core.world
 
-import core.audio.AudioManager
-import core.car.{CarSkin, CarSkins}
-import core.ecs.components.AGameLoop
-import core.ecs.systems.Car
-import core.ecs.systems.track.Track
-
+import ch.hevs.fastandmudry.core.audio.AudioManager
+import ch.hevs.fastandmudry.core.car.{CarSkin, CarSkins}
+import ch.hevs.fastandmudry.core.ecs.components.AGameLoop
+import ch.hevs.fastandmudry.core.ecs.systems.Car
+import ch.hevs.fastandmudry.core.ecs.systems.track.Track
 import ch.hevs.fastandmudry.utils.Constant.{AUDIO, GAME}
 
 class World private () extends AGameLoop {

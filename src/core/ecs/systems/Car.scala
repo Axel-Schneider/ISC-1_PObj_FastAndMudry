@@ -1,13 +1,12 @@
 package ch.hevs.fastandmudry
 package core.ecs.systems
 
+import ch.hevs.fastandmudry.core.ecs.components._
 import ch.hevs.fastandmudry.core.ecs.components.problems.{Critical, Problem, Reparable}
 import ch.hevs.fastandmudry.core.ecs.entities.problems.{ChassisProblem, TemperatureProblem, TireProblem, TireSlippageProblem}
-import core.ecs.components._
+import ch.hevs.fastandmudry.ui.hud.DebugHUD
+import ch.hevs.fastandmudry.utils.Constant.GAME.CAR.FACTOR
 import com.badlogic.gdx.{Gdx, Input}
-import utils.Constant.GAME.CAR.FACTOR
-import ui.hud.DebugHUD
-import ch.hevs.fastandmudry.utils.Constant.GAME.CAR
 
 import scala.collection.mutable.ArrayBuffer
 

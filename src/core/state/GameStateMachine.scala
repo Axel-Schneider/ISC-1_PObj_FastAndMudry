@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package core.state
 
-import screens.CustomScreenManager
+import ch.hevs.fastandmudry.screens.CustomScreenManager
 
 object GameStateMachine {
   private var currentState: GameState = GameState.Menu

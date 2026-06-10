@@ -1,9 +1,8 @@
 package ch.hevs.fastandmudry
 
-import core.audio.AudioManager
-import screens.CustomScreenManager
-import utils.Constant.Window
-
+import ch.hevs.fastandmudry.core.audio.AudioManager
+import ch.hevs.fastandmudry.screens.CustomScreenManager
+import ch.hevs.fastandmudry.utils.Constant.Window
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 

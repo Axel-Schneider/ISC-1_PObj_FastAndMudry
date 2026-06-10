@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package render
 
-import core.world.World
+import ch.hevs.fastandmudry.core.world.World
 
 object Data {
   object Game {

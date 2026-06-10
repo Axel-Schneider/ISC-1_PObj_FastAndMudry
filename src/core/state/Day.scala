@@ -1,8 +1,7 @@
 package ch.hevs.fastandmudry
 package core.state
 
-import core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
-
+import ch.hevs.fastandmudry.core.world.biome.{Biome, DesertBiome, ForestBiome, SnowBiome}
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 
 sealed trait Day {

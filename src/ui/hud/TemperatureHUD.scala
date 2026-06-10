@@ -1,12 +1,10 @@
 package ch.hevs.fastandmudry
 package ui.hud
 
-import utils.Constant.GAME
-
+import ch.hevs.fastandmudry.core.ecs.systems.Car
+import ch.hevs.fastandmudry.utils.Constant.GAME
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
-import core.ecs.systems.Car
-
 import com.badlogic.gdx.graphics.{Color, Texture}
 
 object TemperatureHUD {

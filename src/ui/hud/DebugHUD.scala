@@ -1,8 +1,7 @@
 package ch.hevs.fastandmudry
 package ui.hud
 
-import utils.Common
-
+import ch.hevs.fastandmudry.utils.Common
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.{BitmapFont, SpriteBatch}
 

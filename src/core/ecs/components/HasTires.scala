@@ -1,8 +1,6 @@
 package ch.hevs.fastandmudry
 package core.ecs.components
 
-import utils.Constant.GAME.CAR
-
 trait HasTires {
   private var _isRightTirePerforated: Boolean = false
   private var _isLeftTirePerforated: Boolean = false

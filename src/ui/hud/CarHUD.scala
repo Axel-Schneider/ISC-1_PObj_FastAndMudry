@@ -2,11 +2,10 @@ package ch.hevs.fastandmudry
 package ui.hud
 
 
-import utils.Constant.RENDERING
-import utils.Constant.GAME.CAR.FACTOR
-import core.ecs.systems.Car
-
+import ch.hevs.fastandmudry.core.ecs.systems.Car
 import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.utils.Constant.GAME.CAR.FACTOR
+import ch.hevs.fastandmudry.utils.Constant.RENDERING
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 
