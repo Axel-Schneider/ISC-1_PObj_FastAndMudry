@@ -1,10 +1,9 @@
 package ch.hevs.fastandmudry
 package render.background
 
-import render.AbstractRenderer
-import render.Data.Game
-
 import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.render.AbstractRenderer
+import ch.hevs.fastandmudry.render.Data.Game
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 

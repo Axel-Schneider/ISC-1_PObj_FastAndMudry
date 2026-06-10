@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry.core.ecs.components.Collision
 
 import ch.hevs.fastandmudry.core.audio.AudioManager
-import ch.hevs.fastandmudry.core.ecs.components.{Locatable, Moveable}
+import ch.hevs.fastandmudry.core.ecs.components.Locatable
 import ch.hevs.fastandmudry.core.ecs.systems.Car
 
 trait Collisional extends Locatable with DefectableCollisional {

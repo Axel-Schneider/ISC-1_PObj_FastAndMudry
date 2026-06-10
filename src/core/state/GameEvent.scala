@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package core.state
 
-import core.car.CarSkin
+import ch.hevs.fastandmudry.core.car.CarSkin
 
 sealed trait GameEvent
 

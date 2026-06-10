@@ -1,12 +1,11 @@
 package ch.hevs.fastandmudry
 package screens.game
 
-import core.audio.AudioManager
-import core.world.World
-import input.DebugInput
-import render.WorldRenderer
-import screens.AbstractScreen
-
+import ch.hevs.fastandmudry.core.audio.AudioManager
+import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.input.DebugInput
+import ch.hevs.fastandmudry.render.WorldRenderer
+import ch.hevs.fastandmudry.screens.AbstractScreen
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx
 

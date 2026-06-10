@@ -2,10 +2,10 @@ package ch.hevs.fastandmudry
 package core.ecs.entities.Item
 
 import ch.hevs.fastandmudry.core.ecs.components.Collision.Collisional
+import ch.hevs.fastandmudry.core.ecs.components.Locatable
 import ch.hevs.fastandmudry.core.ecs.systems.track.TrackGeometry
 import ch.hevs.fastandmudry.core.world.World
 import com.badlogic.gdx.graphics.Texture
-import core.ecs.components.Locatable
 
 abstract class AItem extends Locatable {
   private var isColliding: Boolean = false

@@ -1,12 +1,11 @@
 package ch.hevs.fastandmudry
 package screens.cinematic
 
-import core.audio.{AudioManager, MusicTrack}
-import core.state.{EndDayCinematicEnded, FinalCinematicEnded, GameState, GameStateMachine, StartDayCinematicEnded}
-import screens.AbstractScreen
-import utils.Constant.CINEMATIC
-
-import core.world.World
+import ch.hevs.fastandmudry.core.audio.{AudioManager, MusicTrack}
+import ch.hevs.fastandmudry.core.state._
+import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.screens.AbstractScreen
+import ch.hevs.fastandmudry.utils.Constant.CINEMATIC
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.Gdx

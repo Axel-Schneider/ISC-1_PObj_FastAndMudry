@@ -1,8 +1,7 @@
 package ch.hevs.fastandmudry
 package input
 
-import utils.Constant
-
+import ch.hevs.fastandmudry.utils.Constant
 import com.badlogic.gdx.Gdx
 
 object DebugInput {

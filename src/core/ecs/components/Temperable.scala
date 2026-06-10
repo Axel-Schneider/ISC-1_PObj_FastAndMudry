@@ -1,7 +1,7 @@
 package ch.hevs.fastandmudry
 package core.ecs.components
 
-import utils.Constant.GAME.CAR
+import ch.hevs.fastandmudry.utils.Constant.GAME.CAR
 
 trait Temperable {
   private var _temperature: Float = 0f

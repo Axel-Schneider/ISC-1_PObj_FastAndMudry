@@ -1,12 +1,11 @@
 package ch.hevs.fastandmudry
 package screens.debug
 
-import core.audio.{AudioManager, MusicTrack}
-import core.state.{BackToMenu, GameStateMachine}
-import core.world.World
-import screens.AbstractScreen
-import ui.hud.{CarHUD, SpeedometerHUD, TemperatureHUD}
-
+import ch.hevs.fastandmudry.core.audio.{AudioManager, MusicTrack}
+import ch.hevs.fastandmudry.core.state.{BackToMenu, GameStateMachine}
+import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.screens.AbstractScreen
+import ch.hevs.fastandmudry.ui.hud.{CarHUD, SpeedometerHUD, TemperatureHUD}
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.{Gdx, Input}
 

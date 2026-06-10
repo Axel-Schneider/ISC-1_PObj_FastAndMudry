@@ -1,12 +1,11 @@
 package ch.hevs.fastandmudry
 package screens.death
 
-import core.audio.{AudioManager, MusicTrack}
-import core.state.{BackToMenu, GameStateMachine}
-import screens.AbstractScreen
-
+import ch.hevs.fastandmudry.core.audio.{AudioManager, MusicTrack}
+import ch.hevs.fastandmudry.core.state.{BackToMenu, GameStateMachine}
 import ch.hevs.fastandmudry.core.world.World
-import ch.hevs.fastandmudry.utils.Constant.{CINEMATIC, DEATH}
+import ch.hevs.fastandmudry.screens.AbstractScreen
+import ch.hevs.fastandmudry.utils.Constant.DEATH
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.{Gdx, Input}

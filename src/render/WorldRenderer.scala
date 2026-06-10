@@ -1,10 +1,9 @@
 package ch.hevs.fastandmudry
 package render
 
-import render.background.BackgroundRenderer
-import render.game.GameRenderer
-import render.hud.HudRenderer
-
+import ch.hevs.fastandmudry.render.background.BackgroundRenderer
+import ch.hevs.fastandmudry.render.game.GameRenderer
+import ch.hevs.fastandmudry.render.hud.HudRenderer
 import ch.hevs.gdx2d.lib.GdxGraphics
 
 class WorldRenderer extends AbstractRenderer {

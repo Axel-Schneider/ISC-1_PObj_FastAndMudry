@@ -1,17 +1,14 @@
 package ch.hevs.fastandmudry
 package render.game
 
-import core.world.World
-import render.AbstractRenderer
-import render.shaders.Mode7
-import utils.Common
+import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.render.AbstractRenderer
+import ch.hevs.fastandmudry.render.shaders.Mode7
 import ch.hevs.fastandmudry.ui.hud.DebugHUD
-
+import ch.hevs.fastandmudry.utils.Common
 import ch.hevs.fastandmudry.utils.Constant.MapTexture
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
-import com.badlogic.gdx.graphics.Pixmap.Format
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.{Gdx, Input}

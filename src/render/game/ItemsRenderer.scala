@@ -1,9 +1,9 @@
 package ch.hevs.fastandmudry
 package render.game
 
-import render.AbstractRenderer
-import core.ecs.entities.Item.AItem
-import core.world.World
+import ch.hevs.fastandmudry.core.ecs.entities.Item.AItem
+import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.render.AbstractRenderer
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.math.Vector2
 

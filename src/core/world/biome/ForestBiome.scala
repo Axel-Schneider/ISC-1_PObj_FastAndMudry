@@ -1,12 +1,12 @@
 package ch.hevs.fastandmudry
 package core.world.biome
 
-import core.audio.MusicTrack
-import ch.hevs.fastandmudry.core.ecs.entities.Item.forest.{SimpleBush, SimpleRock, SimpleTree}
+import ch.hevs.fastandmudry.core.audio.MusicTrack
 import ch.hevs.fastandmudry.core.ecs.entities.Item.AItem
+import ch.hevs.fastandmudry.core.ecs.entities.Item.forest.{SimpleBush, SimpleRock, SimpleTree}
+import ch.hevs.fastandmudry.core.ecs.systems.Car
 import ch.hevs.fastandmudry.core.ecs.systems.track.TrackGeometry
 import ch.hevs.fastandmudry.utils.Constant.MapTexture
-import core.ecs.systems.Car
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import com.badlogic.gdx.graphics.Color
 

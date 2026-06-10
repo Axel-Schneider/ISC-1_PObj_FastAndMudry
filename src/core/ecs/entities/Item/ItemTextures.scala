@@ -1,10 +1,8 @@
 package ch.hevs.fastandmudry
 package core.ecs.entities.Item
 
-import ch.hevs.fastandmudry.core.ecs.entities.Item.ItemTextures.Desert.DeserticSkeletons
-import ch.hevs.fastandmudry.core.ecs.entities.Item.ItemTextures.Forest.SimpleTrees
+import ch.hevs.fastandmudry.utils.Constant.MapTexture.ITEMS
 import com.badlogic.gdx.graphics.Texture
-import utils.Constant.MapTexture.ITEMS
 
 import java.io.File
 import scala.util.Random

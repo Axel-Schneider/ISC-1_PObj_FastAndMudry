@@ -1,14 +1,13 @@
 package ch.hevs.fastandmudry
 package screens.carSelector
 
-import core.audio.{AudioManager, MusicTrack}
-import core.car.{CarSkin, CarSkins}
-import core.state.{BackToMenu, CarSkinSelected, GameStateMachine}
-import core.world.World
-import screens.AbstractScreen
-import ui.components.ButtonFactory
-import utils.Constant.CAR_SELECTOR
-
+import ch.hevs.fastandmudry.core.audio.{AudioManager, MusicTrack}
+import ch.hevs.fastandmudry.core.car.{CarSkin, CarSkins}
+import ch.hevs.fastandmudry.core.state.{BackToMenu, CarSkinSelected, GameStateMachine}
+import ch.hevs.fastandmudry.core.world.World
+import ch.hevs.fastandmudry.screens.AbstractScreen
+import ch.hevs.fastandmudry.ui.components.ButtonFactory
+import ch.hevs.fastandmudry.utils.Constant.CAR_SELECTOR
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.g2d.BitmapFont

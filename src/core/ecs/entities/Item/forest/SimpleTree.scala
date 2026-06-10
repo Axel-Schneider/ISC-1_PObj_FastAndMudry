@@ -3,7 +3,6 @@ package core.ecs.entities.Item.forest
 
 import ch.hevs.fastandmudry.core.ecs.components.Collision.{CircleCollision, DefectChassis}
 import ch.hevs.fastandmudry.core.ecs.entities.Item.{AItem, ItemTextures}
-import ch.hevs.fastandmudry.core.ecs.systems.Car
 import ch.hevs.fastandmudry.utils.Constant.MapTexture.ITEMS.FOREST.SIMPLE_TREE.RENDERING_FACTOR
 import com.badlogic.gdx.graphics.Texture
 

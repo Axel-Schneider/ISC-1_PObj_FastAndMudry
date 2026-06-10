@@ -1,8 +1,8 @@
 package ch.hevs.fastandmudry
 package core.ecs.entities.Item
 
+import ch.hevs.fastandmudry.utils.Constant.MapTexture.ITEMS.HES.RENDERING_FACTOR
 import com.badlogic.gdx.graphics.Texture
-import utils.Constant.MapTexture.ITEMS.HES.RENDERING_FACTOR
 
 
 class HES extends AItem {

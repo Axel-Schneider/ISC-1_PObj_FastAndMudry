@@ -1,8 +1,7 @@
 package ch.hevs.fastandmudry
 package ui.components
 
-import ui.UISkin
-
+import ch.hevs.fastandmudry.ui.UISkin
 import com.badlogic.gdx.scenes.scene2d.ui.{Label, Skin}
 
 class CustomLabel(text: String, skin: Skin) extends Label(text, skin){

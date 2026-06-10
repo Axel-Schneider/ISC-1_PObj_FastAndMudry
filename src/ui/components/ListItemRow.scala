@@ -1,11 +1,11 @@
 package ch.hevs.fastandmudry
 package ui.components
 
-import ui.UISkin
-import com.badlogic.gdx.graphics.{Color, Texture}
+import ch.hevs.fastandmudry.ui.UISkin
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.graphics.{Color, Texture}
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.ui.{Image, Skin, Table, TextButton}
+import com.badlogic.gdx.scenes.scene2d.ui.{Image, Skin, Table}
 import com.badlogic.gdx.scenes.scene2d.utils.{ClickListener, TextureRegionDrawable}
 
 class ListItemRow(imagePath: String, text: String, buttonText: String, skin: Skin) extends Table(skin) {

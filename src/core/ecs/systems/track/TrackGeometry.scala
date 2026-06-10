@@ -1,8 +1,7 @@
 package ch.hevs.fastandmudry
 package core.ecs.systems.track
 
-import utils.Constant.MapTexture
-
+import ch.hevs.fastandmudry.utils.Constant.MapTexture
 import ch.hevs.gdx2d.lib.utils.catmull.CatmullRomUtils
 import com.badlogic.gdx.math.{Rectangle, Vector2}
 

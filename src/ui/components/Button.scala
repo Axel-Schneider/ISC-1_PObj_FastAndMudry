@@ -1,8 +1,7 @@
 package ch.hevs.fastandmudry
 package ui.components
 
-import ui.UISkin
-
+import ch.hevs.fastandmudry.ui.UISkin
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.{Skin, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener

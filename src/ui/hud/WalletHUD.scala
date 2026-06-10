@@ -1,7 +1,6 @@
 package ch.hevs.fastandmudry.ui.hud
 
 import ch.hevs.fastandmudry.core.state.Wallet
-import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont

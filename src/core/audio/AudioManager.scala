@@ -1,8 +1,7 @@
 package ch.hevs.fastandmudry
 package core.audio
 
-import utils.Constant.AUDIO
-
+import ch.hevs.fastandmudry.utils.Constant.AUDIO
 import ch.hevs.gdx2d.components.audio.{SoundSample, VolumeMusicPlayer}
 
 import java.util

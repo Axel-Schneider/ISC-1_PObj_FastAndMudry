@@ -1,9 +1,8 @@
 package ch.hevs.fastandmudry
 package ui.dialogs
 
-import ui.components.{ButtonFactory, LabelFactory, SliderFactory}
-
-import utils.Constant.UI
+import ch.hevs.fastandmudry.ui.components.{ButtonFactory, LabelFactory, SliderFactory}
+import ch.hevs.fastandmudry.utils.Constant.UI
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 
