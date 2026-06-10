@@ -28,6 +28,8 @@ object QuizData {
       Array("1965", "1969", "1972", "1959"), 1),
     Question("Quelle ville a accueilli les premiers Jeux Olympiques modernes en 1896 ?",
       Array("Paris", "Londres", "Athenes", "Rome"), 2),
+    Question("Quelle est la capitale du Sri Lanka ?",
+      Array("Paris", "Ski Kalawardenepora Kotte", "Sri Jayamadenapura Kotte", "Sri Jayawardenepura Kotte"), 3),
 
     Question("Que signifie l'acronyme HTML ?",
       Array("HyperText Markup Language", "High Tech Modern Language", "HyperText Machine Language", "Home Tool Markup Language"), 0),
