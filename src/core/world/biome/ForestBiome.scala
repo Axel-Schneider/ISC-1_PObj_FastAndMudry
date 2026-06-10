@@ -19,7 +19,6 @@ class ForestBiome extends Biome {
   private val layers: Array[ParallaxLayer] = Array(
     new ParallaxLayer(new BitmapImage("data/parallax/forest/forest_mountain.png"), -400f, 0.30f, false),
     new ParallaxLayer(new BitmapImage("data/parallax/forest/forest_back.png"), -800f, 0.20f, false),
-    new ParallaxLayer(new BitmapImage("data/parallax/forest/forest_mid.png"), -1500f, 0.3f, false),
     new ParallaxLayer(new BitmapImage("data/parallax/forest/forest_short.png"), -2500f, 0.15f, true)
   )
 
