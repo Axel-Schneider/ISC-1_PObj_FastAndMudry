@@ -37,9 +37,9 @@ object CarSkins {
     CarSkin("Mudry", "Renault Zoe",
       prefix + "zoe" + threeQuarterImagePathSuffix, prefix + "zoe" + sideImagePathSuffix, prefix + "zoe" + openHoodImagePathSuffix,
       prefix + "zoe" + interiorImagePathSuffix, prefix + "zoe" + steeringWheelImagePathSuffix,
-      WheelPosition(0.50f, 0.1f),
-      SpeedometerConfig(0.4f, 0.15f, 100f, Color.BLACK, Color.WHITE, Color.CYAN),
-      true
+      WheelPosition(0.350f, 0f),
+      SpeedometerConfig(0.25f, 0.1f, 80f, Color.BLACK, Color.WHITE, Color.CYAN),
+      false
     ),
     CarSkin("Ryan Gosling", "Chevrolet Chevelle Malibu 1973",
       prefix + "chevrolet" + threeQuarterImagePathSuffix, prefix + "chevrolet" + sideImagePathSuffix, prefix + "chevrolet" + openHoodImagePathSuffix,
