@@ -2,14 +2,14 @@
 
 == Rendu graphique
 
-L'un des principaux défis rencontrés durant le développement de Fast & Mudry concernait le rendu graphique de la piste. Les premières versions du projet utilisaient un affichage de type arcade reposant sur une simulation de perspective calculée directement dans le code. Cette approche permettait de représenter une route et ses virages avec un coût de développement relativement faible, mais elle présentait plusieurs limitations en termes de lisibilité et de perception de l'environnement.
+Un des plus gros défis du projet a été le rendu de la piste. Les premières versions du jeu utilisaient un affichage de type arcade, avec une perspective simulée directement dans le code. C'était relativement rapide à mettre en place et ça donnait déjà une impression de route avec des virages, mais on a vite vu les limites de cette approche.
 
 #figure(image("screen/v0.0.0.png", height: 5cm), caption: [Première version du rendu]) <fig_engineer>
 
-En pratique, les virages étaient difficiles à anticiper pour le joueur. La représentation de la piste manquait de profondeur et les changements de direction apparaissaient souvent de manière abrupte. Cette limitation avait un impact direct sur le gameplay : le joueur disposait de peu d'informations sur ce qui se trouvait au-delà de la portion immédiatement visible de la route. Il devenait alors difficile d'anticiper les obstacles, de préparer une trajectoire adaptée ou d'évaluer la géométrie du circuit à moyen terme.
+En pratique, les virages étaient presque impossible à anticiper. La route manquait de profondeur et les changements de direction arrivaient d'un coup, sans prévenir. Pour le joueur c'était frustrant : on ne voyait que la portion de route juste devant la voiture, donc difficile de préparer une trajectoire ou d'éviter un obstacle qu'on découvre au dernier moment.
 
-Afin d'améliorer cette situation, le système de rendu a été repensé autour d'une approche de type Mode 7. Cette technique consiste à projeter une texture représentant le circuit de manière à créer une illusion de profondeur tout en conservant un environnement essentiellement bidimensionnel. Contrairement à l'ancien rendu, cette approche offre une meilleure perception de l'espace et permet d'afficher une portion beaucoup plus importante du circuit devant le véhicule.
+Pour corriger ça, nous avons repensé le système de rendu autour d'une approche de type Mode 7, la technique utilisée à l'époque par des jeux comme Mario Kart sur Super Nintendo. L'idée est de projeter une texture représentant le circuit de façon à créer une illusion de profondeur, tout en restant dans un environnement essentiellement 2D. Par rapport à l'ancien rendu, on voit une portion beaucoup plus grande du circuit devant le véhicule.
 
 #figure(image("screen/v1.0.0-demo-3.png", height: 5cm), caption: [Rendu avec mode 7]) <fig_engineer>
 
-Cette évolution a considérablement amélioré la lisibilité du jeu. Le joueur peut désormais distinguer les virages à venir, observer les obstacles situés plus loin sur la piste et repérer certains éléments importants du décor, comme la HES qui matérialise la ligne d'arrivée. La visibilité accrue permet une conduite plus naturelle, fondée davantage sur l'anticipation que sur la réaction immédiate aux événements apparaissant à l'écran.
+Ce changement a vraiment amélioré la lisibilité du jeu. Le joueur distingue maintenant les virages à venir, repère les obstacles situés plus loin sur la piste et peut voir certains éléments important du décor, comme la HES qui marque la ligne d'arrivée. La conduite devient plus naturelle : on anticipe au lieu de simplement réagir à ce qui apparait à l'écran.

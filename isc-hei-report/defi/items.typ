@@ -2,17 +2,17 @@
 
 == Affichage des objets et calcul de profondeur
 
-La même logique de projection est utilisée pour afficher les objets de jeu, tels que les obstacles ou les éléments décoratifs, au-dessus du circuit. Chaque item possède une position dans le monde, exprimée dans les coordonnées du circuit, et il est projeté dans l’espace de l’écran à partir de la position de la caméra et de son orientation. Cette transformation repose sur le calcul d’un vecteur différentiel entre la position de l’objet et la caméra, puis sur une rotation de ce vecteur selon l’angle du véhicule. Le résultat de cette opération permet de déterminer si l’objet se trouve devant ou derrière la caméra virtuelle. Si la composante de profondeur est négative ou trop faible, l’objet n’est pas projeté, ce qui évite son affichage lorsqu’il se trouve hors du champ de vision ou derrière le plan de vue.
+La même logique de projection est réutilisée pour afficher les objets du jeu, comme les obstacles ou les éléments du décor, par-dessus le circuit. Chaque item possède une position dans le monde, exprimée dans les coordonnées du circuit, et il faut le projeter dans l'espace de l'écran en fonction de la position de la caméra et de son orientation. Pour ça, on calcule d'abord un vecteur entre la position de l'objet et celle de la caméra, puis on fait tourner ce vecteur selon l'angle du véhicule. Le résultat permet de savoir si l'objet se trouve devant ou derrière la caméra virtuelle : si la composante de profondeur est négative ou trop petite, on ne le projete pas du tout, ce qui évite d'afficher des objets qui sont derrière nous ou hors du champ de vision.
 
-Lorsque l’objet est visible, sa coordonnée à l’écran est obtenue par une projection perspective simple. La position horizontale est calculée à partir du rapport entre la distance latérale de l’objet et sa profondeur, tandis que la position verticale dépend à la fois de la hauteur de la caméra et de l’inclinaison du point de vue. Le facteur d’échelle est lui aussi déterminé par la profondeur selon une relation de la forme suivante.
+Quand l'objet est visible, sa position à l'écran est obtenue par une projection perspective simple. La position horizontale vient du rapport entre la distance latérale de l'objet et sa profondeur, et la position verticale dépend à la fois de la hauteur de la caméra et de l'inclinaison du point de vue. L'échelle de l'objet est elle aussi calculée à partir de la profondeur, avec une relation de la forme suivante.
 
 #figure(block[
   $s = d_p / p_y$
 ], caption: [Échelle de l’objet calculée à partir de sa profondeur relative])
 
-Cette relation garantit une impression cohérente de profondeur et permet de conserver une hiérarchie visuelle naturelle entre les objets proches et lointains.
+Grâce à cette relation, les objets proches paraissent gros et les objets lointain tout petits, ce qui donne une impression de profondeur cohérente entre tous les éléments de la scène.
 
-Dans l’implémentation, ce calcul est centralisé dans ItemsRenderer. La méthode de projection construit un résultat composé de coordonnées d’affichage, d’un facteur d’échelle et d’une distance, puis trie les objets selon cette distance avant de les dessiner. L’ordre de rendu est ainsi déterminé par la profondeur perçue selon une priorité de traitement représentée par la relation suivante.
+Dans le code, tout ce calcul est centralisé dans ItemsRenderer. La méthode de projection retourne les coordonnées d'affichage, un facteur d'échelle et une distance, puis les objets sont triés selon cette distance avant d'être dessinés. Les coordonnées à l'écran sont obtenues avec les deux relations suivantes.
 
 #figure(block[
   $x_e = w * (0.5 + (d_p * p_x) / p_y)$
@@ -22,7 +22,7 @@ Dans l’implémentation, ce calcul est centralisé dans ItemsRenderer. La méth
   $y_e = h * (0.5 + t - (d_p * z_c) / p_y)$
 ], caption: [Coordonnée verticale de projection sur l’écran])
 
-Cette stratégie est importante, car elle évite que les éléments du décor ou les obstacles se superposent de manière incohérente et contribue à préserver la lisibilité de la scène.
+Ce tri par distance est important : sans lui, des éléments du décor ou des obstacles pouvaient se superposer n'importe comment et la scène devenait illisible.
 
 #figure(code()[
 ```scala
@@ -43,4 +43,4 @@ val scale = screenPlanDistance / primeVector.y
 ```
 ], caption: [Projection d’un item dans l’espace de l’écran])
 
-Le flux de données peut être résumé de la manière suivante : état du véhicule → uniforms transmis par TrackRenderer → shader GPU → échantillonnage dans la texture du circuit → image finale affichée à l’écran. Pour les items, ce flux est complété par une projection supplémentaire, qui transforme leur position dans le monde en coordonnée d’écran et en échelle visuelle.
+Pour résumé le flux de données : l'état du véhicule est transmis sous forme d'uniforms par TrackRenderer, le shader GPU échantillonne la texture du circuit, et l'image finale s'affiche à l'écran. Pour les items, il y a juste une projection en plus, qui transforme leur position dans le monde en coordonnée d'écran et en échelle visuelle.
