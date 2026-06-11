@@ -50,4 +50,6 @@ _*Note* : Le rapport a été générée avec l’assistance d’une intelligence
 
 #include "intro.typ"
 
+#include "architecture/architecture.typ"
+
 #include "defi/main.typ"
