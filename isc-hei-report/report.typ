@@ -56,4 +56,6 @@ _*Note* : Le rapport a été générée avec l’assistance d’une intelligence
 
 #include "statemachine/statemachine.typ"
 
+#include "audio/audio.typ"
+
 #include "defi/main.typ"
