@@ -61,3 +61,7 @@ _*Note* : Le rapport a été générée avec l’assistance d’une intelligence
 #include "mode7/main.typ"
 
 #include "defi/main.typ"
+
+#include "conclusion/conclusion.typ"
+
+#include "annexes/annexes.typ"
