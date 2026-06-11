@@ -48,8 +48,14 @@
 
 _*Note* : Le rapport a été générée avec l’assistance d’une intelligence artificielle. Le contenu a été revu et validé par l’auteur avant son intégration au document final._
 
+bonjour
+
 #include "intro.typ"
 
 #include "architecture/architecture.typ"
+
+#include "generation/generation.typ"
+
+#include "statemachine/statemachine.typ"
 
 #include "defi/main.typ"
