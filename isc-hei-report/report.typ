@@ -26,7 +26,7 @@
   cover-image-height: 8cm,
   cover-image-caption: [Logo Fast and Mudry - AI generated],
     
-  show-toc: true, // Set to true if you want a table of contents, or 1, 2, 3... for a specific depth
+  show-toc: 2, // Set to true if you want a table of contents, or 1, 2, 3... for a specific depth
   language: doc_language, // Please change the value above if required
   code-theme: "bluloco-light", // See directory themes/ for available themes
 )
