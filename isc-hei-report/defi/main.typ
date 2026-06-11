@@ -3,7 +3,3 @@
 = Défi et problèmatique
 
 #include "rendering.typ"
-
-#include "mode7.typ"
-
-#include "items.typ"

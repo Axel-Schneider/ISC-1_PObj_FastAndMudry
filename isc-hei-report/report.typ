@@ -58,4 +58,6 @@ _*Note* : Le rapport a été générée avec l’assistance d’une intelligence
 
 #include "audio/audio.typ"
 
+#include "mode7/main.typ"
+
 #include "defi/main.typ"
